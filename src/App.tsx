@@ -24,7 +24,7 @@ function PageLoader() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/craftc">
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
