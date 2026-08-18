@@ -70,7 +70,7 @@ export function LessonSectionRender({ section, index }: { section: LessonSection
   >
     {section.link.icon === 'vscode' && (
       <img
-        src="/VSCODE.webp"
+        src="/craftc/VSCODE.webp"
         alt=""
         className="w-5 h-5"
       />
