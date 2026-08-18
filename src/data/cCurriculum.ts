@@ -303,6 +303,11 @@ export const cCurriculum: Curriculum = {
               type: 'theory',
               title: 'What You Need',
               content: 'You need two things: the VS Code editor itself, and a C compiler. On Windows, the most common compiler is MinGW. On macOS, you install Xcode Command Line Tools. On Linux, GCC is usually pre-installed.',
+            link: {
+    label: 'Download VS Code',
+    url: 'https://code.visualstudio.com/',
+    icon: 'vscode',
+  },
             },
             {
               type: 'example',

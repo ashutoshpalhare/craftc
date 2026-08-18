@@ -60,6 +60,27 @@ export function LessonSectionRender({ section, index }: { section: LessonSection
           <p className="text-[var(--color-text-secondary)] leading-relaxed">{section.content}</p>
         )}
 
+
+{section.link && (
+  <a
+    href={section.link.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2.5 mt-4 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white font-medium text-sm hover:opacity-90 transition-opacity"
+  >
+    {section.link.icon === 'vscode' && (
+      <img
+        src="/VSCODE.webp"
+        alt=""
+        className="w-5 h-5"
+      />
+    )}
+
+    <span>{section.link.label}</span>
+  </a>
+)}
+
+
         {section.items && section.items.length > 0 && (
           <ul className="space-y-2 mt-3">
             {section.items.map((item, i) => (

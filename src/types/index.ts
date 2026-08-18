@@ -18,6 +18,12 @@ export interface LessonSection {
     | 'summary';
   title: string;
   content?: string;
+    link?: {
+    label: string;
+    url: string;
+    icon?: 'vscode';
+  };
+  
   code?: { filename?: string; language: string; code: string; output?: string };
   items?: string[];
   questions?: { q: string; a: string }[];
