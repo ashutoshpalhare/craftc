@@ -199,7 +199,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
               {(prev || next) && <div className="flex items-center justify-between gap-4">
                 {prev ? (
                   <Link
-                    to={`/learn/${courseId}/${prev.slug}`
+                    to={`/learn/${courseId}/${prev.slug}`}
                     className="flex items-center gap-2 px-4 py-3 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/40 transition-all flex-1 max-w-[48%] group"
                   >
                     <ArrowLeft size={18} className="text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] flex-shrink-0" />
@@ -272,9 +272,8 @@ function SidebarContent({
       </div>
 
       <nav className="flex-1 overflow-y-auto py-2 px-2" aria-label="Lesson navigation">
-        {curriculum.categories.map((category, catIndex) => {
+        {curriculum.categories.map((category) => {
           const isExpanded = expandedCategories.has(category.id);
-          const hasActiveLesson = category.lessons.some((l) => l.slug === lessonSlug);
           return (
             <div key={category.id} className="mb-1">
               <button
@@ -296,10 +295,7 @@ function SidebarContent({
                     className="overflow-hidden"
                   >
                     <ul className="pl-3 pr-1 py-1 space-y-0.5">
-                      {category.lessons.map((lesson, li) => {
-                        const globalIdx = curriculum.categories
-                          .slice(0, catIndex)
-                          .reduce((sum, c) => sum + c.lessons.length, 0) + li;
+                      {category.lessons.map((lesson) => {
                         const isActive = lesson.slug === lessonSlug;
                         const isCompleted = completedLessons.includes(lesson.slug);
                         return (
