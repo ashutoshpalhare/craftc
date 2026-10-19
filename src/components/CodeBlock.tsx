@@ -91,7 +91,7 @@ export function CodeBlock({ code, language, filename, showLineNumbers = true }: 
       try {
         const highlighter = await getHighlighter();
         const normalizedLanguage = language.trim().toLowerCase();
-        const langKey = LANGUAGE_ALIASES[normalizedLanguage] ?? 'text';
+        const langKey = (LANGUAGE_ALIASES[normalizedLanguage] ?? 'text') as (typeof SUPPORTED_LANGUAGES)[number];
         const result = await highlighter.codeToTokens(code, {
           lang: langKey,
           theme: 'github-dark',
