@@ -96,11 +96,11 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
   }, [query, allResults]);
 
   useEffect(() => {
-    if (open) {
-      setQuery('');
-      setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
+    if (!open) return;
+    setQuery('');
+    setSelectedIndex(0);
+    const focusTimeout = window.setTimeout(() => inputRef.current?.focus(), 50);
+    return () => window.clearTimeout(focusTimeout);
   }, [open]);
 
   useEffect(() => {
@@ -111,15 +111,19 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowDown') {
+      // Keep navigation keys scoped to the search input so they don't hijack
+      // keyboard interaction with other controls while the dialog is open.
+      if (document.activeElement !== inputRef.current) return;
+      if (e.key === 'ArrowDown' && filteredResults.length > 0) {
         e.preventDefault();
         setSelectedIndex((i) => Math.min(i + 1, filteredResults.length - 1));
       }
-      if (e.key === 'ArrowUp') {
+      if (e.key === 'ArrowUp' && filteredResults.length > 0) {
         e.preventDefault();
         setSelectedIndex((i) => Math.max(i - 1, 0));
       }
       if (e.key === 'Enter' && filteredResults[selectedIndex]) {
+        e.preventDefault();
         navigate(filteredResults[selectedIndex].path);
         onClose();
       }
@@ -138,7 +142,14 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
           <Search size={20} className="text-[var(--color-text-muted)]" />
           <input
             ref={inputRef}
+            id="craftc-search-input"
             type="text"
+            aria-label="Search CraftC content"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={filteredResults.length > 0}
+            aria-controls="craftc-search-results"
+            aria-activedescendant={filteredResults[selectedIndex] ? `search-result-${filteredResults[selectedIndex].id}` : undefined}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search lessons, projects, interview questions..."
@@ -148,7 +159,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
             <X size={20} />
           </button>
         </div>
-        <div className="max-h-[50vh] overflow-y-auto">
+        <div id="craftc-search-results" role="listbox" aria-label="Search results" className="max-h-[50vh] overflow-y-auto">
           {filteredResults.length === 0 ? (
             <div className="py-12 text-center text-[var(--color-text-muted)]">No results found for "{query}"</div>
           ) : (
@@ -157,6 +168,9 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
               return (
                 <button
                   key={result.id}
+                  id={`search-result-${result.id}`}
+                  role="option"
+                  aria-selected={idx === selectedIndex}
                   onMouseEnter={() => setSelectedIndex(idx)}
                   onClick={() => {
                     navigate(result.path);
