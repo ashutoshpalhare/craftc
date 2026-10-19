@@ -12,6 +12,7 @@ import { cCurriculum } from '@/data/cCurriculum';
 import { cppCurriculum } from '@/data/cppCurriculum';
 import type { Curriculum, LessonCategory } from '@/types';
 import { getAllLessons, getPrevNextLessons } from '@/utils/curriculum';
+import { getCompletedLessons, saveCompletedLessons } from '@/utils/progress';
 
 function getCurriculum(id: string): Curriculum | null {
   if (id === 'c') return cCurriculum;
@@ -30,6 +31,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [completedLessons, setCompletedLessons] = useState<string[]>(() => courseId ? getCompletedLessons(courseId) : []);
 
   const curriculum = courseId ? getCurriculum(courseId) : null;
 
@@ -43,6 +45,10 @@ export function LearnLayout({ children }: LearnLayoutProps) {
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
+
+  useEffect(() => {
+    setCompletedLessons(courseId ? getCompletedLessons(courseId) : []);
+  }, [courseId]);
 
   useEffect(() => {
     if (curriculum && lessonSlug) {
@@ -74,7 +80,18 @@ export function LearnLayout({ children }: LearnLayoutProps) {
   const allLessons = getAllLessons(curriculum);
   const currentIndex = lessonSlug ? allLessons.findIndex((item) => item.lesson.slug === lessonSlug) : -1;
   const { prev, next } = lessonSlug ? getPrevNextLessons(curriculum, lessonSlug) : { prev: null, next: null };
-  const progress = currentIndex >= 0 ? Math.round(((currentIndex + 1) / allLessons.length) * 100) : 0;
+  const completedSet = new Set(completedLessons);
+  const progress = allLessons.length ? Math.round((allLessons.filter(({ lesson }) => completedSet.has(lesson.slug)).length / allLessons.length) * 100) : 0;
+  const currentLessonCompleted = lessonSlug ? completedSet.has(lessonSlug) : false;
+
+  const toggleCurrentLessonCompletion = () => {
+    if (!courseId || !lessonSlug) return;
+    const updated = currentLessonCompleted
+      ? completedLessons.filter((slug) => slug !== lessonSlug)
+      : [...completedLessons, lessonSlug];
+    setCompletedLessons(updated);
+    saveCompletedLessons(courseId, updated);
+  };
 
   const toggleCategory = (id: string) => {
     setExpandedCategories((prev) => {
@@ -100,6 +117,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
             toggleCategory={toggleCategory}
             progress={progress}
             currentIndex={currentIndex}
+            completedLessons={completedLessons}
           />
         </aside>
 
@@ -135,6 +153,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
                   toggleCategory={toggleCategory}
                   progress={progress}
                   currentIndex={currentIndex}
+                  completedLessons={completedLessons}
                 />
               </motion.aside>
             </>
@@ -160,9 +179,24 @@ export function LearnLayout({ children }: LearnLayoutProps) {
           <div className="flex-1">{children}</div>
 
           {/* Prev/Next Navigation */}
-          {lessonSlug && (prev || next) && (
+          {lessonSlug && (
             <div className="border-t border-[var(--color-border)] max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
-              <div className="flex items-center justify-between gap-4">
+              <div className="mb-4 flex justify-center">
+                <button
+                  type="button"
+                  onClick={toggleCurrentLessonCompletion}
+                  aria-pressed={currentLessonCompleted}
+                  className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors ${
+                    currentLessonCompleted
+                      ? 'border-[var(--color-success)]/40 bg-[var(--color-success)]/10 text-[var(--color-success)]'
+                      : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-primary)]/50'
+                  }`}
+                >
+                  <CheckCircle2 size={17} />
+                  {currentLessonCompleted ? 'Mark as incomplete' : 'Mark lesson as complete'}
+                </button>
+              </div>
+              {(prev || next) && <div className="flex items-center justify-between gap-4">
                 {prev ? (
                   <Link
                     to={`/learn/${courseId}/${prev.slug}`}
@@ -187,7 +221,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
                     <ArrowRight size={18} className="text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] flex-shrink-0" />
                   </Link>
                 ) : <div className="flex-1 max-w-[48%]" />}
-              </div>
+              </div>}
             </div>
           )}
 
@@ -208,10 +242,11 @@ interface SidebarContentProps {
   toggleCategory: (id: string) => void;
   progress: number;
   currentIndex: number;
+  completedLessons: string[];
 }
 
 function SidebarContent({
-  curriculum, courseId, lessonSlug, expandedCategories, toggleCategory, progress, currentIndex,
+  curriculum, courseId, lessonSlug, expandedCategories, toggleCategory, progress, currentIndex, completedLessons,
 }: SidebarContentProps) {
   return (
     <div className="flex flex-col h-full">
@@ -237,9 +272,8 @@ function SidebarContent({
       </div>
 
       <nav className="flex-1 overflow-y-auto py-2 px-2" aria-label="Lesson navigation">
-        {curriculum.categories.map((category, catIndex) => {
+        {curriculum.categories.map((category) => {
           const isExpanded = expandedCategories.has(category.id);
-          const hasActiveLesson = category.lessons.some((l) => l.slug === lessonSlug);
           return (
             <div key={category.id} className="mb-1">
               <button
@@ -261,12 +295,9 @@ function SidebarContent({
                     className="overflow-hidden"
                   >
                     <ul className="pl-3 pr-1 py-1 space-y-0.5">
-                      {category.lessons.map((lesson, li) => {
-                        const globalIdx = curriculum.categories
-                          .slice(0, catIndex)
-                          .reduce((sum, c) => sum + c.lessons.length, 0) + li;
+                      {category.lessons.map((lesson) => {
                         const isActive = lesson.slug === lessonSlug;
-                        const isCompleted = currentIndex > globalIdx;
+                        const isCompleted = completedLessons.includes(lesson.slug);
                         return (
                           <li key={lesson.id}>
                             <Link
