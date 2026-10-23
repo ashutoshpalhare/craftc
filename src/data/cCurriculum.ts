@@ -44,21 +44,6 @@ export const cCurriculum: Curriculum = {
               ],
             },
             {
-              type: 'notes',
-              title: 'Quick Notes: Essential C Concepts',
-              items: [
-                'Source code: the human-readable instructions you write, usually saved in a .c file.',
-                'Compiler: translates C source code into object code and reports diagnostics such as errors and warnings.',
-                'Linker: combines object files and required libraries to create an executable program.',
-                'Typical build flow: edit source → compile → link → run → test and debug. Some toolchains combine compile and link in one command.',
-                'Entry point: a hosted C program normally starts at main. Use int main(void) when no command-line arguments are needed, and return 0 to report success.',
-                'Standard library: headers such as <stdio.h> declare functions like printf. Include the header for each library feature you use.',
-                'Portability: code is portable when it follows the C standard and avoids assumptions about a particular compiler, operating system, or data type size.',
-                'Undefined behavior: the C standard gives no requirements for what happens (for example, signed integer overflow or dereferencing an invalid pointer). Do not rely on a program appearing to work.',
-                'Compiler warnings are useful feedback, not noise. Practise compiling with warnings enabled and fix them instead of ignoring them.',
-              ],
-            },
-            {
               type: 'realWorld',
               title: 'Real-World Usage',
               items: [
@@ -96,6 +81,21 @@ export const cCurriculum: Curriculum = {
                 'Write a one-line description of C in your own words.',
                 'List three devices around you that likely run C code.',
                 'Explain to a friend why C is still relevant today.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Quick Notes: Essential C Concepts',
+              items: [
+                'Source code: the human-readable instructions you write, usually saved in a .c file.',
+                'Compiler: translates C source code into object code and reports diagnostics such as errors and warnings.',
+                'Linker: combines object files and required libraries to create an executable program.',
+                'Typical build flow: edit source → compile → link → run → test and debug. Some toolchains combine compile and link in one command.',
+                'Entry point: a hosted C program normally starts at main. Use int main(void) when no command-line arguments are needed, and return 0 to report success.',
+                'Standard library: headers such as <stdio.h> declare functions like printf. Include the header for each library feature you use.',
+                'Portability: code is portable when it follows the C standard and avoids assumptions about a particular compiler, operating system, or data type size.',
+                'Undefined behavior: the C standard gives no requirements for what happens (for example, signed integer overflow or dereferencing an invalid pointer). Do not rely on a program appearing to work.',
+                'Compiler warnings are useful feedback, not noise. Practise compiling with warnings enabled and fix them instead of ignoring them.',
               ],
             },
             {
@@ -153,7 +153,8 @@ export const cCurriculum: Curriculum = {
                 { q: 'What does K&R refer to?', a: 'The book "The C Programming Language" by Brian Kernighan and Dennis Ritchie, published in 1978.' },
                 { q: 'What was the first standard of C?', a: 'ANSI C, also known as C89, standardized in 1989.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: C Standards',
               items: [
@@ -165,7 +166,6 @@ export const cCurriculum: Curriculum = {
                 'C++ is a separate language that evolved from C but is not simply “C with extra features”; some valid C programs are not valid C++ programs.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -213,7 +213,8 @@ export const cCurriculum: Curriculum = {
                 'Game Engine Developer — many engines use C/C++ cores.',
                 'Database Engineer — contribute to databases like PostgreSQL.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: Learning C Effectively',
               items: [
@@ -225,7 +226,6 @@ export const cCurriculum: Curriculum = {
                 'Learning a language is not enough for a job by itself. Pair C knowledge with debugging, data structures, Git, testing, and projects relevant to the role.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -268,7 +268,8 @@ export const cCurriculum: Curriculum = {
                 { q: 'Name three real-world applications of C.', a: 'Operating systems, embedded systems, and databases.' },
                 { q: 'Which popular database engines are written in C?', a: 'MySQL, PostgreSQL, and SQLite.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: Where C Is Used',
               items: [
@@ -280,7 +281,6 @@ export const cCurriculum: Curriculum = {
                 'C is a tool, not a guarantee of speed: algorithm choice, compiler settings, memory access patterns, and system design also affect performance.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -322,7 +322,8 @@ export const cCurriculum: Curriculum = {
                 'Contribute to an open-source C project (Redis, SQLite).',
                 'Learn basic C++ after C — many jobs want both.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: Career Preparation',
               items: [
@@ -333,7 +334,6 @@ export const cCurriculum: Curriculum = {
                 'A portfolio and interview readiness depend on demonstrated skills and the target role; completing this course alone does not guarantee employment.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -404,7 +404,8 @@ gcc --version`,
                 'Use the integrated terminal for compiling.',
                 'Create a dedicated workspace folder for C projects.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: Editor vs Compiler',
               items: [
@@ -416,7 +417,6 @@ gcc --version`,
                 'An editor extension provides highlighting, completion, and debugging integration; it does not replace the compiler or debugger itself.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -466,7 +466,8 @@ hello.exe`,
                 'Installing a toolchain but adding the wrong bin directory to PATH.',
                 'Restarting the terminal after adding to PATH is required.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: Windows Build Workflow',
               items: [
@@ -478,7 +479,6 @@ hello.exe`,
                 'Compiler version output is produced by gcc --version; it is not a command to copy into the terminal.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -513,7 +513,8 @@ hello.exe`,
                 'Open Code::Blocks → File → New → Project → Console Application → C.',
                 'Write your code and press F9 to build and run.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Quick Notes: IDE Setup',
               items: [
@@ -524,7 +525,6 @@ hello.exe`,
                 'The concepts remain the same across IDEs: source file, compiler, linker, executable, terminal input, and program output.',
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -635,7 +635,8 @@ int main(void) {
                 { q: 'Why does main return int?', a: 'The return value is the exit status reported to the operating system — 0 means success.' },
                 { q: 'What happens if you omit return 0?', a: 'In C99 and later, main implicitly returns 0, but explicitly returning 0 is best practice.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: C Program Structure',
               items: [
@@ -646,7 +647,6 @@ int main(void) {
                 "Compile and run the program yourself; syntax highlighting does not prove that code compiles.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -744,7 +744,8 @@ Hello Ashutosh, you are 22 years old.`,
                 'Read a character and print its ASCII value.',
                 'Read a float and print it with 2 decimal places.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Safe Input and Output',
               items: [
@@ -755,7 +756,6 @@ Hello Ashutosh, you are 22 years old.`,
                 "Never use untrusted input as the printf format string. Use printf(\"%s\", text) to print text as data.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -836,7 +836,8 @@ int main() {
                 'Swap values of two variables using a third variable.',
                 'Declare a constant PI and calculate the area of a circle.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Variables',
               items: [
@@ -847,7 +848,6 @@ int main() {
                 "Scope determines where a name can be used, while storage duration determines how long the object exists.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -930,7 +930,8 @@ int main() {
                 { q: 'Difference between float and double?', a: 'float is 4 bytes with ~7 digits precision; double is 8 bytes with ~15 digits precision.' },
                 { q: 'What does sizeof return?', a: 'The number of bytes a type or variable occupies in memory.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: C Data Types',
               items: [
@@ -941,7 +942,6 @@ int main() {
                 "Use limits from <limits.h> and <float.h> when exact ranges matter instead of assuming int is always 4 bytes.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1027,7 +1027,8 @@ int main() {
                 'Swap two numbers without a third variable using arithmetic.',
                 'Use the ternary operator to find the max of two numbers.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Operators',
               items: [
@@ -1038,7 +1039,6 @@ int main() {
                 "Avoid modifying the same scalar object multiple times in one expression unless evaluation order is fully understood.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1100,7 +1100,8 @@ int main() {
                 'Casting does not change the original variable — it creates a temporary converted value.',
                 'Be careful when casting float to int — the decimal part is truncated, not rounded.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Type Conversion',
               items: [
@@ -1111,7 +1112,6 @@ int main() {
                 "A cast does not automatically make an unsafe operation safe; understand the source and destination types.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1207,7 +1207,8 @@ int main() {
                 'Write a calculator using switch (add, subtract, multiply, divide).',
                 'Find the largest of three numbers.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Conditions',
               items: [
@@ -1218,7 +1219,6 @@ int main() {
                 "Validate input before using it in a condition, and include a default branch when appropriate.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1319,7 +1319,8 @@ int main() {
                 { q: 'What does break do?', a: 'It immediately exits the nearest enclosing loop or switch.' },
                 { q: 'What does continue do?', a: 'It skips the rest of the current iteration and moves to the next.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Loops',
               items: [
@@ -1330,7 +1331,6 @@ int main() {
                 "Check loop boundaries carefully: array indexes commonly run from 0 through length - 1, not through length.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1413,7 +1413,8 @@ int main() {
                 'Write a function to calculate the factorial of a number.',
                 'Write a function that swaps two numbers using pointers.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Functions',
               items: [
@@ -1424,7 +1425,6 @@ int main() {
                 "Use int main(void) for a program that accepts no command-line arguments; use the standard argc/argv form when arguments are needed.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1501,7 +1501,8 @@ int main() {
                 'Find the sum of digits of a number using recursion.',
                 'Reverse a string using recursion.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Recursion',
               items: [
@@ -1512,7 +1513,6 @@ int main() {
                 "Use iteration when it is simpler or when input depth could be very large.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1598,7 +1598,8 @@ int main() {
                 'Reverse an array in place.',
                 'Sort an array using bubble sort.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Arrays',
               items: [
@@ -1609,7 +1610,6 @@ int main() {
                 "Initialize arrays deliberately and pass the element count separately when a function needs to know how many elements it may access.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1682,7 +1682,8 @@ int main() {
                 'Not allocating enough space in the destination for strcpy/strcat.',
                 'Comparing strings with == instead of strcmp.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: C Strings',
               items: [
@@ -1693,7 +1694,6 @@ int main() {
                 "Prefer bounded input such as fgets and always account for the final null terminator.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1803,7 +1803,8 @@ int main() {
                 'Print the address and value of 5 variables using pointers.',
                 'Write a function that doubles a number using a pointer parameter.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Pointers',
               items: [
@@ -1815,7 +1816,6 @@ int main() {
                 "const int *p prevents modification through p; int *const p prevents p itself from being reassigned after initialization.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1895,7 +1895,8 @@ int main() {
                 'Create an array of 3 students and print all of them.',
                 'Write a function that takes a struct pointer and modifies it.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Structures',
               items: [
@@ -1906,7 +1907,6 @@ int main() {
                 "Use designated initializers in C99 and later when they make member initialization clearer.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1961,7 +1961,8 @@ int main() {
                 'Only one member is valid at a time.',
                 'Useful for type punning and memory-constrained systems.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Unions',
               items: [
@@ -1972,7 +1973,6 @@ int main() {
                 "Unlike a struct, whose members occupy separate storage, union members overlap.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2009,7 +2009,8 @@ int main() {
     return 0;
 }`,
               },
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Enumerations',
               items: [
@@ -2020,7 +2021,6 @@ int main() {
                 "An enum's compatible integer type and representation are implementation-defined within the language rules; do not assume a specific size without checking.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2084,7 +2084,8 @@ int main() {
               type: 'output',
               title: 'Output',
               code: { filename: 'output', language: 'bash', code: `Count: 1\nCount: 2\nCount: 3` },
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Storage Duration and Scope',
               items: [
@@ -2095,7 +2096,6 @@ int main() {
                 "Scope, linkage, and storage duration are different concepts—learn them separately rather than treating static as having only one meaning.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2183,7 +2183,8 @@ int main() {
                 { q: 'What is a memory leak?', a: 'Allocated memory that is never freed. Over time it exhausts available memory.' },
                 { q: 'What does realloc do?', a: 'It resizes a previously allocated block, possibly moving it to a new location.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Dynamic Memory',
               items: [
@@ -2195,7 +2196,6 @@ int main() {
                 "Check requested sizes and multiplication overflow before allocating arrays from user-supplied counts.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2271,7 +2271,8 @@ int main() {
                 '"w+" — read and write (overwrites).',
                 'Always close files with fclose().',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: File Handling',
               items: [
@@ -2282,7 +2283,6 @@ int main() {
                 "Use perror or another diagnostic to explain file errors, and do not assume the current working directory is the source-code directory.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2331,7 +2331,8 @@ int main() {
                 '#undef — undefine a macro.',
                 '#pragma — compiler-specific instructions.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Preprocessor',
               items: [
@@ -2342,7 +2343,6 @@ int main() {
                 "#if, #ifdef, #ifndef, #else, and #endif support conditional compilation; they do not replace runtime if statements.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2390,7 +2390,8 @@ int main() {
                 'Commit each project to GitHub.',
                 'Write clean code with meaningful function names.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Building Mini Projects',
               items: [
@@ -2401,7 +2402,6 @@ int main() {
                 "Document the build command, sample usage, limitations, and what the project demonstrates in the README.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2433,7 +2433,8 @@ int main() {
                 'HTTP Server — a basic socket-based web server.',
                 'Markdown to HTML converter — file parsing and output.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Planning Larger Projects',
               items: [
@@ -2444,7 +2445,6 @@ int main() {
                 "An advanced project should demonstrate design, correctness, documentation, and maintainability—not just a large number of lines.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2485,7 +2485,8 @@ int main() {
                 { q: 'What is the difference between const char* and char* const?', a: 'const char* points to constant data (cannot modify the chars); char* const is a constant pointer (cannot change where it points).' },
                 { q: 'Explain the difference between stack and heap memory.', a: 'Stack is automatic, fast, and scoped to function calls. Heap is manual (malloc/free), slower, and persists until freed.' },
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: C Interview Revision',
               items: [
@@ -2496,7 +2497,6 @@ int main() {
                 "Interview answers are stronger when paired with a small example and a note about edge cases.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2534,7 +2534,8 @@ int main() {
                 'Implement a simple calculator using switch.',
                 'Find the transpose of a matrix.',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: How to Practise',
               items: [
@@ -2545,7 +2546,6 @@ int main() {
                 "After solving, explain the algorithm and its time/space complexity where relevant.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2581,7 +2581,8 @@ int main() {
                 'Can answer the top 15 C interview questions.',
                 'Understand basic data structures (arrays, linked lists, stacks).',
               ],
-             {
+            },
+            {
               type: 'notes',
               title: 'Short Notes: Self-Assessment',
               items: [
@@ -2592,7 +2593,6 @@ int main() {
                 "Use this checklist as a learning guide, not a guarantee of employment; job readiness depends on the role and demonstrated skills.",
               ],
             },
-           },
             {
               type: 'summary',
               title: 'Summary',
