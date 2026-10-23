@@ -565,7 +565,7 @@ hello.exe`,
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     printf("Hello, World!\\n");
     return 0;
 }`,
@@ -635,7 +635,18 @@ int main() {
                 { q: 'Why does main return int?', a: 'The return value is the exit status reported to the operating system — 0 means success.' },
                 { q: 'What happens if you omit return 0?', a: 'In C99 and later, main implicitly returns 0, but explicitly returning 0 is best practice.' },
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: C Program Structure',
+              items: [
+                "Include the standard header that declares each library function you call; stdio.h declares printf.",
+                "A hosted C program starts at main. Use int main(void) when no command-line arguments are needed.",
+                "Statements normally end with a semicolon; braces group a function body or control-flow block.",
+                "printf writes formatted text to standard output. The escape sequence \\n starts a new line.",
+                "Compile and run the program yourself; syntax highlighting does not prove that code compiles.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -733,7 +744,18 @@ Hello Ashutosh, you are 22 years old.`,
                 'Read a character and print its ASCII value.',
                 'Read a float and print it with 2 decimal places.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Safe Input and Output',
+              items: [
+                "printf format specifiers must match the types of the values supplied; %d is for int and %s is for a null-terminated string.",
+                "scanf needs the address of ordinary variables, such as &age, but an array name like name already converts to a pointer to its first element.",
+                "Always check scanf's return value to confirm the expected number of items was read successfully.",
+                "scanf(\"%s\", name) stops at whitespace and can overflow a small buffer without a width limit; for safer line input, learn fgets.",
+                "Never use untrusted input as the printf format string. Use printf(\"%s\", text) to print text as data.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -769,7 +791,7 @@ Hello Ashutosh, you are 22 years old.`,
 
 int main() {
     int age = 22;
-    float height = 5.9;
+    float height = 5.9f;
     char grade = 'A';
     char name[] = "Ashutosh";
 
@@ -814,7 +836,18 @@ int main() {
                 'Swap values of two variables using a third variable.',
                 'Declare a constant PI and calculate the area of a circle.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Variables',
+              items: [
+                "A declaration gives a variable a type and name; initialization also provides its first value.",
+                "Local automatic variables that are not initialized have indeterminate values. Do not read them before assigning a valid value.",
+                "Identifiers are case-sensitive and must follow C naming rules; keywords such as int cannot be used as variable names.",
+                "Choose a type that represents the required range and meaning; do not assume every platform uses the same type sizes.",
+                "Scope determines where a name can be used, while storage duration determines how long the object exists.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -897,7 +930,18 @@ int main() {
                 { q: 'Difference between float and double?', a: 'float is 4 bytes with ~7 digits precision; double is 8 bytes with ~15 digits precision.' },
                 { q: 'What does sizeof return?', a: 'The number of bytes a type or variable occupies in memory.' },
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: C Data Types',
+              items: [
+                "Integer types include char, short, int, long, and long long, with signed and unsigned variants where supported.",
+                "float, double, and long double represent floating-point values; floating-point calculations can involve rounding.",
+                "sizeof returns a size in bytes and its result type is size_t, printed with %zu. Exact sizes vary by implementation.",
+                "char is an integer type capable of representing a byte-sized character value; use single quotes for character constants such as 'C'.",
+                "Use limits from <limits.h> and <float.h> when exact ranges matter instead of assuming int is always 4 bytes.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -983,7 +1027,18 @@ int main() {
                 'Swap two numbers without a third variable using arithmetic.',
                 'Use the ternary operator to find the max of two numbers.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Operators',
+              items: [
+                "Arithmetic operators include +, -, *, /, and %. Integer division discards the fractional part; % is for integer operands.",
+                "Relational and equality operators produce 0 or 1 in C. Do not confuse = (assignment) with == (comparison).",
+                "&& and || short-circuit: the right operand is evaluated only when needed to determine the result.",
+                "Operator precedence affects grouping; use parentheses when they make the intended expression clearer.",
+                "Avoid modifying the same scalar object multiple times in one expression unless evaluation order is fully understood.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1045,7 +1100,18 @@ int main() {
                 'Casting does not change the original variable — it creates a temporary converted value.',
                 'Be careful when casting float to int — the decimal part is truncated, not rounded.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Type Conversion',
+              items: [
+                "Implicit conversions happen automatically according to C's conversion rules; explicit casts request a conversion.",
+                "If both operands of division are integers, the fractional part is discarded before assignment to a floating-point variable.",
+                "Cast one operand before division, such as (double)a / b, when you need a fractional result.",
+                "Converting a value to a type that cannot represent it may change the value; floating-to-integer conversion discards the fractional part when representable.",
+                "A cast does not automatically make an unsafe operation safe; understand the source and destination types.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1141,7 +1207,18 @@ int main() {
                 'Write a calculator using switch (add, subtract, multiply, divide).',
                 'Find the largest of three numbers.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Conditions',
+              items: [
+                "if and else choose branches based on whether an expression compares unequal to zero.",
+                "Use else if for mutually exclusive ranges and order conditions from the most specific or highest threshold when needed.",
+                "switch works with integer types and enum values; case labels must be constant expressions.",
+                "break exits the nearest switch or loop. Without break, execution can fall through to the next case.",
+                "Validate input before using it in a condition, and include a default branch when appropriate.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1242,7 +1319,18 @@ int main() {
                 { q: 'What does break do?', a: 'It immediately exits the nearest enclosing loop or switch.' },
                 { q: 'What does continue do?', a: 'It skips the rest of the current iteration and moves to the next.' },
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Loops',
+              items: [
+                "for is useful when initialization, continuation condition, and update fit together; while checks its condition before each iteration.",
+                "do-while executes its body at least once because the condition is checked afterward.",
+                "Make sure loop state changes so the termination condition can eventually become false; otherwise the loop may run forever.",
+                "break exits the nearest loop; continue skips to the next iteration according to that loop's rules.",
+                "Check loop boundaries carefully: array indexes commonly run from 0 through length - 1, not through length.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1325,7 +1413,18 @@ int main() {
                 'Write a function to calculate the factorial of a number.',
                 'Write a function that swaps two numbers using pointers.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Functions',
+              items: [
+                "A function declaration (prototype) tells the compiler the function's name, return type, and parameter types before a call.",
+                "Parameters receive argument values; ordinary C arguments are passed by value. A pointer can be passed when a function must modify an object owned by its caller.",
+                "Use void as the return type when a function returns no value, and do not use a returned value after a function that promises none.",
+                "Keep function responsibilities focused and give parameters and return values clear meanings.",
+                "Use int main(void) for a program that accepts no command-line arguments; use the standard argc/argv form when arguments are needed.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1402,7 +1501,18 @@ int main() {
                 'Find the sum of digits of a number using recursion.',
                 'Reverse a string using recursion.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Recursion',
+              items: [
+                "A recursive function calls itself directly or indirectly to solve a smaller version of a problem.",
+                "A base case must stop recursion; without a reachable base case, calls can continue until resources are exhausted.",
+                "Each call has its own parameters and local variables, so deep recursion can consume substantial stack space.",
+                "Factorial is defined here only for non-negative integers; int can overflow even for relatively small inputs, so validate inputs and choose types carefully.",
+                "Use iteration when it is simpler or when input depth could be very large.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
