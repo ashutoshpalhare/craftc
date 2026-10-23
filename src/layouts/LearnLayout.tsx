@@ -72,7 +72,13 @@ export function LearnLayout({ children }: LearnLayoutProps) {
   if (!curriculum) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
-        <p className="text-[var(--color-text-secondary)]">Course not found.</p>
+        <div className="text-center px-4">
+          <p className="text-[var(--color-text)] text-xl font-semibold">Course not found</p>
+          <p className="text-[var(--color-text-secondary)] mt-2 mb-5">This course may have moved or the URL may be incorrect.</p>
+          <Link to="/" className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-white font-medium hover:bg-[var(--color-primary-hover)] transition-colors">
+            <ArrowLeft size={16} /> Back to CraftC
+          </Link>
+        </div>
       </div>
     );
   }
@@ -172,14 +178,14 @@ export function LearnLayout({ children }: LearnLayoutProps) {
               <Menu size={20} />
             </button>
             <span className="text-sm font-medium text-[var(--color-text)] truncate">
-              {lessonSlug ? allLessons[currentIndex]?.lesson.title : curriculum.title}
+              {lessonSlug && currentIndex >= 0 ? allLessons[currentIndex].lesson.title : curriculum.title}
             </span>
           </div>
 
           <div className="flex-1">{children}</div>
 
           {/* Prev/Next Navigation */}
-          {lessonSlug && (
+          {lessonSlug && currentIndex >= 0 && (
             <div className="border-t border-[var(--color-border)] max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
               <div className="mb-4 flex justify-center">
                 <button

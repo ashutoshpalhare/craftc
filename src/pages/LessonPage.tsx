@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock, BarChart3, ChevronRight, BookOpen } from 'lucide-react';
 import { cCurriculum } from '@/data/cCurriculum';
@@ -23,6 +23,17 @@ export function LessonPage() {
     return (
       <div className="max-w-4xl mx-auto px-6 py-20 text-center">
         <h1 className="text-2xl font-bold text-[var(--color-text)]">Lesson not found</h1>
+        <p className="mt-3 text-[var(--color-text-secondary)]">This lesson may have moved or the URL may be incorrect.</p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          {curriculum && (
+            <Link to={`/learn/${courseId}`} className="inline-flex items-center rounded-lg border border-[var(--color-border)] px-4 py-2.5 text-[var(--color-text)] hover:border-[var(--color-primary)] transition-colors">
+              Back to {curriculum.title}
+            </Link>
+          )}
+          <Link to="/" className="inline-flex items-center rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-white hover:bg-[var(--color-primary-hover)] transition-colors">
+            Back to CraftC
+          </Link>
+        </div>
       </div>
     );
   }
