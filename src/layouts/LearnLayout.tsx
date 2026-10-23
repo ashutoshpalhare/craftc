@@ -185,7 +185,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
           <div className="flex-1">{children}</div>
 
           {/* Prev/Next Navigation */}
-          {lessonSlug && (
+          {lessonSlug && currentIndex >= 0 && (
             <div className="border-t border-[var(--color-border)] max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
               <div className="mb-4 flex justify-center">
                 <button
