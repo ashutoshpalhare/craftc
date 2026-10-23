@@ -23,13 +23,13 @@ export const cCurriculum: Curriculum = {
               type: 'introduction',
               title: 'Introduction',
               content:
-                'C is a general-purpose, compiled programming language created in the early 1970s by Dennis Ritchie at Bell Labs. It is the foundation upon which modern operating systems, databases, and languages like C++, Java, and Python were built. Learning C gives you a deep understanding of how memory, pointers, and the machine itself work — skills that make you a stronger engineer in any language.',
+                'C is a general-purpose, compiled programming language developed by Dennis Ritchie at Bell Labs in the early 1970s. It became especially important for operating systems and other software that needs direct control over memory and hardware resources. C also influenced the design of languages such as C++, Java, and many others. Learning C helps you understand data representation, pointers, memory, and how source code becomes a running program.',
             },
             {
               type: 'theory',
               title: 'Why C Still Matters',
               content:
-                'Despite being over 50 years old, C remains one of the most widely used languages in the world. It powers operating systems (Linux, Windows kernel), embedded devices, game engines, IoT hardware, and high-performance libraries like TensorFlow and Redis. C is small, fast, and close to the metal — there is almost no abstraction between you and the CPU.',
+                'Although C is more than 50 years old, it is still widely used in operating-system components, embedded firmware, device drivers, databases, networking software, and performance-critical libraries. The Linux kernel is predominantly written in C; Windows and macOS contain substantial C code alongside other languages. C offers low-level memory and data-layout control, but it still runs within an operating system and hardware environment rather than removing every abstraction.',
             },
             {
               type: 'notes',
@@ -50,7 +50,7 @@ export const cCurriculum: Curriculum = {
                 'Operating systems: Linux kernel is written almost entirely in C.',
                 'Embedded systems: microcontrollers in cars, appliances, and medical devices.',
                 'Databases: PostgreSQL, Redis, and SQLite cores are written in C.',
-                'Interpreters and compilers: Python, PHP, and Ruby are implemented in C.',
+                'Language implementations: CPython (the standard Python implementation), the PHP interpreter, and CRuby (the standard Ruby implementation) use substantial C code; other implementations may use different languages.',
                 'IoT and robotics: Arduino and many RTOS platforms use C.',
               ],
             },
@@ -80,7 +80,23 @@ export const cCurriculum: Curriculum = {
               items: [
                 'Write a one-line description of C in your own words.',
                 'List three devices around you that likely run C code.',
-                'Explain to a friend why C is still relevant in 2025.',
+                'Explain to a friend why C is still relevant today.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Quick Notes: Essential C Concepts',
+              items: [
+                'Source code: the human-readable instructions you write, usually saved in a .c file.',
+                'Compiler: translates C source code into object code and reports diagnostics such as errors and warnings.',
+                'Linker: combines object files and required libraries to create an executable program.',
+                'Typical build flow: edit source → compile → link → run → test and debug. Some toolchains combine compile and link in one command.',
+                'Entry point: a hosted C program normally starts at main. Use int main(void) when no command-line arguments are needed, and return 0 to report success.',
+                'Standard library: headers such as <stdio.h> declare functions like printf. Include the header for each library feature you use.',
+                'Portability: code is portable when it follows the C standard and avoids assumptions about a particular compiler, operating system, or data type size.',
+                'Undefined behavior: the C standard gives no requirements for what happens (for example, signed integer overflow or dereferencing an invalid pointer). Do not rely on a program appearing to work.',
+                'Compiler warnings are useful feedback, not noise. Practise compiling with warnings enabled and fix them instead of ignoring them.',
+                'Larger programs can be split across .c and .h files: put declarations in headers, definitions in source files, and compile/link all required source files together.'
               ],
             },
             {
@@ -114,7 +130,7 @@ export const cCurriculum: Curriculum = {
             {
               type: 'diagram',
               title: 'Language Family Tree',
-              content: 'BCPL (1967) → B (1969) → C (1972) → C++ (1985) → Java (1995) → C# (2000)',
+              content: 'BCPL → B → C (1972) → C++ (1985). Java and C# were influenced by C/C++ syntax but are separate languages.',
             },
             {
               type: 'notes',
@@ -140,10 +156,22 @@ export const cCurriculum: Curriculum = {
               ],
             },
             {
+              type: 'notes',
+              title: 'Quick Notes: C Standards',
+              items: [
+                'A language standard defines the rules and library that conforming compilers are expected to support.',
+                'K&R C describes the language before formal ANSI/ISO standardization; modern code should generally follow a selected standard such as C17/C23.',
+                'C89/C90 introduced the first widely adopted formal standard. C99 added features such as // comments and declarations inside for loops; support for some features varies.',
+                'C11 added features including atomics and optional multithreading support. C17/C18 is primarily a bug-fix revision of C11.',
+                'C23 is the newer ISO C revision. Compiler support varies, so check your compiler version and selected language mode before relying on new features.',
+                'C++ is a separate language that evolved from C but is not simply “C with extra features”; some valid C programs are not valid C++ programs.',
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content:
-                'C evolved from BCPL → B → C, created by Dennis Ritchie in 1972. It has been standardized multiple times (C89, C99, C11, C18) and is the ancestor of many modern languages.',
+                'C evolved from BCPL through B, with Dennis Ritchie developing C at Bell Labs around 1972. Its standards include C89/C90, C99, C11, C17/C18, and the newer C23 revision.',
             },
           ],
         },
@@ -171,7 +199,7 @@ export const cCurriculum: Curriculum = {
               type: 'bestPractices',
               title: 'Best Practices',
               items: [
-                'Learn C before C++ — the transition becomes far easier.',
+                'Learning C before C++ can help, but it is a learning preference rather than a universal requirement.',
                 'Use C to understand pointers before studying data structures.',
                 'Build small projects (calculator, file utility) to solidify concepts.',
               ],
@@ -185,6 +213,18 @@ export const cCurriculum: Curriculum = {
                 'Firmware Engineer — write code for hardware devices.',
                 'Game Engine Developer — many engines use C/C++ cores.',
                 'Database Engineer — contribute to databases like PostgreSQL.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Quick Notes: Learning C Effectively',
+              items: [
+                'C is especially useful for learning memory layout, pointers, compilation, data representation, and resource management.',
+                'Learning C before C++ can help some learners, but it is not a requirement; choose the sequence that matches your goals.',
+                'Build a strong foundation in expressions, control flow, functions, arrays, strings, pointers, structures, and file I/O before advanced projects.',
+                'Use a compiler with warnings enabled, read diagnostics, and test boundary cases rather than relying only on examples that appear to work.',
+                'C does not automatically protect you from invalid memory access, buffer overflows, or resource leaks; careful design and testing matter.',
+                'Learning a language is not enough for a job by itself. Pair C knowledge with debugging, data structures, Git, testing, and projects relevant to the role.',
               ],
             },
             {
@@ -215,7 +255,7 @@ export const cCurriculum: Curriculum = {
                 'Operating Systems: Linux, Windows, macOS kernels.',
                 'Embedded Systems: Arduino, smart watches, medical devices.',
                 'Databases: MySQL, PostgreSQL, SQLite, Redis.',
-                'Compilers & Interpreters: Python, PHP, Ruby are written in C.',
+                'Language runtimes: CPython, the PHP interpreter, and CRuby use substantial C code; this does not mean every implementation of those languages is written in C.',
                 'Network drivers and protocol stacks.',
                 'Desktop applications: parts of Photoshop, AutoCAD.',
                 'Game engines and graphics libraries.',
@@ -228,6 +268,18 @@ export const cCurriculum: Curriculum = {
               questions: [
                 { q: 'Name three real-world applications of C.', a: 'Operating systems, embedded systems, and databases.' },
                 { q: 'Which popular database engines are written in C?', a: 'MySQL, PostgreSQL, and SQLite.' },
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Quick Notes: Where C Is Used',
+              items: [
+                'Systems software: operating-system kernels, device drivers, runtime libraries, and low-level utilities.',
+                'Embedded and firmware: microcontrollers and devices with limited memory or strict timing requirements.',
+                'Databases and networking: C is used in major database engines, protocol implementations, and performance-sensitive services.',
+                'Language runtimes: CPython, PHP, and CRuby use substantial C code, but other implementations can be built with different languages.',
+                'A product can combine multiple languages. Avoid saying an entire operating system, database, or application is written in C unless that claim is specifically verified.',
+                'C is a tool, not a guarantee of speed: algorithm choice, compiler settings, memory access patterns, and system design also affect performance.',
               ],
             },
             {
@@ -254,7 +306,7 @@ export const cCurriculum: Curriculum = {
               type: 'realWorld',
               title: 'Top Job Roles',
               items: [
-                'Embedded Software Engineer — average demand growing with IoT.',
+                'Embedded Software Engineer — develops software for microcontrollers and resource-constrained devices.',
                 'Systems Software Engineer — OS, drivers, virtualization.',
                 'Firmware Engineer — hardware-level programming.',
                 'Kernel Developer — Linux and custom OS development.',
@@ -273,9 +325,20 @@ export const cCurriculum: Curriculum = {
               ],
             },
             {
+              type: 'notes',
+              title: 'Quick Notes: Career Preparation',
+              items: [
+                'Common C-heavy paths include embedded software, firmware, device drivers, operating-system work, networking, and database internals.',
+                'Job requirements vary. Some roles expect C plus electronics or microcontrollers; others expect Linux, debugging, concurrency, or systems knowledge.',
+                'For each project, document the problem, design choices, build steps, test cases, limitations, and what you learned.',
+                'Practise reading compiler warnings, using a debugger, tracing memory bugs, and writing small tests—not only writing code from scratch.',
+                'A portfolio and interview readiness depend on demonstrated skills and the target role; completing this course alone does not guarantee employment.',
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
-              content: 'C skills lead to specialized roles in embedded, systems, and firmware engineering — fields with strong demand and fewer competitors.',
+              content: 'C is relevant to embedded, systems, and firmware roles. Each role also requires practical projects and domain-specific skills.',
             },
           ],
         },
@@ -344,6 +407,18 @@ gcc --version`,
               ],
             },
             {
+              type: 'notes',
+              title: 'Quick Notes: Editor vs Compiler',
+              items: [
+                'VS Code is an editor, not a C compiler. Install a compiler toolchain separately and make sure its executable is available in the terminal PATH.',
+                'On Windows, a MinGW-w64 toolchain is common; MSYS2 is one supported way to install and update MinGW-w64 tools.',
+                'On macOS, xcode-select --install installs Apple command-line developer tools, including Clang. The gcc command may invoke Clang rather than GNU GCC.',
+                'On Ubuntu/Debian, build-essential installs common build tools, including GCC and make; other Linux distributions use their own package manager.',
+                'Verify the compiler with gcc --version or clang --version, then compile a .c file from the integrated terminal.',
+                'An editor extension provides highlighting, completion, and debugging integration; it does not replace the compiler or debugger itself.',
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Install VS Code and a C compiler (GCC via MinGW, Xcode tools, or build-essential), then add the C/C++ extension. You are now ready to write and run C programs.',
@@ -374,12 +449,13 @@ gcc --version`,
               code: {
                 filename: 'cmd',
                 language: 'bash',
-                code: `gcc --version
-gcc (MinGW-W64) 13.2.0
-Copyright (C) 2023 Free Software Foundation, Inc.
+                code: `# Check that the compiler is available
+gcc --version
 
-# Compile and run a program
-gcc hello.c -o hello
+# Compile hello.c into a Windows executable
+gcc hello.c -o hello.exe
+
+# Run from Command Prompt in the current folder
 hello.exe`,
               },
             },
@@ -388,8 +464,20 @@ hello.exe`,
               title: 'Common Mistakes',
               items: [
                 'Forgetting to add MinGW bin to PATH — "gcc is not recognized".',
-                'Installing MSYS2 instead of MinGW-w64 when you only need GCC.',
+                'Installing a toolchain but adding the wrong bin directory to PATH.',
                 'Restarting the terminal after adding to PATH is required.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Quick Notes: Windows Build Workflow',
+              items: [
+                'Install a maintained MinGW-w64 toolchain, for example through MSYS2, and follow that distribution’s current setup instructions.',
+                'Add the correct toolchain bin directory to PATH. Open a new terminal afterward so it receives the updated environment.',
+                'Run gcc --version to check that the terminal finds the expected compiler; “command not found” or “not recognized” usually points to PATH or installation setup.',
+                'Compile from the folder containing the source file: gcc hello.c -o hello.exe. The output file is an executable, not the C source.',
+                'Run the program from Command Prompt with hello.exe, or from PowerShell with .\\hello.exe when the current directory is not searched automatically.',
+                'Compiler version output is produced by gcc --version; it is not a command to copy into the terminal.',
               ],
             },
             {
@@ -425,6 +513,17 @@ hello.exe`,
                 'Run the installer with default settings.',
                 'Open Code::Blocks → File → New → Project → Console Application → C.',
                 'Write your code and press F9 to build and run.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Quick Notes: IDE Setup',
+              items: [
+                'Choose an installer that includes a compatible compiler toolchain if you want an all-in-one Windows setup; verify that the download is from the official project source.',
+                'Create a Console Application project and explicitly choose C when prompted, because IDEs may also offer C++ projects.',
+                'Build first, then run. If the build fails, read the first compiler error and its file/line location before changing code.',
+                'IDE keyboard shortcuts can vary by version and operating system; use the Build menu if a shortcut differs.',
+                'The concepts remain the same across IDEs: source file, compiler, linker, executable, terminal input, and program output.',
               ],
             },
             {
@@ -467,7 +566,7 @@ hello.exe`,
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     printf("Hello, World!\\n");
     return 0;
 }`,
@@ -539,6 +638,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: C Program Structure',
+              items: [
+                "Include the standard header that declares each library function you call; stdio.h declares printf.",
+                "A hosted C program starts at main. Use int main(void) when no command-line arguments are needed.",
+                "Statements normally end with a semicolon; braces group a function body or control-flow block.",
+                "printf writes formatted text to standard output. The escape sequence \\n starts a new line.",
+                "Compile and run the program yourself; syntax highlighting does not prove that code compiles.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'A C program includes headers, defines a main function, uses printf to print output, and returns 0 on success. Every statement ends with a semicolon and functions are wrapped in braces.',
@@ -571,15 +681,15 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int age;
     char name[50];
 
     printf("Enter your name: ");
-    scanf("%s", name);
+    if (scanf("%49s", name) != 1) return 1;
 
     printf("Enter your age: ");
-    scanf("%d", &age);
+    if (scanf("%d", &age) != 1) return 1;
 
     printf("Hello %s, you are %d years old.\\n", name, age);
     return 0;
@@ -637,6 +747,17 @@ Hello Ashutosh, you are 22 years old.`,
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Safe Input and Output',
+              items: [
+                "printf format specifiers must match the types of the values supplied; %d is for int and %s is for a null-terminated string.",
+                "scanf needs the address of ordinary variables, such as &age, but an array name like name already converts to a pointer to its first element.",
+                "Always check scanf's return value to confirm the expected number of items was read successfully.",
+                "scanf(\"%s\", name) stops at whitespace and can overflow a small buffer without a width limit; for safer line input, learn fgets.",
+                "Never use untrusted input as the printf format string. Use printf(\"%s\", text) to print text as data.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'printf outputs data using format specifiers; scanf reads input using the same specifiers plus the address operator &. Master these two functions and you can build interactive C programs.',
@@ -669,9 +790,9 @@ Hello Ashutosh, you are 22 years old.`,
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int age = 22;
-    float height = 5.9;
+    float height = 5.9f;
     char grade = 'A';
     char name[] = "Ashutosh";
 
@@ -718,6 +839,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Variables',
+              items: [
+                "A declaration gives a variable a type and name; initialization also provides its first value.",
+                "Local automatic variables that are not initialized have indeterminate values. Do not read them before assigning a valid value.",
+                "Identifiers are case-sensitive and must follow C naming rules; keywords such as int cannot be used as variable names.",
+                "Choose a type that represents the required range and meaning; do not assume every platform uses the same type sizes.",
+                "Scope determines where a name can be used, while storage duration determines how long the object exists.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Variables store data in memory. Declare them with a type and a name, initialize them to avoid garbage, and follow naming rules for clean, readable code.',
@@ -750,7 +882,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 10;
     float b = 5.75f;
     double c = 19.99;
@@ -767,18 +899,18 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `int: 10, size: 4 bytes\nfloat: 5.750000, size: 4 bytes\ndouble: 19.990000, size: 8 bytes\nchar: C, size: 1 bytes` },
+              code: { filename: 'output', language: 'bash', code: `Example output (sizes vary by platform):\nint: 10, size: 4 bytes\nfloat: 5.750000, size: 4 bytes\ndouble: 19.990000, size: 8 bytes\nchar: C, size: 1 byte` },
             },
             {
               type: 'notes',
               title: 'Data Type Table',
               items: [
-                'int — 4 bytes — whole numbers (−2 billion to 2 billion).',
-                'float — 4 bytes — 6–7 decimal digits precision.',
-                'double — 8 bytes — 15 decimal digits precision.',
+                'int — size and range are implementation-dependent; use <limits.h> when exact limits matter.',
+                'float — commonly 4 bytes with about 6–7 decimal digits precision; implementation details can vary.',
+                'double — commonly 8 bytes with about 15 decimal digits precision; implementation details can vary.',
                 'char — 1 byte — single character or small integer.',
-                'short — 2 bytes — smaller integers.',
-                'long — 4 or 8 bytes — larger integers.',
+                'short — at least 16 bits; its exact size is implementation-dependent.',
+                'long — at least 32 bits; its exact size depends on the implementation and data model.',
                 'unsigned int — non-negative integers only.',
               ],
             },
@@ -798,6 +930,18 @@ int main() {
                 { q: 'What is the size of int on a 64-bit system?', a: 'Typically 4 bytes, but the standard only guarantees a minimum — use sizeof to verify.' },
                 { q: 'Difference between float and double?', a: 'float is 4 bytes with ~7 digits precision; double is 8 bytes with ~15 digits precision.' },
                 { q: 'What does sizeof return?', a: 'The number of bytes a type or variable occupies in memory.' },
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: C Data Types',
+              items: [
+                "Integer types include char, short, int, long, and long long, with signed and unsigned variants where supported.",
+                "void represents no value in contexts such as a function return type; _Bool represents 0 or 1, and stdbool.h provides bool, true, and false names in C99 and later."
+                "float, double, and long double represent floating-point values; floating-point calculations can involve rounding.",
+                "sizeof returns a size in bytes and its result type is size_t, printed with %zu. Exact sizes vary by implementation.",
+                "char is an integer type capable of representing a byte-sized character value; use single quotes for character constants such as 'C'.",
+                "Use limits from <limits.h> and <float.h> when exact ranges matter instead of assuming int is always 4 bytes.",
               ],
             },
             {
@@ -828,7 +972,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 10, b = 3;
 
     // Arithmetic
@@ -887,6 +1031,19 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Operators',
+              items: [
+                "Arithmetic operators include +, -, *, /, and %. Integer division discards the fractional part; % is for integer operands.",
+                "Relational and equality operators produce 0 or 1 in C. Do not confuse = (assignment) with == (comparison).",
+                "&& and || short-circuit: the right operand is evaluated only when needed to determine the result.",
+                "Operator precedence affects grouping; use parentheses when they make the intended expression clearer.",
+                "Bitwise operators (&, |, ^, ~, <<, >>) operate on integer bits; they are different from logical operators && and ||.",
+                "The conditional operator (condition ? value1 : value2) is a compact expression form; do not confuse it with an if statement."
+                "Avoid modifying the same scalar object multiple times in one expression unless evaluation order is fully understood.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'C operators include arithmetic, relational, logical, bitwise, assignment, increment, and ternary. Watch out for = vs == and integer division.',
@@ -914,7 +1071,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 5, b = 2;
 
     // Implicit — integer division
@@ -946,6 +1103,17 @@ int main() {
                 'Cast to float before division to avoid losing the decimal part.',
                 'Casting does not change the original variable — it creates a temporary converted value.',
                 'Be careful when casting float to int — the decimal part is truncated, not rounded.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Type Conversion',
+              items: [
+                "Implicit conversions happen automatically according to C's conversion rules; explicit casts request a conversion.",
+                "If both operands of division are integers, the fractional part is discarded before assignment to a floating-point variable.",
+                "Cast one operand before division, such as (double)a / b, when you need a fractional result.",
+                "Converting a value to a type that cannot represent it may change the value; floating-to-integer conversion discards the fractional part when representable.",
+                "A cast does not automatically make an unsafe operation safe; understand the source and destination types.",
               ],
             },
             {
@@ -983,10 +1151,10 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int score;
     printf("Enter your score: ");
-    scanf("%d", &score);
+    if (scanf("%d", &score) != 1) return 1;
 
     if (score >= 90) {
         printf("Grade: A\\n");
@@ -1009,7 +1177,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int day = 3;
     switch (day) {
         case 1: printf("Monday\\n"); break;
@@ -1045,6 +1213,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Conditions',
+              items: [
+                "if and else choose branches based on whether an expression compares unequal to zero.",
+                "Use else if for mutually exclusive ranges and order conditions from the most specific or highest threshold when needed.",
+                "switch works with integer types and enum values; case labels must be constant expressions.",
+                "break exits the nearest switch or loop. Without break, execution can fall through to the next case.",
+                "Validate input before using it in a condition, and include a default branch when appropriate.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Use if-else for range checks and complex conditions, switch for fixed value matching. Always break after switch cases to prevent fall-through.',
@@ -1072,7 +1251,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     for (int i = 1; i <= 5; i++) {
         printf("Iteration %d\\n", i);
     }
@@ -1088,7 +1267,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int n = 5;
     while (n > 0) {
         printf("Countdown: %d\\n", n);
@@ -1106,7 +1285,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int i = 1;
     do {
         printf("Run %d\\n", i);
@@ -1143,6 +1322,17 @@ int main() {
                 { q: 'Difference between while and do-while?', a: 'while checks the condition before the body; do-while checks after, so the body always runs at least once.' },
                 { q: 'What does break do?', a: 'It immediately exits the nearest enclosing loop or switch.' },
                 { q: 'What does continue do?', a: 'It skips the rest of the current iteration and moves to the next.' },
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Loops',
+              items: [
+                "for is useful when initialization, continuation condition, and update fit together; while checks its condition before each iteration.",
+                "do-while executes its body at least once because the condition is checked afterward.",
+                "Make sure loop state changes so the termination condition can eventually become false; otherwise the loop may run forever.",
+                "break exits the nearest loop; continue skips to the next iteration according to that loop's rules.",
+                "Check loop boundaries carefully: array indexes commonly run from 0 through length - 1, not through length.",
               ],
             },
             {
@@ -1194,7 +1384,7 @@ void greet(char name[]) {
     printf("Hello, %s!\\n", name);
 }
 
-int main() {
+int main(void) {
     greet("Ashutosh");
     int sum = add(10, 20);
     printf("Sum = %d\\n", sum);
@@ -1226,6 +1416,19 @@ int main() {
                 'Write a function to check if a number is prime.',
                 'Write a function to calculate the factorial of a number.',
                 'Write a function that swaps two numbers using pointers.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Functions',
+              items: [
+                "A function declaration (prototype) tells the compiler the function's name, return type, and parameter types before a call.",
+                "Parameters receive argument values; ordinary C arguments are passed by value. A pointer can be passed when a function must modify an object owned by its caller.",
+                "A command-line program can declare int main(int argc, char *argv[]) to receive the argument count and argument strings.",
+                "A function pointer stores a function address and enables callbacks or dispatch tables; its type must match the function signature."
+                "Use void as the return type when a function returns no value, and do not use a returned value after a function that promises none.",
+                "Keep function responsibilities focused and give parameters and return values clear meanings.",
+                "Use int main(void) for a program that accepts no command-line arguments; use the standard argc/argv form when arguments are needed.",
               ],
             },
             {
@@ -1262,7 +1465,7 @@ int factorial(int n) {
     return n * factorial(n - 1);  // recursive call
 }
 
-int main() {
+int main(void) {
     printf("5! = %d\\n", factorial(5));
     return 0;
 }`,
@@ -1306,6 +1509,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Recursion',
+              items: [
+                "A recursive function calls itself directly or indirectly to solve a smaller version of a problem.",
+                "A base case must stop recursion; without a reachable base case, calls can continue until resources are exhausted.",
+                "Each call has its own parameters and local variables, so deep recursion can consume substantial stack space.",
+                "Factorial is defined here only for non-negative integers; int can overflow even for relatively small inputs, so validate inputs and choose types carefully.",
+                "Use iteration when it is simpler or when input depth could be very large.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Recursion is a function calling itself with a smaller input, stopped by a base case. It is elegant for problems like factorial, Fibonacci, and tree traversal — but watch for stack overflow.',
@@ -1340,7 +1554,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int numbers[5] = {10, 20, 30, 40, 50};
 
     for (int i = 0; i < 5; i++) {
@@ -1392,6 +1606,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Arrays',
+              items: [
+                "An array stores a fixed number of elements of the same type in contiguous memory.",
+                "Array indexes start at 0; for an array of length n, valid indexes are 0 through n - 1.",
+                "C does not automatically check array bounds. Accessing an index outside the array is undefined behavior.",
+                "When an array is passed to a function, the parameter is adjusted to a pointer; the function does not automatically receive the array length.",
+                "Initialize arrays deliberately and pass the element count separately when a function needs to know how many elements it may access.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Arrays store multiple values of the same type contiguously. Index from 0 to size-1, initialize before use, and be careful about bounds.',
@@ -1420,7 +1645,7 @@ int main() {
                 code: `#include <stdio.h>
 #include <string.h>
 
-int main() {
+int main(void) {
     char str1[] = "CraftC";
     char str2[20];
 
@@ -1462,6 +1687,17 @@ int main() {
                 'Forgetting the null terminator — strings need \\0 at the end.',
                 'Not allocating enough space in the destination for strcpy/strcat.',
                 'Comparing strings with == instead of strcmp.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: C Strings',
+              items: [
+                "A C string is a sequence of char values terminated by the null character '\\0'; the terminator needs space in the array.",
+                "strlen counts characters before the null terminator, not the full allocated capacity of the array.",
+                "strcpy and strcat do not know the destination buffer capacity; ensure enough space before calling them.",
+                "strcmp returns a negative, zero, or positive value depending on lexicographic ordering; test == 0 to check equality.",
+                "Prefer bounded input such as fgets and always account for the final null terminator.",
               ],
             },
             {
@@ -1509,7 +1745,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int x = 42;
     int *ptr = &x;   // ptr stores the address of x
 
@@ -1527,7 +1763,7 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `Value of x: 42\nAddress of x: 0x7ffd8e3c\nptr points to: 0x7ffd8e3c\nValue via *ptr: 42\nNew value of x: 100` },
+              code: { filename: 'output', language: 'bash', code: `Value of x: 42\nAddress of x: implementation-dependent\nptr points to: same address as x\nValue via *ptr: 42\nNew value of x: 100` },
             },
             {
               type: 'explanation',
@@ -1575,6 +1811,20 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Pointers',
+              items: [
+                "A pointer stores an address or a null pointer value. The type tells the compiler what kind of object the pointer can point to.",
+                "&x obtains an object's address; *ptr dereferences a valid pointer to access the pointed-to object.",
+                "Initialize pointers before use. Dereferencing a null, dangling, uninitialized, or otherwise invalid pointer causes undefined behavior.",
+                "Pointer arithmetic is only defined within an array object and one position past its end; the one-past pointer must not be dereferenced.",
+                "A void pointer (void *) can hold an object pointer value generically, but must be converted to an appropriate object-pointer type before dereferencing.",
+                "A pointer-to-pointer stores the address of another pointer; a function pointer stores a function address and uses a function-type declaration."
+                "Use %p to print an address and pass (void *)pointer to match printf's %p conversion.",
+                "const int *p prevents modification through p; int *const p prevents p itself from being reassigned after initialization.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Pointers store memory addresses. Use & to get an address, * to read or change the value at that address. Always initialize pointers and check for NULL before dereferencing.',
@@ -1616,7 +1866,7 @@ struct Student {
     float marks;
 };
 
-int main() {
+int main(void) {
     struct Student s1;
     strcpy(s1.name, "Ashutosh");
     s1.rollNo = 101;
@@ -1655,6 +1905,19 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Structures',
+              items: [
+                "A struct groups named members, potentially of different types, into one object.",
+                "Use the dot operator (.) to access a member through a struct object and the arrow operator (->) through a pointer to a struct.",
+                "Struct assignment copies member values, including array members as part of the structure object; it does not deep-copy memory referenced by pointer members.",
+                "Padding may be added between members, so sizeof(struct Type) can exceed the sum of member sizes.",
+                "Use designated initializers in C99 and later when they make member initialization clearer.",
+                "typedef creates a type alias; it does not create a new distinct type by itself.",
+                "Self-referential structures can contain pointers to the same struct type and are commonly used to build linked lists and trees."
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Structures group different data types into one unit. Access members with . (direct) or -> (via pointer). They are the foundation for building complex data in C.',
@@ -1688,7 +1951,7 @@ union Data {
     char str[20];
 };
 
-int main() {
+int main(void) {
     union Data d;
     d.i = 10;
     printf("d.i = %d\\n", d.i);
@@ -1707,6 +1970,17 @@ int main() {
                 'All members share the same memory — size equals the largest member.',
                 'Only one member is valid at a time.',
                 'Useful for type punning and memory-constrained systems.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Unions',
+              items: [
+                "All union members share the same storage, so the union is large enough for its largest member plus any required alignment.",
+                "A union is useful when a program stores one of several alternative representations at a time.",
+                "Track which member is currently meaningful; reading another member is not a portable way to retrieve the old value and may produce an implementation-dependent or invalid representation.",
+                "Use a tagged union pattern—an enum or other tag plus the union—to record which member is active.",
+                "Unlike a struct, whose members occupy separate storage, union members overlap.",
               ],
             },
             {
@@ -1739,12 +2013,23 @@ int main() {
 
 enum Day { MON, TUE, WED, THU, FRI, SAT, SUN };
 
-int main() {
+int main(void) {
     enum Day today = WED;
     printf("Day number: %d\\n", today);  // WED = 2
     return 0;
 }`,
               },
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Enumerations',
+              items: [
+                "An enum defines named integer constants, making code more readable than unexplained numeric values.",
+                "Unless explicitly assigned, the first enumerator has value 0 and each following enumerator increments by one.",
+                "You can assign explicit values, but duplicate values are allowed and may be intentional.",
+                "Use enum names in conditions and switch statements to make the meaning of each case clear.",
+                "An enum's compatible integer type and representation are implementation-defined within the language rules; do not assume a specific size without checking.",
+              ],
             },
             {
               type: 'summary',
@@ -1797,7 +2082,7 @@ void counter() {
     printf("Count: %d\\n", count);
 }
 
-int main() {
+int main(void) {
     counter();
     counter();
     counter();
@@ -1809,6 +2094,17 @@ int main() {
               type: 'output',
               title: 'Output',
               code: { filename: 'output', language: 'bash', code: `Count: 1\nCount: 2\nCount: 3` },
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Storage Duration and Scope',
+              items: [
+                "A local automatic variable normally exists for the duration of its block execution; its value is not automatically initialized.",
+                "A block-scope static variable retains its value between function calls and exists for the entire program execution.",
+                "A file-scope object has static storage duration; static at file scope also gives an identifier internal linkage.",
+                "extern declares an object or function defined elsewhere; it does not by itself allocate a second object definition.",
+                "Scope, linkage, and storage duration are different concepts—learn them separately rather than treating static as having only one meaning.",
+              ],
             },
             {
               type: 'summary',
@@ -1838,15 +2134,24 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-int main() {
+int main(void) {
     int n;
     printf("How many numbers? ");
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        fprintf(stderr, "Enter a positive count.\\n");
+        return 1;
+    }
 
-    int *arr = (int*)malloc(n * sizeof(int));
+    if ((size_t)n > SIZE_MAX / sizeof(int)) {
+        fprintf(stderr, "Requested size is too large.\\n");
+        return 1;
+    }
+
+    int *arr = malloc((size_t)n * sizeof *arr);
     if (arr == NULL) {
-        printf("Memory allocation failed!\\n");
+        fprintf(stderr, "Memory allocation failed.\\n");
         return 1;
     }
 
@@ -1859,7 +2164,7 @@ int main() {
     }
     printf("\\n");
 
-    free(arr);  // always free allocated memory
+    free(arr);
     return 0;
 }`,
               },
@@ -1899,6 +2204,18 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Dynamic Memory',
+              items: [
+                "malloc allocates a block of uninitialized storage; calloc allocates storage and initializes its bytes to zero.",
+                "Include <stdlib.h> for malloc, calloc, realloc, and free. In C, do not cast malloc's return value.",
+                "Always check whether allocation returned NULL before accessing the memory, and free each allocated block when it is no longer needed.",
+                "After free, do not dereference the pointer. Setting a local pointer to NULL can prevent accidental reuse of that same variable but does not fix other aliases.",
+                "realloc can move the block and fail while leaving the original allocation intact; assign its result to a temporary pointer first.",
+                "Check requested sizes and multiplication overflow before allocating arrays from user-supplied counts.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Dynamic memory allocation (malloc, calloc, realloc, free) lets you manage memory at runtime. Always check for NULL and always free what you allocate.',
@@ -1926,7 +2243,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     FILE *fp = fopen("notes.txt", "w");
     if (fp == NULL) {
         printf("Could not open file\\n");
@@ -1947,7 +2264,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     FILE *fp = fopen("notes.txt", "r");
     if (fp == NULL) {
         printf("Could not open file\\n");
@@ -1972,6 +2289,18 @@ int main() {
                 '"r+" — read and write.',
                 '"w+" — read and write (overwrites).',
                 'Always close files with fclose().',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: File Handling',
+              items: [
+                "fopen returns a FILE pointer on success and NULL on failure; check it before using the stream.",
+                "Common modes include r for reading, w for writing/truncating, and a for appending. Binary modes use b where relevant, such as rb or wb.",
+                "fgets reads at most size - 1 characters and null-terminates a successful result; use its return value to detect end-of-file or errors.",
+                "Close files with fclose when finished. Check write and close results when reliable persistence matters.",
+                "After a read loop, check ferror(stream) when you need to distinguish a read error from normal end-of-file; feof becomes true only after an attempted read reaches EOF."
+                "Use perror or another diagnostic to explain file errors, and do not assume the current working directory is the source-code directory.",
               ],
             },
             {
@@ -2005,7 +2334,7 @@ int main() {
 #define PI 3.14159
 #define SQUARE(x) ((x) * (x))
 
-int main() {
+int main(void) {
     printf("PI = %f\\n", PI);
     printf("Square of 5 = %d\\n", SQUARE(5));
     return 0;
@@ -2021,6 +2350,17 @@ int main() {
                 '#ifdef / #ifndef — conditional compilation.',
                 '#undef — undefine a macro.',
                 '#pragma — compiler-specific instructions.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Preprocessor',
+              items: [
+                "#include inserts header contents before compilation; angle brackets are commonly used for system headers and quotes for project headers.",
+                "#define creates object-like or function-like macros. Parenthesize macro parameters and the full expression.",
+                "Macros perform textual substitution and can evaluate an argument more than once; avoid passing expressions with side effects to macros such as SQUARE(i++).",
+                "Use include guards or #pragma once (where supported) to prevent repeated inclusion of a header.",
+                "#if, #ifdef, #ifndef, #else, and #endif support conditional compilation; they do not replace runtime if statements.",
               ],
             },
             {
@@ -2072,6 +2412,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: Building Mini Projects',
+              items: [
+                "Break a project into small functions with clear responsibilities instead of placing the entire program inside main.",
+                "Validate input and handle invalid choices, empty data, and boundary values—not only the happy path.",
+                "Choose appropriate data structures and keep data separate from menu/input logic when practical.",
+                "Compile with warnings, test normal and edge cases, and fix memory/resource leaks before publishing.",
+                "Document the build command, sample usage, limitations, and what the project demonstrates in the README.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Build at least 3 mini projects to move from theory to practice. A calculator, a game, and a file-based management system cover the core skills.',
@@ -2101,6 +2452,17 @@ int main() {
                 'Custom Shell — parse and execute commands like a mini bash.',
                 'HTTP Server — a basic socket-based web server.',
                 'Markdown to HTML converter — file parsing and output.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Planning Larger Projects',
+              items: [
+                "Define the requirements and data model before coding; list the commands or operations the program must support.",
+                "Separate modules such as input validation, business logic, storage, and reporting when the project grows.",
+                "Handle failures explicitly: file errors, invalid input, allocation failures, and inconsistent data.",
+                "Add tests for edge cases and regression cases so later changes do not silently break existing behavior.",
+                "An advanced project should demonstrate design, correctness, documentation, and maintainability—not just a large number of lines.",
               ],
             },
             {
@@ -2145,6 +2507,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: C Interview Revision',
+              items: [
+                "Be able to explain pointers, arrays versus pointers, strings and '\\0', struct versus union, and stack versus dynamically allocated storage.",
+                "Know the differences between malloc and calloc, declaration and definition, and const int * versus int *const.",
+                "Explain undefined behavior with concrete examples such as out-of-bounds array access or dereferencing an invalid pointer.",
+                "Practice tracing short code snippets and state assumptions; avoid memorized answers that ignore C standard details.",
+                "Interview answers are stronger when paired with a small example and a note about edge cases.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Know pointers, memory management, struct vs union, const correctness, and stack vs heap. These are the core C interview topics.',
@@ -2183,6 +2556,17 @@ int main() {
               ],
             },
             {
+              type: 'notes',
+              title: 'Short Notes: How to Practise',
+              items: [
+                "Before coding, write down the inputs, expected output, constraints, and at least one edge case.",
+                "Test boundary inputs such as 0, 1, negative values where allowed, empty strings, and maximum supported sizes.",
+                "Use helper functions and meaningful variable names so the solution is easy to explain.",
+                "Compile with warnings and test more than one input; a single successful run does not prove correctness.",
+                "After solving, explain the algorithm and its time/space complexity where relevant.",
+              ],
+            },
+            {
               type: 'summary',
               title: 'Summary',
               content: 'Solve at least 10 of these programs without looking at solutions. This is the fastest way to get comfortable with C syntax and logic.',
@@ -2216,6 +2600,17 @@ int main() {
                 'Can solve 20+ practice programs without help.',
                 'Can answer the top 15 C interview questions.',
                 'Understand basic data structures (arrays, linked lists, stacks).',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'Short Notes: Self-Assessment',
+              items: [
+                "Do not mark a topic complete just because you read it; explain it in your own words and solve a small problem without copying.",
+                "Be able to compile, run, debug, and test programs from the terminal or your chosen IDE.",
+                "Demonstrate safe handling of strings, pointers, dynamic memory, and file errors in at least one project.",
+                "Keep project READMEs honest and reproducible, with requirements, build steps, sample output, and known limitations.",
+                "Use this checklist as a learning guide, not a guarantee of employment; job readiness depends on the role and demonstrated skills.",
               ],
             },
             {
