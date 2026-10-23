@@ -170,7 +170,7 @@ export const cCurriculum: Curriculum = {
               type: 'summary',
               title: 'Summary',
               content:
-                'C evolved from BCPL → B → C, created by Dennis Ritchie in 1972. It has been standardized multiple times (C89, C99, C11, C18) and is the ancestor of many modern languages.',
+                'C evolved from BCPL through B, with Dennis Ritchie developing C at Bell Labs around 1972. Its standards include C89/C90, C99, C11, C17/C18, and the newer C23 revision.',
             },
           ],
         },
@@ -2122,17 +2122,26 @@ int main(void) {
               code: {
                 filename: 'dma.c',
                 language: 'c',
-                code: `#include <stdio.h>
+                code: \`#include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 int main(void) {
     int n;
     printf("How many numbers? ");
-    scanf("%d", &n);
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        fprintf(stderr, "Enter a positive count.\\n");
+        return 1;
+    }
 
-    if (scanf("%d", &n) != 1 || n <= 0) {\n        fprintf(stderr, "Enter a positive count.\\n");\n        return 1;\n    }\n\n    int *arr = malloc((size_t)n * sizeof *arr);
+    if ((size_t)n > SIZE_MAX / sizeof(int)) {
+        fprintf(stderr, "Requested size is too large.\\n");
+        return 1;
+    }
+
+    int *arr = malloc((size_t)n * sizeof *arr);
     if (arr == NULL) {
-        printf("Memory allocation failed!\\n");
+        fprintf(stderr, "Memory allocation failed.\\n");
         return 1;
     }
 
@@ -2145,9 +2154,9 @@ int main(void) {
     }
     printf("\\n");
 
-    free(arr);  // always free allocated memory
+    free(arr);
     return 0;
-}`,
+}\`,
               },
             },
             {
