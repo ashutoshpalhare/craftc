@@ -153,7 +153,19 @@ export const cCurriculum: Curriculum = {
                 { q: 'What does K&R refer to?', a: 'The book "The C Programming Language" by Brian Kernighan and Dennis Ritchie, published in 1978.' },
                 { q: 'What was the first standard of C?', a: 'ANSI C, also known as C89, standardized in 1989.' },
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: C Standards',
+              items: [
+                'A language standard defines the rules and library that conforming compilers are expected to support.',
+                'K&R C describes the language before formal ANSI/ISO standardization; modern code should generally follow a selected standard such as C17/C23.',
+                'C89/C90 introduced the first widely adopted formal standard. C99 added features such as // comments and declarations inside for loops; support for some features varies.',
+                'C11 added features including atomics and optional multithreading support. C17/C18 is primarily a bug-fix revision of C11.',
+                'C23 is the newer ISO C revision. Compiler support varies, so check your compiler version and selected language mode before relying on new features.',
+                'C++ is a separate language that evolved from C but is not simply “C with extra features”; some valid C programs are not valid C++ programs.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -186,7 +198,7 @@ export const cCurriculum: Curriculum = {
               type: 'bestPractices',
               title: 'Best Practices',
               items: [
-                'Learn C before C++ — the transition becomes far easier.',
+                'Learning C before C++ can help, but it is a learning preference rather than a universal requirement.',
                 'Use C to understand pointers before studying data structures.',
                 'Build small projects (calculator, file utility) to solidify concepts.',
               ],
@@ -201,7 +213,19 @@ export const cCurriculum: Curriculum = {
                 'Game Engine Developer — many engines use C/C++ cores.',
                 'Database Engineer — contribute to databases like PostgreSQL.',
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: Learning C Effectively',
+              items: [
+                'C is especially useful for learning memory layout, pointers, compilation, data representation, and resource management.',
+                'Learning C before C++ can help some learners, but it is not a requirement; choose the sequence that matches your goals.',
+                'Build a strong foundation in expressions, control flow, functions, arrays, strings, pointers, structures, and file I/O before advanced projects.',
+                'Use a compiler with warnings enabled, read diagnostics, and test boundary cases rather than relying only on examples that appear to work.',
+                'C does not automatically protect you from invalid memory access, buffer overflows, or resource leaks; careful design and testing matter.',
+                'Learning a language is not enough for a job by itself. Pair C knowledge with debugging, data structures, Git, testing, and projects relevant to the role.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -244,7 +268,19 @@ export const cCurriculum: Curriculum = {
                 { q: 'Name three real-world applications of C.', a: 'Operating systems, embedded systems, and databases.' },
                 { q: 'Which popular database engines are written in C?', a: 'MySQL, PostgreSQL, and SQLite.' },
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: Where C Is Used',
+              items: [
+                'Systems software: operating-system kernels, device drivers, runtime libraries, and low-level utilities.',
+                'Embedded and firmware: microcontrollers and devices with limited memory or strict timing requirements.',
+                'Databases and networking: C is used in major database engines, protocol implementations, and performance-sensitive services.',
+                'Language runtimes: CPython, PHP, and CRuby use substantial C code, but other implementations can be built with different languages.',
+                'A product can combine multiple languages. Avoid saying an entire operating system, database, or application is written in C unless that claim is specifically verified.',
+                'C is a tool, not a guarantee of speed: algorithm choice, compiler settings, memory access patterns, and system design also affect performance.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -269,7 +305,7 @@ export const cCurriculum: Curriculum = {
               type: 'realWorld',
               title: 'Top Job Roles',
               items: [
-                'Embedded Software Engineer — average demand growing with IoT.',
+                'Embedded Software Engineer — develops software for microcontrollers and resource-constrained devices.',
                 'Systems Software Engineer — OS, drivers, virtualization.',
                 'Firmware Engineer — hardware-level programming.',
                 'Kernel Developer — Linux and custom OS development.',
@@ -286,11 +322,22 @@ export const cCurriculum: Curriculum = {
                 'Contribute to an open-source C project (Redis, SQLite).',
                 'Learn basic C++ after C — many jobs want both.',
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: Career Preparation',
+              items: [
+                'Common C-heavy paths include embedded software, firmware, device drivers, operating-system work, networking, and database internals.',
+                'Job requirements vary. Some roles expect C plus electronics or microcontrollers; others expect Linux, debugging, concurrency, or systems knowledge.',
+                'For each project, document the problem, design choices, build steps, test cases, limitations, and what you learned.',
+                'Practise reading compiler warnings, using a debugger, tracing memory bugs, and writing small tests—not only writing code from scratch.',
+                'A portfolio and interview readiness depend on demonstrated skills and the target role; completing this course alone does not guarantee employment.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'C skills lead to specialized roles in embedded, systems, and firmware engineering — fields with strong demand and fewer competitors.',
+              content: 'C is relevant to embedded, systems, and firmware roles. Each role also requires practical projects and domain-specific skills.',
             },
           ],
         },
