@@ -129,7 +129,7 @@ export const cCurriculum: Curriculum = {
             {
               type: 'diagram',
               title: 'Language Family Tree',
-              content: 'BCPL (1967) → B (1969) → C (1972) → C++ (1985) → Java (1995) → C# (2000)',
+              content: 'BCPL → B → C (1972) → C++ (1985). Java and C# were influenced by C/C++ syntax but are separate languages.',
             },
             {
               type: 'notes',
@@ -680,15 +680,15 @@ int main(void) {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int age;
     char name[50];
 
     printf("Enter your name: ");
-    scanf("%s", name);
+    if (scanf("%49s", name) != 1) return 1;
 
     printf("Enter your age: ");
-    scanf("%d", &age);
+    if (scanf("%d", &age) != 1) return 1;
 
     printf("Hello %s, you are %d years old.\\n", name, age);
     return 0;
@@ -789,7 +789,7 @@ Hello Ashutosh, you are 22 years old.`,
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int age = 22;
     float height = 5.9f;
     char grade = 'A';
@@ -881,7 +881,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 10;
     float b = 5.75f;
     double c = 19.99;
@@ -898,18 +898,18 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `int: 10, size: 4 bytes\nfloat: 5.750000, size: 4 bytes\ndouble: 19.990000, size: 8 bytes\nchar: C, size: 1 bytes` },
+              code: { filename: 'output', language: 'bash', code: `Example output (sizes vary by platform):\nint: 10, size: 4 bytes\nfloat: 5.750000, size: 4 bytes\ndouble: 19.990000, size: 8 bytes\nchar: C, size: 1 byte` },
             },
             {
               type: 'notes',
               title: 'Data Type Table',
               items: [
-                'int — 4 bytes — whole numbers (−2 billion to 2 billion).',
-                'float — 4 bytes — 6–7 decimal digits precision.',
-                'double — 8 bytes — 15 decimal digits precision.',
+                'int — size and range are implementation-dependent; use <limits.h> when exact limits matter.',
+                'float — commonly 4 bytes with about 6–7 decimal digits precision; implementation details can vary.',
+                'double — commonly 8 bytes with about 15 decimal digits precision; implementation details can vary.',
                 'char — 1 byte — single character or small integer.',
-                'short — 2 bytes — smaller integers.',
-                'long — 4 or 8 bytes — larger integers.',
+                'short — at least 16 bits; its exact size is implementation-dependent.',
+                'long — at least 32 bits; its exact size depends on the implementation and data model.',
                 'unsigned int — non-negative integers only.',
               ],
             },
@@ -970,7 +970,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 10, b = 3;
 
     // Arithmetic
@@ -1067,7 +1067,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int a = 5, b = 2;
 
     // Implicit — integer division
@@ -1147,10 +1147,10 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int score;
     printf("Enter your score: ");
-    scanf("%d", &score);
+    if (scanf("%d", &score) != 1) return 1;
 
     if (score >= 90) {
         printf("Grade: A\\n");
@@ -1173,7 +1173,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int day = 3;
     switch (day) {
         case 1: printf("Monday\\n"); break;
@@ -1247,7 +1247,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     for (int i = 1; i <= 5; i++) {
         printf("Iteration %d\\n", i);
     }
@@ -1263,7 +1263,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int n = 5;
     while (n > 0) {
         printf("Countdown: %d\\n", n);
@@ -1281,7 +1281,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int i = 1;
     do {
         printf("Run %d\\n", i);
@@ -1380,7 +1380,7 @@ void greet(char name[]) {
     printf("Hello, %s!\\n", name);
 }
 
-int main() {
+int main(void) {
     greet("Ashutosh");
     int sum = add(10, 20);
     printf("Sum = %d\\n", sum);
@@ -1459,7 +1459,7 @@ int factorial(int n) {
     return n * factorial(n - 1);  // recursive call
 }
 
-int main() {
+int main(void) {
     printf("5! = %d\\n", factorial(5));
     return 0;
 }`,
@@ -1548,7 +1548,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int numbers[5] = {10, 20, 30, 40, 50};
 
     for (int i = 0; i < 5; i++) {
@@ -1639,7 +1639,7 @@ int main() {
                 code: `#include <stdio.h>
 #include <string.h>
 
-int main() {
+int main(void) {
     char str1[] = "CraftC";
     char str2[20];
 
@@ -1739,7 +1739,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     int x = 42;
     int *ptr = &x;   // ptr stores the address of x
 
@@ -1757,7 +1757,7 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `Value of x: 42\nAddress of x: 0x7ffd8e3c\nptr points to: 0x7ffd8e3c\nValue via *ptr: 42\nNew value of x: 100` },
+              code: { filename: 'output', language: 'bash', code: `Value of x: 42\nAddress of x: implementation-dependent\nptr points to: same address as x\nValue via *ptr: 42\nNew value of x: 100` },
             },
             {
               type: 'explanation',
@@ -1858,7 +1858,7 @@ struct Student {
     float marks;
 };
 
-int main() {
+int main(void) {
     struct Student s1;
     strcpy(s1.name, "Ashutosh");
     s1.rollNo = 101;
@@ -1941,7 +1941,7 @@ union Data {
     char str[20];
 };
 
-int main() {
+int main(void) {
     union Data d;
     d.i = 10;
     printf("d.i = %d\\n", d.i);
@@ -2003,7 +2003,7 @@ int main() {
 
 enum Day { MON, TUE, WED, THU, FRI, SAT, SUN };
 
-int main() {
+int main(void) {
     enum Day today = WED;
     printf("Day number: %d\\n", today);  // WED = 2
     return 0;
@@ -2072,7 +2072,7 @@ void counter() {
     printf("Count: %d\\n", count);
 }
 
-int main() {
+int main(void) {
     counter();
     counter();
     counter();
@@ -2125,12 +2125,12 @@ int main() {
                 code: `#include <stdio.h>
 #include <stdlib.h>
 
-int main() {
+int main(void) {
     int n;
     printf("How many numbers? ");
     scanf("%d", &n);
 
-    int *arr = (int*)malloc(n * sizeof(int));
+    if (scanf("%d", &n) != 1 || n <= 0) {\n        fprintf(stderr, "Enter a positive count.\\n");\n        return 1;\n    }\n\n    int *arr = malloc((size_t)n * sizeof *arr);
     if (arr == NULL) {
         printf("Memory allocation failed!\\n");
         return 1;
@@ -2224,7 +2224,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     FILE *fp = fopen("notes.txt", "w");
     if (fp == NULL) {
         printf("Could not open file\\n");
@@ -2245,7 +2245,7 @@ int main() {
                 language: 'c',
                 code: `#include <stdio.h>
 
-int main() {
+int main(void) {
     FILE *fp = fopen("notes.txt", "r");
     if (fp == NULL) {
         printf("Could not open file\\n");
@@ -2314,7 +2314,7 @@ int main() {
 #define PI 3.14159
 #define SQUARE(x) ((x) * (x))
 
-int main() {
+int main(void) {
     printf("PI = %f\\n", PI);
     printf("Square of 5 = %d\\n", SQUARE(5));
     return 0;
