@@ -1598,7 +1598,18 @@ int main() {
                 'Reverse an array in place.',
                 'Sort an array using bubble sort.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Arrays',
+              items: [
+                "An array stores a fixed number of elements of the same type in contiguous memory.",
+                "Array indexes start at 0; for an array of length n, valid indexes are 0 through n - 1.",
+                "C does not automatically check array bounds. Accessing an index outside the array is undefined behavior.",
+                "When an array is passed to a function, the parameter is adjusted to a pointer; the function does not automatically receive the array length.",
+                "Initialize arrays deliberately and pass the element count separately when a function needs to know how many elements it may access.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1671,7 +1682,18 @@ int main() {
                 'Not allocating enough space in the destination for strcpy/strcat.',
                 'Comparing strings with == instead of strcmp.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: C Strings',
+              items: [
+                "A C string is a sequence of char values terminated by the null character '\\0'; the terminator needs space in the array.",
+                "strlen counts characters before the null terminator, not the full allocated capacity of the array.",
+                "strcpy and strcat do not know the destination buffer capacity; ensure enough space before calling them.",
+                "strcmp returns a negative, zero, or positive value depending on lexicographic ordering; test == 0 to check equality.",
+                "Prefer bounded input such as fgets and always account for the final null terminator.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1781,7 +1803,19 @@ int main() {
                 'Print the address and value of 5 variables using pointers.',
                 'Write a function that doubles a number using a pointer parameter.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Pointers',
+              items: [
+                "A pointer stores an address or a null pointer value. The type tells the compiler what kind of object the pointer can point to.",
+                "&x obtains an object's address; *ptr dereferences a valid pointer to access the pointed-to object.",
+                "Initialize pointers before use. Dereferencing a null, dangling, uninitialized, or otherwise invalid pointer causes undefined behavior.",
+                "Pointer arithmetic is only defined within an array object and one position past its end; the one-past pointer must not be dereferenced.",
+                "Use %p to print an address and pass (void *)pointer to match printf's %p conversion.",
+                "const int *p prevents modification through p; int *const p prevents p itself from being reassigned after initialization.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1861,7 +1895,18 @@ int main() {
                 'Create an array of 3 students and print all of them.',
                 'Write a function that takes a struct pointer and modifies it.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Structures',
+              items: [
+                "A struct groups named members, potentially of different types, into one object.",
+                "Use the dot operator (.) to access a member through a struct object and the arrow operator (->) through a pointer to a struct.",
+                "Struct assignment copies member values, including array members as part of the structure object; it does not deep-copy memory referenced by pointer members.",
+                "Padding may be added between members, so sizeof(struct Type) can exceed the sum of member sizes.",
+                "Use designated initializers in C99 and later when they make member initialization clearer.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1916,7 +1961,18 @@ int main() {
                 'Only one member is valid at a time.',
                 'Useful for type punning and memory-constrained systems.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Unions',
+              items: [
+                "All union members share the same storage, so the union is large enough for its largest member plus any required alignment.",
+                "A union is useful when a program stores one of several alternative representations at a time.",
+                "Track which member is currently meaningful; reading another member is not a portable way to retrieve the old value and may produce an implementation-dependent or invalid representation.",
+                "Use a tagged union pattern—an enum or other tag plus the union—to record which member is active.",
+                "Unlike a struct, whose members occupy separate storage, union members overlap.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -1953,7 +2009,18 @@ int main() {
     return 0;
 }`,
               },
+             {
+              type: 'notes',
+              title: 'Short Notes: Enumerations',
+              items: [
+                "An enum defines named integer constants, making code more readable than unexplained numeric values.",
+                "Unless explicitly assigned, the first enumerator has value 0 and each following enumerator increments by one.",
+                "You can assign explicit values, but duplicate values are allowed and may be intentional.",
+                "Use enum names in conditions and switch statements to make the meaning of each case clear.",
+                "An enum's compatible integer type and representation are implementation-defined within the language rules; do not assume a specific size without checking.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2017,7 +2084,18 @@ int main() {
               type: 'output',
               title: 'Output',
               code: { filename: 'output', language: 'bash', code: `Count: 1\nCount: 2\nCount: 3` },
+             {
+              type: 'notes',
+              title: 'Short Notes: Storage Duration and Scope',
+              items: [
+                "A local automatic variable normally exists for the duration of its block execution; its value is not automatically initialized.",
+                "A block-scope static variable retains its value between function calls and exists for the entire program execution.",
+                "A file-scope object has static storage duration; static at file scope also gives an identifier internal linkage.",
+                "extern declares an object or function defined elsewhere; it does not by itself allocate a second object definition.",
+                "Scope, linkage, and storage duration are different concepts—learn them separately rather than treating static as having only one meaning.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2105,7 +2183,19 @@ int main() {
                 { q: 'What is a memory leak?', a: 'Allocated memory that is never freed. Over time it exhausts available memory.' },
                 { q: 'What does realloc do?', a: 'It resizes a previously allocated block, possibly moving it to a new location.' },
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Dynamic Memory',
+              items: [
+                "malloc allocates a block of uninitialized storage; calloc allocates storage and initializes its bytes to zero.",
+                "Include <stdlib.h> for malloc, calloc, realloc, and free. In C, do not cast malloc's return value.",
+                "Always check whether allocation returned NULL before accessing the memory, and free each allocated block when it is no longer needed.",
+                "After free, do not dereference the pointer. Setting a local pointer to NULL can prevent accidental reuse of that same variable but does not fix other aliases.",
+                "realloc can move the block and fail while leaving the original allocation intact; assign its result to a temporary pointer first.",
+                "Check requested sizes and multiplication overflow before allocating arrays from user-supplied counts.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2181,7 +2271,18 @@ int main() {
                 '"w+" — read and write (overwrites).',
                 'Always close files with fclose().',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: File Handling',
+              items: [
+                "fopen returns a FILE pointer on success and NULL on failure; check it before using the stream.",
+                "Common modes include r for reading, w for writing/truncating, and a for appending. Binary modes use b where relevant, such as rb or wb.",
+                "fgets reads at most size - 1 characters and null-terminates a successful result; use its return value to detect end-of-file or errors.",
+                "Close files with fclose when finished. Check write and close results when reliable persistence matters.",
+                "Use perror or another diagnostic to explain file errors, and do not assume the current working directory is the source-code directory.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2230,7 +2331,18 @@ int main() {
                 '#undef — undefine a macro.',
                 '#pragma — compiler-specific instructions.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Preprocessor',
+              items: [
+                "#include inserts header contents before compilation; angle brackets are commonly used for system headers and quotes for project headers.",
+                "#define creates object-like or function-like macros. Parenthesize macro parameters and the full expression.",
+                "Macros perform textual substitution and can evaluate an argument more than once; avoid passing expressions with side effects to macros such as SQUARE(i++).",
+                "Use include guards or #pragma once (where supported) to prevent repeated inclusion of a header.",
+                "#if, #ifdef, #ifndef, #else, and #endif support conditional compilation; they do not replace runtime if statements.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2278,7 +2390,18 @@ int main() {
                 'Commit each project to GitHub.',
                 'Write clean code with meaningful function names.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Building Mini Projects',
+              items: [
+                "Break a project into small functions with clear responsibilities instead of placing the entire program inside main.",
+                "Validate input and handle invalid choices, empty data, and boundary values—not only the happy path.",
+                "Choose appropriate data structures and keep data separate from menu/input logic when practical.",
+                "Compile with warnings, test normal and edge cases, and fix memory/resource leaks before publishing.",
+                "Document the build command, sample usage, limitations, and what the project demonstrates in the README.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2310,7 +2433,18 @@ int main() {
                 'HTTP Server — a basic socket-based web server.',
                 'Markdown to HTML converter — file parsing and output.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Planning Larger Projects',
+              items: [
+                "Define the requirements and data model before coding; list the commands or operations the program must support.",
+                "Separate modules such as input validation, business logic, storage, and reporting when the project grows.",
+                "Handle failures explicitly: file errors, invalid input, allocation failures, and inconsistent data.",
+                "Add tests for edge cases and regression cases so later changes do not silently break existing behavior.",
+                "An advanced project should demonstrate design, correctness, documentation, and maintainability—not just a large number of lines.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2351,7 +2485,18 @@ int main() {
                 { q: 'What is the difference between const char* and char* const?', a: 'const char* points to constant data (cannot modify the chars); char* const is a constant pointer (cannot change where it points).' },
                 { q: 'Explain the difference between stack and heap memory.', a: 'Stack is automatic, fast, and scoped to function calls. Heap is manual (malloc/free), slower, and persists until freed.' },
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: C Interview Revision',
+              items: [
+                "Be able to explain pointers, arrays versus pointers, strings and '\\0', struct versus union, and stack versus dynamically allocated storage.",
+                "Know the differences between malloc and calloc, declaration and definition, and const int * versus int *const.",
+                "Explain undefined behavior with concrete examples such as out-of-bounds array access or dereferencing an invalid pointer.",
+                "Practice tracing short code snippets and state assumptions; avoid memorized answers that ignore C standard details.",
+                "Interview answers are stronger when paired with a small example and a note about edge cases.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2389,7 +2534,18 @@ int main() {
                 'Implement a simple calculator using switch.',
                 'Find the transpose of a matrix.',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: How to Practise',
+              items: [
+                "Before coding, write down the inputs, expected output, constraints, and at least one edge case.",
+                "Test boundary inputs such as 0, 1, negative values where allowed, empty strings, and maximum supported sizes.",
+                "Use helper functions and meaningful variable names so the solution is easy to explain.",
+                "Compile with warnings and test more than one input; a single successful run does not prove correctness.",
+                "After solving, explain the algorithm and its time/space complexity where relevant.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -2425,7 +2581,18 @@ int main() {
                 'Can answer the top 15 C interview questions.',
                 'Understand basic data structures (arrays, linked lists, stacks).',
               ],
+             {
+              type: 'notes',
+              title: 'Short Notes: Self-Assessment',
+              items: [
+                "Do not mark a topic complete just because you read it; explain it in your own words and solve a small problem without copying.",
+                "Be able to compile, run, debug, and test programs from the terminal or your chosen IDE.",
+                "Demonstrate safe handling of strings, pointers, dynamic memory, and file errors in at least one project.",
+                "Keep project READMEs honest and reproducible, with requirements, build steps, sample output, and known limitations.",
+                "Use this checklist as a learning guide, not a guarantee of employment; job readiness depends on the role and demonstrated skills.",
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
