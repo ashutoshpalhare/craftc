@@ -404,7 +404,19 @@ gcc --version`,
                 'Use the integrated terminal for compiling.',
                 'Create a dedicated workspace folder for C projects.',
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: Editor vs Compiler',
+              items: [
+                'VS Code is an editor, not a C compiler. Install a compiler toolchain separately and make sure its executable is available in the terminal PATH.',
+                'On Windows, a MinGW-w64 toolchain is common; MSYS2 is one supported way to install and update MinGW-w64 tools.',
+                'On macOS, xcode-select --install installs Apple command-line developer tools, including Clang. The gcc command may invoke Clang rather than GNU GCC.',
+                'On Ubuntu/Debian, build-essential installs common build tools, including GCC and make; other Linux distributions use their own package manager.',
+                'Verify the compiler with gcc --version or clang --version, then compile a .c file from the integrated terminal.',
+                'An editor extension provides highlighting, completion, and debugging integration; it does not replace the compiler or debugger itself.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -436,12 +448,13 @@ gcc --version`,
               code: {
                 filename: 'cmd',
                 language: 'bash',
-                code: `gcc --version
-gcc (MinGW-W64) 13.2.0
-Copyright (C) 2023 Free Software Foundation, Inc.
+                code: `# Check that the compiler is available
+gcc --version
 
-# Compile and run a program
-gcc hello.c -o hello
+# Compile hello.c into a Windows executable
+gcc hello.c -o hello.exe
+
+# Run from Command Prompt in the current folder
 hello.exe`,
               },
             },
@@ -450,10 +463,22 @@ hello.exe`,
               title: 'Common Mistakes',
               items: [
                 'Forgetting to add MinGW bin to PATH — "gcc is not recognized".',
-                'Installing MSYS2 instead of MinGW-w64 when you only need GCC.',
+                'Installing a toolchain but adding the wrong bin directory to PATH.',
                 'Restarting the terminal after adding to PATH is required.',
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: Windows Build Workflow',
+              items: [
+                'Install a maintained MinGW-w64 toolchain, for example through MSYS2, and follow that distribution’s current setup instructions.',
+                'Add the correct toolchain bin directory to PATH. Open a new terminal afterward so it receives the updated environment.',
+                'Run gcc --version to check that the terminal finds the expected compiler; “command not found” or “not recognized” usually points to PATH or installation setup.',
+                'Compile from the folder containing the source file: gcc hello.c -o hello.exe. The output file is an executable, not the C source.',
+                'Run the program from Command Prompt with hello.exe, or from PowerShell with .\\hello.exe when the current directory is not searched automatically.',
+                'Compiler version output is produced by gcc --version; it is not a command to copy into the terminal.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
@@ -488,7 +513,18 @@ hello.exe`,
                 'Open Code::Blocks → File → New → Project → Console Application → C.',
                 'Write your code and press F9 to build and run.',
               ],
+             {
+              type: 'notes',
+              title: 'Quick Notes: IDE Setup',
+              items: [
+                'Choose an installer that includes a compatible compiler toolchain if you want an all-in-one Windows setup; verify that the download is from the official project source.',
+                'Create a Console Application project and explicitly choose C when prompted, because IDEs may also offer C++ projects.',
+                'Build first, then run. If the build fails, read the first compiler error and its file/line location before changing code.',
+                'IDE keyboard shortcuts can vary by version and operating system; use the Build menu if a shortcut differs.',
+                'The concepts remain the same across IDEs: source file, compiler, linker, executable, terminal input, and program output.',
+              ],
             },
+           },
             {
               type: 'summary',
               title: 'Summary',
