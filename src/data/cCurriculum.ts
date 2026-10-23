@@ -937,6 +937,7 @@ int main(void) {
               title: 'Short Notes: C Data Types',
               items: [
                 "Integer types include char, short, int, long, and long long, with signed and unsigned variants where supported.",
+                "void represents no value in contexts such as a function return type; _Bool represents 0 or 1, and stdbool.h provides bool, true, and false names in C99 and later."
                 "float, double, and long double represent floating-point values; floating-point calculations can involve rounding.",
                 "sizeof returns a size in bytes and its result type is size_t, printed with %zu. Exact sizes vary by implementation.",
                 "char is an integer type capable of representing a byte-sized character value; use single quotes for character constants such as 'C'.",
@@ -1037,6 +1038,8 @@ int main(void) {
                 "Relational and equality operators produce 0 or 1 in C. Do not confuse = (assignment) with == (comparison).",
                 "&& and || short-circuit: the right operand is evaluated only when needed to determine the result.",
                 "Operator precedence affects grouping; use parentheses when they make the intended expression clearer.",
+                "Bitwise operators (&, |, ^, ~, <<, >>) operate on integer bits; they are different from logical operators && and ||.",
+                "The conditional operator (condition ? value1 : value2) is a compact expression form; do not confuse it with an if statement."
                 "Avoid modifying the same scalar object multiple times in one expression unless evaluation order is fully understood.",
               ],
             },
@@ -1421,6 +1424,8 @@ int main(void) {
               items: [
                 "A function declaration (prototype) tells the compiler the function's name, return type, and parameter types before a call.",
                 "Parameters receive argument values; ordinary C arguments are passed by value. A pointer can be passed when a function must modify an object owned by its caller.",
+                "A command-line program can declare int main(int argc, char *argv[]) to receive the argument count and argument strings.",
+                "A function pointer stores a function address and enables callbacks or dispatch tables; its type must match the function signature."
                 "Use void as the return type when a function returns no value, and do not use a returned value after a function that promises none.",
                 "Keep function responsibilities focused and give parameters and return values clear meanings.",
                 "Use int main(void) for a program that accepts no command-line arguments; use the standard argc/argv form when arguments are needed.",
@@ -1813,6 +1818,8 @@ int main(void) {
                 "&x obtains an object's address; *ptr dereferences a valid pointer to access the pointed-to object.",
                 "Initialize pointers before use. Dereferencing a null, dangling, uninitialized, or otherwise invalid pointer causes undefined behavior.",
                 "Pointer arithmetic is only defined within an array object and one position past its end; the one-past pointer must not be dereferenced.",
+                "A void pointer (void *) can hold an object pointer value generically, but must be converted to an appropriate object-pointer type before dereferencing.",
+                "A pointer-to-pointer stores the address of another pointer; a function pointer stores a function address and uses a function-type declaration."
                 "Use %p to print an address and pass (void *)pointer to match printf's %p conversion.",
                 "const int *p prevents modification through p; int *const p prevents p itself from being reassigned after initialization.",
               ],
@@ -1906,6 +1913,8 @@ int main(void) {
                 "Struct assignment copies member values, including array members as part of the structure object; it does not deep-copy memory referenced by pointer members.",
                 "Padding may be added between members, so sizeof(struct Type) can exceed the sum of member sizes.",
                 "Use designated initializers in C99 and later when they make member initialization clearer.",
+                "typedef creates a type alias; it does not create a new distinct type by itself.",
+                "Self-referential structures can contain pointers to the same struct type and are commonly used to build linked lists and trees."
               ],
             },
             {
@@ -2290,6 +2299,7 @@ int main(void) {
                 "Common modes include r for reading, w for writing/truncating, and a for appending. Binary modes use b where relevant, such as rb or wb.",
                 "fgets reads at most size - 1 characters and null-terminates a successful result; use its return value to detect end-of-file or errors.",
                 "Close files with fclose when finished. Check write and close results when reliable persistence matters.",
+                "After a read loop, check ferror(stream) when you need to distinguish a read error from normal end-of-file; feof becomes true only after an attempted read reaches EOF."
                 "Use perror or another diagnostic to explain file errors, and do not assume the current working directory is the source-code directory.",
               ],
             },
