@@ -2122,7 +2122,7 @@ int main(void) {
               code: {
                 filename: 'dma.c',
                 language: 'c',
-                code: \`#include <stdio.h>
+                code: `#include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 
@@ -2156,7 +2156,7 @@ int main(void) {
 
     free(arr);
     return 0;
-}\`,
+}`,
               },
             },
             {
