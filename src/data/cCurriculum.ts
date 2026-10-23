@@ -23,13 +23,13 @@ export const cCurriculum: Curriculum = {
               type: 'introduction',
               title: 'Introduction',
               content:
-                'C is a general-purpose, compiled programming language created in the early 1970s by Dennis Ritchie at Bell Labs. It is the foundation upon which modern operating systems, databases, and languages like C++, Java, and Python were built. Learning C gives you a deep understanding of how memory, pointers, and the machine itself work — skills that make you a stronger engineer in any language.',
+                'C is a general-purpose, compiled programming language developed by Dennis Ritchie at Bell Labs in the early 1970s. It became especially important for operating systems and other software that needs direct control over memory and hardware resources. C also influenced the design of languages such as C++, Java, and many others. Learning C helps you understand data representation, pointers, memory, and how source code becomes a running program.',
             },
             {
               type: 'theory',
               title: 'Why C Still Matters',
               content:
-                'Despite being over 50 years old, C remains one of the most widely used languages in the world. It powers operating systems (Linux, Windows kernel), embedded devices, game engines, IoT hardware, and high-performance libraries like TensorFlow and Redis. C is small, fast, and close to the metal — there is almost no abstraction between you and the CPU.',
+                'Although C is more than 50 years old, it is still widely used in operating-system components, embedded firmware, device drivers, databases, networking software, and performance-critical libraries. The Linux kernel is predominantly written in C; Windows and macOS contain substantial C code alongside other languages. C offers low-level memory and data-layout control, but it still runs within an operating system and hardware environment rather than removing every abstraction.',
             },
             {
               type: 'notes',
@@ -44,13 +44,28 @@ export const cCurriculum: Curriculum = {
               ],
             },
             {
+              type: 'notes',
+              title: 'Quick Notes: Essential C Concepts',
+              items: [
+                'Source code: the human-readable instructions you write, usually saved in a .c file.',
+                'Compiler: translates C source code into object code and reports diagnostics such as errors and warnings.',
+                'Linker: combines object files and required libraries to create an executable program.',
+                'Typical build flow: edit source → compile → link → run → test and debug. Some toolchains combine compile and link in one command.',
+                'Entry point: a hosted C program normally starts at main. Use int main(void) when no command-line arguments are needed, and return 0 to report success.',
+                'Standard library: headers such as <stdio.h> declare functions like printf. Include the header for each library feature you use.',
+                'Portability: code is portable when it follows the C standard and avoids assumptions about a particular compiler, operating system, or data type size.',
+                'Undefined behavior: the C standard gives no requirements for what happens (for example, signed integer overflow or dereferencing an invalid pointer). Do not rely on a program appearing to work.',
+                'Compiler warnings are useful feedback, not noise. Practise compiling with warnings enabled and fix them instead of ignoring them.',
+              ],
+            },
+            {
               type: 'realWorld',
               title: 'Real-World Usage',
               items: [
                 'Operating systems: Linux kernel is written almost entirely in C.',
                 'Embedded systems: microcontrollers in cars, appliances, and medical devices.',
                 'Databases: PostgreSQL, Redis, and SQLite cores are written in C.',
-                'Interpreters and compilers: Python, PHP, and Ruby are implemented in C.',
+                'Language implementations: CPython (the standard Python implementation), the PHP interpreter, and CRuby (the standard Ruby implementation) use substantial C code; other implementations may use different languages.',
                 'IoT and robotics: Arduino and many RTOS platforms use C.',
               ],
             },
@@ -80,7 +95,7 @@ export const cCurriculum: Curriculum = {
               items: [
                 'Write a one-line description of C in your own words.',
                 'List three devices around you that likely run C code.',
-                'Explain to a friend why C is still relevant in 2025.',
+                'Explain to a friend why C is still relevant today.',
               ],
             },
             {
@@ -215,7 +230,7 @@ export const cCurriculum: Curriculum = {
                 'Operating Systems: Linux, Windows, macOS kernels.',
                 'Embedded Systems: Arduino, smart watches, medical devices.',
                 'Databases: MySQL, PostgreSQL, SQLite, Redis.',
-                'Compilers & Interpreters: Python, PHP, Ruby are written in C.',
+                'Language runtimes: CPython, the PHP interpreter, and CRuby use substantial C code; this does not mean every implementation of those languages is written in C.',
                 'Network drivers and protocol stacks.',
                 'Desktop applications: parts of Photoshop, AutoCAD.',
                 'Game engines and graphics libraries.',
