@@ -96,6 +96,7 @@ export const cCurriculum: Curriculum = {
                 'Portability: code is portable when it follows the C standard and avoids assumptions about a particular compiler, operating system, or data type size.',
                 'Undefined behavior: the C standard gives no requirements for what happens (for example, signed integer overflow or dereferencing an invalid pointer). Do not rely on a program appearing to work.',
                 'Compiler warnings are useful feedback, not noise. Practise compiling with warnings enabled and fix them instead of ignoring them.',
+                'Larger programs can be split across .c and .h files: put declarations in headers, definitions in source files, and compile/link all required source files together.'
               ],
             },
             {
