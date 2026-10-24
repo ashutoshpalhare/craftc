@@ -890,7 +890,7 @@ int main(void) {
 
     printf("int: %d, size: %zu bytes\\n", a, sizeof(int));
     printf("float: %f, size: %zu bytes\\n", b, sizeof(float));
-    printf("double: %lf, size: %zu bytes\\n", c, sizeof(double));
+    printf("double: %f, size: %zu bytes\\n", c, sizeof(double));
     printf("char: %c, size: %zu bytes\\n", d, sizeof(char));
     return 0;
 }`,
@@ -1380,7 +1380,7 @@ int add(int a, int b) {
     return a + b;
 }
 
-void greet(char name[]) {
+void greet(const char *name) {
     printf("Hello, %s!\\n", name);
 }
 
@@ -1957,7 +1957,7 @@ int main(void) {
     printf("d.i = %d\\n", d.i);
 
     d.f = 220.5;
-    printf("d.f = %.1f\\n", d.f);  // d.i is now corrupted
+    printf("d.f = %.1f\\n", d.f);  // d.f is the member most recently written
 
     return 0;
 }`,
@@ -2249,8 +2249,15 @@ int main(void) {
         printf("Could not open file\\n");
         return 1;
     }
-    fprintf(fp, "Learning C with CraftC\\n");
-    fclose(fp);
+    if (fprintf(fp, "Learning C with CraftC\\n") < 0) {
+        perror("Could not write to file");
+        fclose(fp);
+        return 1;
+    }
+    if (fclose(fp) == EOF) {
+        perror("Could not close file");
+        return 1;
+    }
     printf("File written successfully\\n");
     return 0;
 }`,
@@ -2274,7 +2281,15 @@ int main(void) {
     while (fgets(line, sizeof(line), fp) != NULL) {
         printf("%s", line);
     }
-    fclose(fp);
+    if (ferror(fp)) {
+        perror("Error while reading file");
+        fclose(fp);
+        return 1;
+    }
+    if (fclose(fp) == EOF) {
+        perror("Could not close file");
+        return 1;
+    }
     return 0;
 }`,
               },
