@@ -1429,6 +1429,7 @@ int main(void) {
                 "Use void as the return type when a function returns no value, and do not use a returned value after a function that promises none.",
                 "Keep function responsibilities focused and give parameters and return values clear meanings.",
                 "Use int main(void) for a program that accepts no command-line arguments; use the standard argc/argv form when arguments are needed.",
+                "For your own no-parameter functions, write void function_name(void) to state clearly that no arguments are accepted; empty parentheses in older C declarations do not express that as clearly.",
               ],
             },
             {
@@ -2076,7 +2077,7 @@ int main(void) {
                 language: 'c',
                 code: `#include <stdio.h>
 
-void counter() {
+void counter(void) {
     static int count = 0;  // initialized once
     count++;
     printf("Count: %d\\n", count);
@@ -2631,7 +2632,7 @@ int main(void) {
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Complete every item on this checklist and you are job-ready for entry-level C and systems programming roles.',
+              content: 'Completing this checklist shows progress, but it does not guarantee job readiness or employment. Compare your skills with the roles you want and keep practising with real projects.'
             },
           ],
         },
