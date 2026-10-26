@@ -1583,7 +1583,7 @@ int main(void) {
               items: [
                 'Array indices start at 0 and go up to size-1.',
                 'Arrays are stored in contiguous memory locations.',
-                'The array name is a pointer to the first element.',
+                'In most expressions, an array expression converts to a pointer to its first element; arrays and pointers are different types, and this conversion has exceptions such as sizeof and unary &.',
                 'You cannot change the size of an array after declaration.',
                 '2D arrays: int matrix[rows][cols] represent grids.',
               ],
@@ -1620,7 +1620,7 @@ int main(void) {
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Arrays store multiple values of the same type contiguously. Index from 0 to size-1, initialize before use, and be careful about bounds.',
+              content: 'Arrays store same-type elements contiguously and use zero-based indexes. Array expressions often convert to pointers, but arrays and pointers are not interchangeable; C does not automatically check array bounds.',
             },
           ],
         },
@@ -2064,9 +2064,9 @@ int main(void) {
               title: 'Storage Classes',
               items: [
                 'auto — local variables inside functions (default).',
-                'register — suggests storing in a CPU register for speed.',
-                'static — keeps the variable alive between function calls; limits scope.',
-                'extern — declares a variable defined in another file.',
+                'register — a historical hint that an object may benefit from fast access; modern compilers decide placement, and standard C does not allow applying the address-of operator to a register-declared object.',
+                'static — at block scope, gives an object static storage duration so it retains its value; at file scope, static gives an identifier internal linkage.',
+                'extern — declares an identifier with external linkage in common cases; it often refers to an object or function defined elsewhere, but declaration and definition are not the same thing.',
               ],
             },
             {
@@ -2110,7 +2110,7 @@ int main(void) {
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Storage classes control scope and lifetime: auto (local), register (fast), static (persistent), extern (cross-file).',
+              content: 'Distinguish scope (where a name is visible), storage duration (how long an object exists), and linkage (whether declarations refer to the same entity). The meaning of static depends on whether it appears at block or file scope; extern is a declaration specifier, not simply a cross-file variable command.',
             },
           ],
         },
