@@ -1777,9 +1777,9 @@ int main(void) {
               items: [
                 '& — address-of operator.',
                 '* — dereference operator (value at address).',
-                'Use a pointer type compatible with the object type; void * can hold an object pointer value generically, with appropriate conversion before dereferencing.'
-                'An uninitialized pointer contains a garbage address — never dereference it.',
-                'A null pointer value does not point to an object or function; check it before dereferencing.'
+                'Use a pointer type compatible with the object type; void * can hold an object pointer value generically, with appropriate conversion before dereferencing.',
+                'An uninitialized pointer may contain an indeterminate value — do not dereference it.',
+                'A null pointer value does not point to an object or function; check it before dereferencing.',
               ],
             },
             {
@@ -1798,7 +1798,7 @@ int main(void) {
               questions: [
                 { q: 'What is a pointer?', a: 'A variable that stores the memory address of another variable.' },
                 { q: 'Difference between & and *?', a: '& gives the address of a variable; * dereferences a pointer to access the value at that address.' },
-                { q: 'What is a null pointer?', a: 'A pointer value that compares unequal to every pointer to an object or function. Dereferencing it has undefined behavior; it may crash, but a crash is not guaranteed.' }
+                { q: 'What is a null pointer?', a: 'A null pointer value compares unequal to every pointer to an object or function. Dereferencing it has undefined behavior; it may crash, but a crash is not guaranteed.' },
                 { q: 'What is a dangling pointer?', a: 'A pointer that still holds the address of memory that has been freed — using it is undefined behavior.' },
               ],
             },
