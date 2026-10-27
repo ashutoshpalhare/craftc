@@ -1650,12 +1650,12 @@ int main(void) {
     char str1[] = "CraftC";
     char str2[20];
 
-    strcpy(str2, str1);              // copy
+    strcpy(str2, str1);              // safe here: str2 has enough capacity
     printf("Copied: %s\\n", str2);
 
     printf("Length: %zu\\n", strlen(str1));
 
-    strcat(str2, " is awesome");     // concatenate
+    strcat(str2, " is awesome");     // safe here: destination has enough capacity
     printf("Concatenated: %s\\n", str2);
 
     if (strcmp(str1, "CraftC") == 0)
@@ -1674,11 +1674,11 @@ int main(void) {
               type: 'notes',
               title: 'String Functions (string.h)',
               items: [
-                'strlen(s) — length of string.',
-                'strcpy(dest, src) — copy src into dest.',
-                'strcat(dest, src) — append src to dest.',
-                'strcmp(s1, s2) — compare two strings (0 = equal).',
-                'strrev(s) — reverse a string (non-standard, some compilers).',
+                'strlen(s) — returns the number of characters before the terminating \\0; it does not count the terminator.',
+                'strcpy(dest, src) — copies the string including \\0; dest must have enough space for the entire source string.',
+                'strcat(dest, src) — appends the source including its terminator; dest must already contain a valid string and have enough remaining capacity.',
+                'strcmp(s1, s2) — compares strings lexicographically; 0 means equal, a negative value means less than, and a positive value means greater than.',
+                'strrev(s) is not part of the ISO C standard library; avoid relying on it in portable C programs.',
               ],
             },
             {
@@ -1686,7 +1686,7 @@ int main(void) {
               title: 'Common Mistakes',
               items: [
                 'Forgetting the null terminator — strings need \\0 at the end.',
-                'Not allocating enough space in the destination for strcpy/strcat.',
+                'Not allocating enough space for the full string plus the terminating \\0 before using strcpy/strcat; these functions do not check destination capacity.',
                 'Comparing strings with == instead of strcmp.',
               ],
             },
