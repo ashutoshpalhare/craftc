@@ -2144,11 +2144,23 @@ int main(void) {
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'Normally, array sizes are fixed at compile time. Dynamic memory allocation lets you request memory at runtime, so you can create arrays whose size is decided while the program runs.',
+              content: 'Dynamic memory allocation lets a C program request and release memory while it runs. The allocation functions are declared in <stdlib.h>. Allocated storage remains available until it is released with free or the program ends; it is not automatically managed like a local automatic variable.',
+            },
+            {
+              type: 'notes',
+              title: 'The Four Memory Functions',
+              items: [
+                'malloc(size) — requests size bytes. The contents are uninitialized, so read only after you have stored valid values. It returns NULL if the request cannot be satisfied.',
+                'calloc(count, size) — requests space for count elements, each size bytes, and initializes every byte to zero. This is not a guarantee that every possible pointer or floating-point value becomes its semantic null or 0.0 value.',
+                'realloc(ptr, new_size) — changes the size of a previously allocated block and may move it. On failure for a nonzero size, it returns NULL and the original block remains allocated and unchanged.',
+                'free(ptr) — releases a block previously returned by an allocation function. free(NULL) is safe; freeing an invalid pointer or freeing the same block twice causes undefined behavior.',
+                'In C, include <stdlib.h> and do not cast the return value of malloc, calloc, or realloc.',
+                'Use sizeof *pointer when allocating an array; it keeps the element size tied to the pointed-to type if that type changes.',
+              ],
             },
             {
               type: 'example',
-              title: 'Example: malloc',
+              title: 'Allocate, Resize, and Free Safely',
               code: {
                 filename: 'dma.c',
                 language: 'c',
@@ -2157,34 +2169,50 @@ int main(void) {
 #include <stdint.h>
 
 int main(void) {
-    int n;
-    printf("How many numbers? ");
-    if (scanf("%d", &n) != 1 || n <= 0) {
-        fprintf(stderr, "Enter a positive count.\\n");
-        return 1;
-    }
+    size_t count = 3;
 
-    if ((size_t)n > SIZE_MAX / sizeof(int)) {
+    if (count > SIZE_MAX / sizeof(int)) {
         fprintf(stderr, "Requested size is too large.\\n");
         return 1;
     }
 
-    int *arr = malloc((size_t)n * sizeof *arr);
-    if (arr == NULL) {
-        fprintf(stderr, "Memory allocation failed.\\n");
+    int *numbers = malloc(count * sizeof *numbers);
+    if (numbers == NULL) {
+        fprintf(stderr, "Initial allocation failed.\\n");
         return 1;
     }
 
-    for (int i = 0; i < n; i++) {
-        arr[i] = i + 1;
+    for (size_t i = 0; i < count; i++) {
+        numbers[i] = (int)(i + 1);
     }
 
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
+    size_t new_count = 5;
+    if (new_count > SIZE_MAX / sizeof *numbers) {
+        free(numbers);
+        fprintf(stderr, "Requested size is too large.\\n");
+        return 1;
+    }
+
+    int *resized = realloc(numbers, new_count * sizeof *numbers);
+    if (resized == NULL) {
+        // The original numbers block is still valid.
+        free(numbers);
+        fprintf(stderr, "Resize failed.\\n");
+        return 1;
+    }
+
+    numbers = resized;
+    for (size_t i = count; i < new_count; i++) {
+        numbers[i] = (int)(i + 1);
+    }
+
+    for (size_t i = 0; i < new_count; i++) {
+        printf("%d ", numbers[i]);
     }
     printf("\\n");
 
-    free(arr);
+    free(numbers);
+    numbers = NULL;
     return 0;
 }`,
               },
@@ -2192,54 +2220,51 @@ int main(void) {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `How many numbers? 5\n1 2 3 4 5` },
+              code: { filename: 'output', language: 'bash', code: `1 2 3 4 5` },
             },
             {
               type: 'notes',
-              title: 'The Four Functions',
+              title: 'Important Rules and Safety',
               items: [
-                'malloc(size) — allocates size bytes (uninitialized).',
-                'calloc(n, size) — allocates n*size bytes, initialized to 0.',
-                'realloc(ptr, size) — resizes a previously allocated block.',
-                'free(ptr) — releases the memory back to the system.',
+                'Always check allocation results against NULL before using the returned pointer.',
+                'If realloc fails for a nonzero requested size, the original allocation remains valid. Store the result in a temporary pointer so you do not lose the original address.',
+                'If realloc succeeds, the old pointer is invalidated—even if the block happens to remain at the same address. Use the returned pointer.',
+                'Only pass free a pointer returned by an allocation function, or NULL. Do not pass an interior pointer such as ptr + 1.',
+                'After free, do not access the released memory. Setting one pointer variable to NULL does not clear other pointers that may refer to the same block.',
+                'A memory leak occurs when allocated storage becomes unreachable without being freed. A dangling pointer refers to storage that is no longer valid.',
+                'Avoid realloc(ptr, 0) in portable teaching examples; zero-size behavior has changed across C standard versions and implementations.',
+                'Check multiplication before allocating count * sizeof(element), because an overflow can produce a smaller allocation than intended.',
               ],
             },
             {
               type: 'commonMistakes',
               title: 'Common Mistakes',
               items: [
-                'Forgetting to free memory — memory leak.',
-                'Using memory after it has been freed — use-after-free.',
-                'Not checking if malloc returned NULL.',
-                'Freeing the same block twice — double free.',
+                'Reading malloc memory before initializing it.',
+                'Overwriting the only pointer with realloc directly: ptr = realloc(ptr, size). If realloc fails, the original allocation address is lost.',
+                'Using a pointer after free, or freeing the same allocation more than once.',
+                'Assuming calloc makes every object representation a semantic null pointer or floating-point 0.0.',
+                'Forgetting to check whether allocation size calculations overflow.',
               ],
             },
             {
               type: 'interviewQuestions',
               title: 'Interview Questions',
               questions: [
-                { q: 'Difference between malloc and calloc?', a: 'malloc allocates uninitialized memory; calloc allocates and initializes all bytes to 0.' },
-                { q: 'What is a memory leak?', a: 'Allocated memory that is never freed. Over time it exhausts available memory.' },
-                { q: 'What does realloc do?', a: 'It resizes a previously allocated block, possibly moving it to a new location.' },
-              ],
-            },
-            {
-              type: 'notes',
-              title: 'Short Notes: Dynamic Memory',
-              items: [
-                "malloc allocates a block of uninitialized storage; calloc allocates storage and initializes its bytes to zero.",
-                "Include <stdlib.h> for malloc, calloc, realloc, and free. In C, do not cast malloc's return value.",
-                "Always check whether allocation returned NULL before accessing the memory, and free each allocated block when it is no longer needed.",
-                "After free, do not dereference the pointer. Setting a local pointer to NULL can prevent accidental reuse of that same variable but does not fix other aliases.",
-                "realloc can move the block and fail while leaving the original allocation intact; assign its result to a temporary pointer first.",
-                "Check requested sizes and multiplication overflow before allocating arrays from user-supplied counts.",
+                { q: 'What is the difference between malloc and calloc?', a: 'malloc requests one block of bytes without initializing its contents. calloc requests space for an array and sets all bytes in the allocated space to zero.' },
+                { q: 'Why should realloc be assigned to a temporary pointer?', a: 'If realloc fails for a nonzero size, it returns NULL and leaves the original block allocated. A temporary pointer prevents losing the original address.' },
+                { q: 'What happens if malloc fails?', a: 'It returns NULL. Check the result before dereferencing it.' },
+                { q: 'Is free(NULL) valid?', a: 'Yes. It has no effect.' },
+                { q: 'What is a dangling pointer?', a: 'A pointer whose target object or allocated storage is no longer valid, often because the storage was freed.' },
+                { q: 'Does calloc guarantee null pointers for pointer elements?', a: 'No. It sets all bytes to zero, but the C standard does not require an all-bits-zero representation to be a null pointer representation.' },
               ],
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Dynamic memory allocation (malloc, calloc, realloc, free) lets you manage memory at runtime. Always check for NULL and always free what you allocate.',
+              content: 'Use malloc or calloc to allocate, realloc to resize, and free to release. Check for NULL, guard allocation-size calculations against overflow, initialize memory before reading it, and preserve the original pointer when realloc fails.',
             },
+          ],
           ],
         },
         {
