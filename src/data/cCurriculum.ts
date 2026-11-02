@@ -2057,30 +2057,37 @@ int main(void) {
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'Storage classes define the scope, lifetime, and visibility of variables. C has four: auto, register, static, and extern.',
+              content: 'Storage-class specifiers affect an identifier’s storage duration, linkage, or declaration role. The four commonly taught specifiers are auto, register, static, and extern. The C standard also includes typedef and, since C11, _Thread_local; these do not all describe the same kind of storage behavior.',
             },
             {
               type: 'notes',
-              title: 'Storage Classes',
+              title: 'Storage-Class Specifiers',
               items: [
-                'auto — local variables inside functions (default).',
-                'register — a historical hint that an object may benefit from fast access; modern compilers decide placement, and standard C does not allow applying the address-of operator to a register-declared object.',
-                'static — at block scope, gives an object static storage duration so it retains its value; at file scope, static gives an identifier internal linkage.',
-                'extern — declares an identifier with external linkage in common cases; it often refers to an object or function defined elsewhere, but declaration and definition are not the same thing.',
+                'auto — the usual default for block-scope local objects; gives automatic storage duration. The object normally exists while its block is active and is not automatically initialized.',
+                'register — requests that an object be placed in a fast-access register if practical; it is only a hint, not a guarantee. You cannot apply the address-of operator (&) to an object declared register.',
+                'static at block scope — gives the object static storage duration. It is initialized once and retains its value for the entire program execution, but its name remains visible only in that block.',
+                'static at file scope — gives an object or function internal linkage, restricting that name to the current translation unit. A file-scope object already has static storage duration even without the static keyword.',
+                'extern — declares an object or function that may be defined elsewhere. An extern declaration is not automatically a definition; linkage and whether storage is defined depend on the declaration context.',
+                'typedef — creates a type alias; despite being classified syntactically as a storage-class specifier, it does not give an object a storage duration.',
+                '_Thread_local (C11) — gives an object thread storage duration, so each thread has its own instance. It can be combined with static or extern; C23 also provides the spelling thread_local.',
               ],
             },
             {
               type: 'example',
-              title: 'static Example',
+              title: 'Block-Scope static vs File-Scope static',
               code: {
                 filename: 'static.c',
                 language: 'c',
                 code: `#include <stdio.h>
 
+static int module_calls = 0; // internal linkage: this file only
+
 void counter(void) {
-    static int count = 0;  // initialized once
+    static int count = 0;     // block scope, static storage duration
     count++;
-    printf("Count: %d\\n", count);
+    module_calls++;
+    printf("Local count: %d\n", count);
+    printf("Module calls: %d\n", module_calls);
 }
 
 int main(void) {
@@ -2094,23 +2101,35 @@ int main(void) {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `Count: 1\nCount: 2\nCount: 3` },
+              code: { filename: 'output', language: 'bash', code: `Local count: 1\nModule calls: 1\nLocal count: 2\nModule calls: 2\nLocal count: 3\nModule calls: 3` },
             },
             {
               type: 'notes',
-              title: 'Short Notes: Storage Duration and Scope',
+              title: 'Scope, Linkage, and Storage Duration',
               items: [
-                "A local automatic variable normally exists for the duration of its block execution; its value is not automatically initialized.",
-                "A block-scope static variable retains its value between function calls and exists for the entire program execution.",
-                "A file-scope object has static storage duration; static at file scope also gives an identifier internal linkage.",
-                "extern declares an object or function defined elsewhere; it does not by itself allocate a second object definition.",
-                "Scope, linkage, and storage duration are different concepts—learn them separately rather than treating static as having only one meaning.",
+                'Scope answers where a name can be used: block, function, function-prototype, or file scope.',
+                'Linkage answers whether declarations in different scopes or translation units can refer to the same entity: no linkage, internal linkage, or external linkage.',
+                'Storage duration answers how long an object exists: automatic, static, thread, or allocated.',
+                'A block-scope static variable has block scope but static storage duration; these terms are not interchangeable.',
+                'A file-scope object has static storage duration whether or not it is declared static. Adding static changes its linkage to internal.',
+                'Do not assume every extern declaration allocates memory. A declaration can refer to an existing definition in another translation unit.',
+              ],
+            },
+            {
+              type: 'interviewQuestions',
+              title: 'Interview Questions',
+              questions: [
+                { q: 'What is the difference between scope and storage duration?', a: 'Scope describes where a name is visible; storage duration describes how long the object exists.' },
+                { q: 'What does static mean inside a function?', a: 'The name has block scope, but the object has static storage duration and retains its value between calls.' },
+                { q: 'What does static mean at file scope?', a: 'It gives the file-scope object or function internal linkage, limiting that name to the current translation unit.' },
+                { q: 'Is extern always a definition?', a: 'No. It commonly declares an object or function defined elsewhere; whether a declaration is also a definition depends on its exact form and context.' },
+                { q: 'Does register guarantee CPU-register storage?', a: 'No. It is only a hint, and modern compilers choose placement. The address-of operator cannot be applied to a register-declared object.' },
               ],
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Distinguish scope (where a name is visible), storage duration (how long an object exists), and linkage (whether declarations refer to the same entity). The meaning of static depends on whether it appears at block or file scope; extern is a declaration specifier, not simply a cross-file variable command.',
+              content: 'Learn scope, linkage, and storage duration as three separate ideas. The effect of static changes with its scope; extern usually declares an entity defined elsewhere; typedef creates a type alias; and _Thread_local provides one object instance per thread.',
             },
           ],
         },
