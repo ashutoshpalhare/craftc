@@ -2265,7 +2265,6 @@ int main(void) {
               content: 'Use malloc or calloc to allocate, realloc to resize, and free to release. Check for NULL, guard allocation-size calculations against overflow, initialize memory before reading it, and preserve the original pointer when realloc fails.',
             },
           ],
-          ],
         },
         {
           id: 'c-file-handling',
