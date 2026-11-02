@@ -2086,8 +2086,8 @@ void counter(void) {
     static int count = 0;     // block scope, static storage duration
     count++;
     module_calls++;
-    printf("Local count: %d\\n", count);
-    printf("Module calls: %d\\n", module_calls);
+    printf("Local count: %d\n", count);
+    printf("Module calls: %d\n", module_calls);
 }
 
 int main(void) {
@@ -2101,7 +2101,7 @@ int main(void) {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `Local count: 1\\nModule calls: 1\\nLocal count: 2\\nModule calls: 2\\nLocal count: 3\\nModule calls: 3` },
+              code: { filename: 'output', language: 'bash', code: `Local count: 1\nModule calls: 1\nLocal count: 2\nModule calls: 2\nLocal count: 3\nModule calls: 3` },
             },
             {
               type: 'notes',
