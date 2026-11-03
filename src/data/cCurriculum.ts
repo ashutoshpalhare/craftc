@@ -2418,59 +2418,133 @@ int main(void) {
           id: 'c-preprocessor',
           title: 'Preprocessor Directives',
           slug: 'preprocessor-directives',
-          description: '#include, #define, macros, and conditional compilation.',
-          duration: '10 min',
+          description: 'Understand header inclusion, macros, include guards, and conditional compilation before the compiler translates C code.',
+          duration: '18 min',
           difficulty: 'intermediate',
           sections: [
             {
               type: 'introduction',
-              title: 'Introduction',
-              content: 'The preprocessor runs before the compiler. It handles directives starting with # — including files, defining macros, and conditional compilation.',
+              title: 'What Does the Preprocessor Do?',
+              content: 'A C program is processed in several translation phases. The preprocessor handles directives such as #include and #define before the compiler performs the main compilation work. Directives begin with #, and the # must be the first non-whitespace character on its logical line. The preprocessor does not understand C types or evaluate ordinary C expressions; it mainly performs header inclusion, macro replacement, and conditional inclusion.',
+            },
+            {
+              type: 'notes',
+              title: 'The Main Directives',
+              items: [
+                '#include — asks the implementation to process a header or source file at that point. Use <header.h> for implementation/system headers and "header.h" for project headers; the exact search rules are implementation-defined.',
+                '#define — creates an object-like macro or a function-like macro. Macro replacement is preprocessing-token substitution, not a typed C variable or function.',
+                '#undef — removes a macro definition so later code no longer sees that macro as defined.',
+                '#if / #elif / #else / #endif — include or skip source regions based on integer constant expressions evaluated by the preprocessor.',
+                '#ifdef NAME and #ifndef NAME — convenient tests for whether a macro is defined or not defined.',
+                '#error — requires the implementation to issue a diagnostic when the directive is reached; compilers commonly stop the build, but the standard requirement is the diagnostic.',
+                '#pragma — communicates implementation-specific instructions; behavior is not universally portable.',
+                '#line — changes the reported source line number and/or file name used for diagnostics.',
+              ],
             },
             {
               type: 'example',
-              title: 'Example',
+              title: 'Including Headers and Defining Constants',
               code: {
-                filename: 'preprocessor.c',
+                filename: 'constants.c',
                 language: 'c',
-                code: `#include <stdio.h>
-
-#define PI 3.14159
-#define SQUARE(x) ((x) * (x))
-
-int main(void) {
-    printf("PI = %f\\n", PI);
-    printf("Square of 5 = %d\\n", SQUARE(5));
-    return 0;
-}`,
+                code: '#include <stdio.h>\n\n#define TAX_RATE 0.18\n#define APP_NAME "CraftC"\n\nint main(void) {\n    double price = 100.0;\n    printf("%s\\n", APP_NAME);\n    printf("Tax: %.2f\\n", price * TAX_RATE);\n    return 0;\n}',
               },
             },
             {
               type: 'notes',
-              title: 'Common Directives',
+              title: 'Object-Like vs Function-Like Macros',
               items: [
-                '#include — include a header file.',
-                '#define — define a macro or constant.',
-                '#ifdef / #ifndef — conditional compilation.',
-                '#undef — undefine a macro.',
-                '#pragma — compiler-specific instructions.',
+                'An object-like macro has no parameter list: #define BUFFER_SIZE 256. Each matching macro name is replaced with its replacement list.',
+                'A function-like macro has its opening parenthesis immediately after the macro name: #define MAX(a, b) ... . A space between the name and ( changes it into an object-like macro.',
+                'Prefer uppercase names by convention so macros are visually distinct from variables and functions; this is a convention, not a language requirement.',
+                'Macros have no type checking or normal function-call semantics, and they do not follow C block scope. Use const objects, enum constants, or inline functions when they better express the intent.',
+              ],
+            },
+            {
+              type: 'example',
+              title: 'Write Safer Function-Like Macros',
+              code: {
+                filename: 'macros.c',
+                language: 'c',
+                code: '#include <stdio.h>\n\n#define SQUARE(x) ((x) * (x))\n#define MIN(a, b) ((a) < (b) ? (a) : (b))\n\nint main(void) {\n    int value = 5;\n    printf("Square: %d\\n", SQUARE(value));\n    printf("Smaller: %d\\n", MIN(7, 3));\n    return 0;\n}',
+              },
+            },
+            {
+              type: 'notes',
+              title: 'Macro Pitfalls You Must Know',
+              items: [
+                'Parenthesize every parameter use and the complete replacement expression. Without parentheses, operator precedence can change the result.',
+                'A macro argument may be substituted more than once. SQUARE(i++) can increment i more than once and may produce undefined behavior; do not pass expressions with side effects to such macros.',
+                'A macro can evaluate an argument conditionally or repeatedly, unlike a normal function call. A function is usually safer when evaluation behavior matters.',
+                'A multi-statement macro should commonly use the do { ... } while (0) pattern so it behaves like one statement in if/else code. Avoid a trailing semicolon inside the macro definition.',
+                'Macro names are replaced only when they are recognized as preprocessing tokens; the preprocessor does not replace matching text inside ordinary string literals.',
+              ],
+            },
+            {
+              type: 'example',
+              title: 'Conditional Compilation',
+              code: {
+                filename: 'config.c',
+                language: 'c',
+                code: '#include <stdio.h>\n\n#define DEBUG 1\n\nint main(void) {\n#if DEBUG\n    puts("Debug logging is enabled");\n#else\n    puts("Debug logging is disabled");\n#endif\n\n#ifdef _WIN32\n    puts("Windows-specific build");\n#elif defined(__linux__)\n    puts("Linux build");\n#else\n    puts("Other platform or compiler");\n#endif\n    return 0;\n}',
+              },
+            },
+            {
+              type: 'notes',
+              title: 'Include Guards and Header Hygiene',
+              items: [
+                'A header may be included through multiple paths. An include guard prevents its declarations from being processed more than once in a translation unit.',
+                'Use a project-unique guard name such as CRAFTC_STUDENT_H; define it immediately after the #ifndef and close the guard with #endif.',
+                '#pragma once is widely supported, but it is not part of the ISO C standard. Include guards are the portable conventional technique.',
+                'Headers should normally contain declarations, type definitions, and macros—not ordinary non-static function or object definitions that would create multiple-definition linker errors when included in several source files.',
+              ],
+            },
+            {
+              type: 'example',
+              title: 'A Portable Include Guard',
+              code: {
+                filename: 'student.h',
+                language: 'c',
+                code: '#ifndef CRAFTC_STUDENT_H\n#define CRAFTC_STUDENT_H\n\ntypedef struct {\n    int id;\n    char name[40];\n} Student;\n\nvoid print_student(const Student *student);\n\n#endif /* CRAFTC_STUDENT_H */',
+              },
+            },
+            {
+              type: 'notes',
+              title: 'Preprocessor vs Runtime Decisions',
+              items: [
+                'Conditional compilation (#if) decides which source text is compiled. A normal if statement is compiled and decides which statement executes while the program runs.',
+                'The expression in #if must be an integer constant expression after macro expansion; it cannot inspect a runtime variable.',
+                'defined(NAME) can be used in #if expressions to test whether a macro exists, for example #if defined(TRACE) && TRACE.',
+                'Use conditional compilation for platform-specific code, optional features, and debug builds—not as a substitute for ordinary program logic.',
+              ],
+            },
+            {
+              type: 'practice',
+              title: 'Practice Tasks',
+              items: [
+                'Create a PI macro and calculate the area of a circle. Explain why a macro is not a typed constant variable.',
+                'Write a function-like macro CUBE(x), then test it with a simple variable. Do not call it with x++ or another side-effecting expression.',
+                'Create a header file with an include guard and include it from two different C source files.',
+                'Use #ifdef to compile a debug message only when DEBUG is defined.',
+                'Use #if and #elif to select a platform-specific message based on a macro.',
+                'Temporarily define a macro, remove it with #undef, and verify the later #ifdef branch.',
               ],
             },
             {
               type: 'notes',
-              title: 'Short Notes: Preprocessor',
+              title: 'Common Mistakes',
               items: [
-                "#include inserts header contents before compilation; angle brackets are commonly used for system headers and quotes for project headers.",
-                "#define creates object-like or function-like macros. Parenthesize macro parameters and the full expression.",
-                "Macros perform textual substitution and can evaluate an argument more than once; avoid passing expressions with side effects to macros such as SQUARE(i++).",
-                "Use include guards or #pragma once (where supported) to prevent repeated inclusion of a header.",
-                "#if, #ifdef, #ifndef, #else, and #endif support conditional compilation; they do not replace runtime if statements.",
+                'Writing #define SQUARE x * x without parentheses can produce unexpected results when used in a larger expression.',
+                'Putting a space between a function-like macro name and its opening parenthesis makes it object-like rather than function-like.',
+                'Assuming #pragma once is guaranteed by every C compiler; use include guards when portability is important.',
+                'Confusing #ifdef with a runtime if statement; #ifdef checks macro existence during preprocessing.',
+                'Defining ordinary global variables or non-inline function bodies in a header included by multiple source files.',
               ],
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Preprocessor directives run before compilation. Use #include for headers, #define for constants and macros, and #ifdef for conditional compilation.',
+              content: 'The preprocessor handles directives before the main compilation stage. Use #include for headers, #define and #undef for macros, #if/#ifdef/#ifndef for conditional compilation, and include guards to protect headers. Parenthesize macro expressions carefully, avoid side effects in macro arguments, and remember that #pragma behavior is implementation-specific.',
             },
           ],
         },
