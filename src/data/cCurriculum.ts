@@ -2270,18 +2270,18 @@ int main(void) {
           id: 'c-file-handling',
           title: 'File Handling',
           slug: 'file-handling',
-          description: 'Read from and write to files.',
-          duration: '16 min',
+          description: 'Read, write, append, and safely manage text and binary files.',
+          duration: '20 min',
           difficulty: 'advanced',
           sections: [
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'File handling lets your programs store data permanently. C uses FILE pointers and functions from <stdio.h> to open, read, write, and close files.',
+              content: 'File handling lets a C program work with data stored outside the program. The <stdio.h> library provides FILE streams and functions to open, read, write, position, and close them. A successful fopen returns a FILE pointer; a failed open returns NULL.',
             },
             {
               type: 'example',
-              title: 'Write to a File',
+              title: 'Write to a Text File',
               code: {
                 filename: 'filewrite.c',
                 language: 'c',
@@ -2290,26 +2290,29 @@ int main(void) {
 int main(void) {
     FILE *fp = fopen("notes.txt", "w");
     if (fp == NULL) {
-        printf("Could not open file\\n");
+        perror("Could not open notes.txt");
         return 1;
     }
+
     if (fprintf(fp, "Learning C with CraftC\\n") < 0) {
-        perror("Could not write to file");
+        perror("Could not write to notes.txt");
         fclose(fp);
         return 1;
     }
+
     if (fclose(fp) == EOF) {
-        perror("Could not close file");
+        perror("Could not close notes.txt");
         return 1;
     }
-    printf("File written successfully\\n");
+
+    puts("File written successfully");
     return 0;
 }`,
               },
             },
             {
               type: 'example',
-              title: 'Read from a File',
+              title: 'Read a Text File Line by Line',
               code: {
                 filename: 'fileread.c',
                 language: 'c',
@@ -2318,58 +2321,99 @@ int main(void) {
 int main(void) {
     FILE *fp = fopen("notes.txt", "r");
     if (fp == NULL) {
-        printf("Could not open file\\n");
+        perror("Could not open notes.txt");
         return 1;
     }
+
     char line[100];
-    while (fgets(line, sizeof(line), fp) != NULL) {
-        printf("%s", line);
+    while (fgets(line, sizeof line, fp) != NULL) {
+        fputs(line, stdout);
     }
+
     if (ferror(fp)) {
-        perror("Error while reading file");
+        perror("Error while reading notes.txt");
         fclose(fp);
         return 1;
     }
+
     if (fclose(fp) == EOF) {
-        perror("Could not close file");
+        perror("Could not close notes.txt");
         return 1;
     }
+
     return 0;
 }`,
               },
             },
             {
               type: 'notes',
-              title: 'File Modes',
+              title: 'File Opening Modes',
               items: [
-                '"r" — read (file must exist).',
-                '"w" — write (overwrites or creates).',
-                '"a" — append (adds to end).',
-                '"r+" — read and write.',
-                '"w+" — read and write (overwrites).',
-                'Always close files with fclose().',
+                '"r" — open an existing file for reading; fails if it does not exist.',
+                '"w" — open for writing; creates the file or truncates an existing file to zero length.',
+                '"a" — open for appending; creates the file if needed and writes at the end.',
+                '"r+" — open an existing file for both reading and writing without truncating it.',
+                '"w+" — open for reading and writing; creates or truncates the file.',
+                '"a+" — open for reading and appending; creates the file if needed, and writes go to the end.',
+                'Add "b" for binary mode where the platform distinguishes it, such as "rb", "wb", or "ab".',
               ],
             },
             {
               type: 'notes',
-              title: 'Short Notes: File Handling',
+              title: 'Important File Functions',
               items: [
-                "fopen returns a FILE pointer on success and NULL on failure; check it before using the stream.",
-                "Common modes include r for reading, w for writing/truncating, and a for appending. Binary modes use b where relevant, such as rb or wb.",
-                "fgets reads at most size - 1 characters and null-terminates a successful result; use its return value to detect end-of-file or errors.",
-                "Close files with fclose when finished. Check write and close results when reliable persistence matters.",
-                "After a read loop, check ferror(stream) when you need to distinguish a read error from normal end-of-file; feof becomes true only after an attempted read reaches EOF.",
-                "Use perror or another diagnostic to explain file errors, and do not assume the current working directory is the source-code directory.",
+                'fopen(path, mode) opens a stream and returns NULL on failure. Always check the result before using it.',
+                'fclose(stream) closes an open stream and returns EOF if a close-time error occurs. Do not use the stream after closing it.',
+                'fprintf and fscanf perform formatted output and input. Check their return values; fscanf returns the number of successfully assigned items, or EOF in relevant input-failure cases.',
+                'fgets reads at most size - 1 characters and appends a null terminator. It returns NULL when it cannot read another string.',
+                'fputs writes a string; fputs does not automatically add a newline.',
+                'fread and fwrite transfer blocks of bytes and return the number of complete elements read or written. Compare the result with the requested element count.',
+                'fseek changes the file position, ftell reports it when supported, and rewind moves to the beginning while clearing the stream error and EOF indicators.',
+              ],
+            },
+            {
+              type: 'notes',
+              title: 'EOF and Error Handling',
+              items: [
+                'Do not use while (!feof(file)) as a read loop. EOF is set only after a read attempt fails because the end has been reached.',
+                'Drive a read loop using the function result, such as fgets(...) != NULL or fscanf(...) == the expected number of fields.',
+                'After a read loop, use ferror(stream) to detect a read error; reaching normal end-of-file is not itself a read error.',
+                'Use perror or a clear diagnostic when an operation fails. The current working directory determines how a relative path such as "notes.txt" is resolved.',
+                'Close every successfully opened stream on every control-flow path. Check fclose when write errors or buffered output matter.',
+                'Use text modes for text data and binary modes for raw bytes or binary formats; do not assume binary data is safely handled as a C string.',
+              ],
+            },
+            {
+              type: 'commonMistakes',
+              title: 'Common Mistakes',
+              items: [
+                'Using a FILE pointer without checking whether fopen returned NULL.',
+                'Opening an important existing file with "w" by mistake, which immediately truncates its contents.',
+                'Using while (!feof(fp)) and processing stale or invalid data after a failed read.',
+                'Assuming fscanf always reads every requested value; always check its return count.',
+                'Forgetting fclose, ignoring write/close errors, or using a stream after it has been closed.',
+                'Treating arbitrary binary file contents as null-terminated strings.',
+              ],
+            },
+            {
+              type: 'interviewQuestions',
+              title: 'Interview Questions',
+              questions: [
+                { q: 'What does fopen return when it fails?', a: 'It returns NULL. Check the result before using the stream.' },
+                { q: 'What is the difference between "w" and "a" mode?', a: '"w" truncates an existing file or creates a new one. "a" preserves existing contents and writes at the end.' },
+                { q: 'Why should we check the return value of fscanf?', a: 'It reports how many input items were successfully assigned, so the program can detect incomplete or invalid input.' },
+                { q: 'Why is while (!feof(fp)) a bad read loop?', a: 'The EOF indicator is set only after a read attempt reaches the end. The loop can therefore process stale data once more.' },
+                { q: 'What is the purpose of ferror?', a: 'It checks whether the stream has its error indicator set, helping distinguish a read error from normal end-of-file.' },
+                { q: 'What is the difference between text and binary mode?', a: 'Text mode may apply implementation-defined text transformations. Binary mode is intended for reading and writing bytes without those text transformations.' },
               ],
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'File handling uses fopen, fprintf, fgets, fclose. Choose the right mode (r, w, a) and always close your files.',
+              content: 'Use fopen with the correct mode, check every operation, drive read loops from their return values, distinguish EOF from errors with ferror, and close each stream with fclose.',
             },
           ],
         },
-        {
           id: 'c-preprocessor',
           title: 'Preprocessor Directives',
           slug: 'preprocessor-directives',
