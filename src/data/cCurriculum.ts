@@ -2436,7 +2436,7 @@ int main(void) {
                 '#undef — removes a macro definition so later code no longer sees that macro as defined.',
                 '#if / #elif / #else / #endif — include or skip source regions based on integer constant expressions evaluated by the preprocessor.',
                 '#ifdef NAME and #ifndef NAME — convenient tests for whether a macro is defined or not defined.',
-                '#error — emits a diagnostic and makes translation fail when the directive is reached.',
+                '#error — requires the implementation to issue a diagnostic when the directive is reached; compilers commonly stop the build, but the standard requirement is the diagnostic.',
                 '#pragma — communicates implementation-specific instructions; behavior is not universally portable.',
                 '#line — changes the reported source line number and/or file name used for diagnostics.',
               ],
@@ -2457,7 +2457,7 @@ int main(void) {
                 'An object-like macro has no parameter list: #define BUFFER_SIZE 256. Each matching macro name is replaced with its replacement list.',
                 'A function-like macro has its opening parenthesis immediately after the macro name: #define MAX(a, b) ... . A space between the name and ( changes it into an object-like macro.',
                 'Prefer uppercase names by convention so macros are visually distinct from variables and functions; this is a convention, not a language requirement.',
-                'Macros have no type checking, scope, or normal function-call semantics. Use const objects, enum constants, or inline functions when they better express the intent.',
+                'Macros have no type checking or normal function-call semantics, and they do not follow C block scope. Use const objects, enum constants, or inline functions when they better express the intent.',
               ],
             },
             {
