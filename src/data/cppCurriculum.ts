@@ -652,11 +652,13 @@ int main() {
                 filename: 'polymorphism.cpp',
                 language: 'cpp',
                 code: `#include <iostream>
+#include <memory>
+#include <vector>
 using namespace std;
 
 class Shape {
 public:
-    virtual ~Shape() = default;  // Safe deletion through a base-class pointer
+    virtual ~Shape() = default;
     virtual void draw() { cout << "Drawing a shape" << endl; }
 };
 
@@ -671,12 +673,14 @@ public:
 };
 
 int main() {
-    Shape* s1 = new Circle();
-    Shape* s2 = new Square();
-    s1->draw();  // Drawing a circle
-    s2->draw();  // Drawing a square
-    delete s1;
-    delete s2;
+    vector<unique_ptr<Shape>> shapes;
+    shapes.push_back(make_unique<Circle>());
+    shapes.push_back(make_unique<Square>());
+
+    for (const auto& shape : shapes) {
+        shape->draw();
+    }
+    // unique_ptr releases each object automatically.
     return 0;
 }`,
               },
@@ -1077,18 +1081,35 @@ int main() {
 using namespace std;
 
 int main() {
-    // Write
-    ofstream out("data.txt");
-    out << "CraftC C++ Tutorial" << endl;
-    out.close();
+    // Write; the stream closes automatically when it leaves scope.
+    {
+        ofstream out("data.txt");
+        if (!out) {
+            cerr << "Could not open data.txt for writing" << endl;
+            return 1;
+        }
+        out << "CraftC C++ Tutorial" << endl;
+        if (!out) {
+            cerr << "Writing to data.txt failed" << endl;
+            return 1;
+        }
+    }
 
-    // Read
+    // Read and check that the file opened successfully.
     ifstream in("data.txt");
+    if (!in) {
+        cerr << "Could not open data.txt for reading" << endl;
+        return 1;
+    }
+
     string line;
     while (getline(in, line)) {
         cout << line << endl;
     }
-    in.close();
+    if (!in.eof()) {
+        cerr << "Reading data.txt failed" << endl;
+        return 1;
+    }
     return 0;
 }`,
               },
