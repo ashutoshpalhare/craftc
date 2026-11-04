@@ -142,14 +142,14 @@ sudo apt install build-essential
 g++ --version
 
 # Compile and run
-g++ main.cpp -o main
+g++ -std=c++17 -Wall -Wextra -Wpedantic main.cpp -o main
 ./main`,
               },
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Install g++ via Xcode tools (macOS) or build-essential (Linux). Compile with g++ main.cpp -o main and run the executable.',
+              content: 'Install g++ via Xcode tools (macOS) or build-essential (Linux). Compile with g++ -std=c++17 -Wall -Wextra -Wpedantic main.cpp -o main and run the executable. The course examples use C++17.',
             },
           ],
         },
@@ -254,6 +254,7 @@ int main() {
                 filename: 'variables.cpp',
                 language: 'cpp',
                 code: `#include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
@@ -261,7 +262,7 @@ int main() {
     double pi = 3.14159;
     bool isStudent = true;
     char grade = 'A';
-    auto name = "CraftC"s;  // auto deduces string
+    string name = "CraftC";
 
     cout << "Age: " << age << endl;
     cout << "PI: " << pi << endl;
@@ -655,6 +656,7 @@ using namespace std;
 
 class Shape {
 public:
+    virtual ~Shape() = default;  // Safe deletion through a base-class pointer
     virtual void draw() { cout << "Drawing a shape" << endl; }
 };
 
@@ -1015,14 +1017,15 @@ int main() {
                 language: 'cpp',
                 code: `#include <iostream>
 #include <string>
+#include <utility>
 using namespace std;
 
 int main() {
     string a = "Hello CraftC";
-    string b = move(a);  // move, not copy
+    string b = move(a);  // std::move enables move construction
 
     cout << "b: " << b << endl;
-    cout << "a: " << a << endl;  // a is now empty/valid but unspecified
+    // a remains valid, but its value is unspecified; do not rely on it.
     return 0;
 }`,
               },
@@ -1030,7 +1033,7 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `b: Hello CraftC\na: ` },
+              code: { filename: 'output', language: 'bash', code: `b: Hello CraftC` },
             },
             {
               type: 'notes',
@@ -1279,7 +1282,7 @@ int main() {
     set<int> s = {3, 1, 4, 1, 5, 9, 2, 6};
     for (int n : s) cout << n << " ";
     cout << endl;
-    // 1 1 is deduplicated
+    // Duplicate values are removed; set iteration is sorted.
     return 0;
 }`,
               },
