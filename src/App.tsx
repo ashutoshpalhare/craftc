@@ -8,6 +8,7 @@ const CoursePage = lazy(() => import('@/pages/CoursePage').then((m) => ({ defaul
 const LessonPage = lazy(() => import('@/pages/LessonPage').then((m) => ({ default: m.LessonPage })));
 const RoadmapsPage = lazy(() => import('@/pages/RoadmapsPage').then((m) => ({ default: m.RoadmapsPage })));
 const ProjectsPage = lazy(() => import('@/pages/ProjectsPage').then((m) => ({ default: m.ProjectsPage })));
+const DsaPage = lazy(() => import('@/pages/DsaPage').then((m) => ({ default: m.DsaPage })));
 const InterviewPrepPage = lazy(() => import('@/pages/InterviewPrepPage').then((m) => ({ default: m.InterviewPrepPage })));
 const CheatsheetsPage = lazy(() => import('@/pages/CheatsheetsPage').then((m) => ({ default: m.CheatsheetsPage })));
 const DownloadsPage = lazy(() => import('@/pages/DownloadsPage').then((m) => ({ default: m.DownloadsPage })));
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
           <Route path="/roadmaps" element={<MainLayout><RoadmapsPage /></MainLayout>} />
           <Route path="/projects" element={<MainLayout><ProjectsPage /></MainLayout>} />
+          <Route path="/dsa" element={<MainLayout><DsaPage /></MainLayout>} />
           <Route path="/interview-prep" element={<MainLayout><InterviewPrepPage /></MainLayout>} />
           <Route path="/cheatsheets" element={<MainLayout><CheatsheetsPage /></MainLayout>} />
           <Route path="/downloads" element={<MainLayout><DownloadsPage /></MainLayout>} />
