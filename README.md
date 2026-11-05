@@ -37,8 +37,8 @@ The curriculum is organised into structured lessons that follow a consistent for
 | Resource | Count | Details |
 |----------|-------|---------|
 | **Lessons** | 40+ | Across C and C++ curricula, grouped by category |
-| **Projects** | 12 | Beginner to advanced, in both C and C++ |
-| **Interview Questions** | 27+ | Categorized by C, C++, DSA, and General |
+| **Projects** | 12 | Guided C and C++ project briefs with requirements, milestones, sample I/O, architecture and quality checks |
+| **DSA Topics** | 13 | Foundation-to-advanced explanations, complexity notes and C++17 examples |\n| **DSA Problems** | 11 | Progressive problems with approaches, reference solutions and complexity analysis |\n| **Interview Questions** | 27+ | Categorized by C, C++, DSA, and General |
 | **Roadmaps** | 2 | Phase-by-phase roadmaps for C and C++ |
 | **Cheatsheets** | 2 | Quick syntax reference for C and C++ |
 | **Downloads** | 6 | Editors, compilers, and dev tools |
@@ -218,7 +218,7 @@ craftc/
 | `/learn/:courseId` | Course | Course overview with a sidebar listing all categories and lessons |
 | `/learn/:courseId/:lessonSlug` | Lesson | Full lesson with all structured sections and syntax-highlighted code |
 | `/roadmaps` | Roadmaps | Phase-by-phase visual roadmaps for C and C++ |
-| `/projects` | Projects | Filterable grid of 12 projects by language and difficulty |
+| `/projects` | Projects | Filterable project briefs with requirements, milestones, sample I/O, architecture and quality checks |\n| `/dsa` | DSA | Data structure explanations, complexity guidance and solved C++17 practice problems |
 | `/interview-prep` | Interview Prep | Filterable interview questions with answers |
 | `/cheatsheets` | Cheatsheets | Quick syntax reference tables for C and C++ |
 | `/downloads` | Downloads | Links to editors, compilers, and development tools |
