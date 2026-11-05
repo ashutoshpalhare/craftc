@@ -83,7 +83,7 @@ Three complete roadmaps (C, C++ and DSA) break the learning journey into phases 
 
 ### Interview Preparation
 
-42+ interview questions across C, C++, DSA and General programming — C, C++, DSA, and General programming — each with a concise answer. Filterable by category and difficulty.
+42 interview questions across C, C++, DSA and General programming, each with a concise answer. Filterable by category and difficulty.
 
 ### Cheatsheets
 
