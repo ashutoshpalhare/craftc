@@ -1,18 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, FileCode, FolderGit2, HelpCircle, Map, BookOpen } from 'lucide-react';
+import { Search, X, FileCode, FolderGit2, HelpCircle, Map, BookOpen, BrainCircuit } from 'lucide-react';
 import { cCurriculum } from '@/data/cCurriculum';
 import { cppCurriculum } from '@/data/cppCurriculum';
 import { interviewQuestions } from '@/data/interviewQuestions';
 import { projects } from '@/data/projects';
 import { cheatsheets } from '@/data/cheatsheets';
 import { roadmaps } from '@/data/roadmaps';
+import { dsaTopics, dsaProblems } from '@/data/dsa';
 
 interface SearchResult {
   id: string;
   title: string;
   description: string;
-  type: 'lesson' | 'project' | 'interview' | 'roadmap' | 'cheatsheet';
+  type: 'lesson' | 'project' | 'interview' | 'roadmap' | 'cheatsheet' | 'dsa';
   path: string;
   icon: typeof FileCode;
 }
@@ -84,6 +85,26 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
         icon: BookOpen,
       });
     });
+    dsaTopics.forEach((topic) => {
+      results.push({
+        id: `dsa-topic-${topic.id}`,
+        title: topic.title,
+        description: topic.explanation,
+        type: 'dsa',
+        path: '/dsa',
+        icon: BrainCircuit,
+      });
+    });
+    dsaProblems.forEach((problem) => {
+      results.push({
+        id: `dsa-problem-${problem.id}`,
+        title: problem.title,
+        description: problem.prompt,
+        type: 'dsa',
+        path: '/dsa',
+        icon: BrainCircuit,
+      });
+    });
     return results;
   }, []);
 
@@ -111,8 +132,6 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      // Keep navigation keys scoped to the search input so they don't hijack
-      // keyboard interaction with other controls while the dialog is open.
       if (document.activeElement !== inputRef.current) return;
       if (e.key === 'ArrowDown' && filteredResults.length > 0) {
         e.preventDefault();
@@ -152,7 +171,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
             aria-activedescendant={filteredResults[selectedIndex] ? `search-result-${filteredResults[selectedIndex].id}` : undefined}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search lessons, projects, interview questions..."
+            placeholder="Search lessons, DSA, projects, interview questions..."
             className="flex-1 bg-transparent py-4 text-[var(--color-text)] outline-none placeholder:text-[var(--color-text-muted)]"
           />
           <button onClick={onClose} className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text)]" aria-label="Close search">
