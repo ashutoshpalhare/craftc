@@ -12,7 +12,7 @@ export const cheatsheets: Cheatsheet[] = [
     language: 'C',
     items: [
       { topic: 'Hello World', syntax: '#include <stdio.h>\nint main() {\n  printf("Hello\\n");\n  return 0;\n}', description: 'Basic program structure' },
-      { topic: 'Variables', syntax: 'int x = 10;\nfloat y = 3.14;\nchar c = 'A';', description: 'Declare variables' },
+      { topic: 'Variables', syntax: 'int x = 10;\nfloat y = 3.14;\nchar c = \'A\';', description: 'Declare variables' },
       { topic: 'Input', syntax: 'scanf("%d", &x);', description: 'Read integer input' },
       { topic: 'Output', syntax: 'printf("Value: %d", x);', description: 'Print formatted output' },
       { topic: 'If-Else', syntax: 'if (x > 0) { ... }\nelse { ... }', description: 'Conditional branching' },
