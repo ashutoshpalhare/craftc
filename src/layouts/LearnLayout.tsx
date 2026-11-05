@@ -167,7 +167,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
         </AnimatePresence>
 
         {/* Main Content */}
-        <div className="flex-1 min-w-0 flex flex-col">
+        <div id="main-content" tabIndex={-1} className="flex-1 min-w-0 flex flex-col outline-none">
           {/* Mobile bar */}
           <div className="lg:hidden sticky top-16 z-30 flex items-center gap-3 px-4 py-3 bg-[var(--color-bg)]/85 backdrop-blur-xl border-b border-[var(--color-border)]">
             <button
