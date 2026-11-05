@@ -69,7 +69,7 @@ function setMeta(html, pattern, replacement) {
 function renderPage(template, page) {
   const url = `${baseUrl}${page.path === '/' ? '/' : `${page.path}/`}`;
   let html = template;
-  html = setMeta(html, /<title>[^<]*<\\/title>/, `<title>${escapeAttribute(page.title)}</title>`);
+  html = setMeta(html, /<title>[^<]*<\/title>/, `<title>${escapeAttribute(page.title)}</title>`);
   html = setMeta(html, /<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escapeAttribute(page.description)}" />`);
   html = setMeta(html, /<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`);
   html = setMeta(html, /<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`);
@@ -91,7 +91,7 @@ for (const page of pages) {
 }
 
 let notFound = template;
-notFound = setMeta(notFound, /<title>[^<]*<\\/title>/, '<title>Page Not Found | CraftC</title>');
+notFound = setMeta(notFound, /<title>[^<]*<\/title>/, '<title>Page Not Found | CraftC</title>');
 notFound = setMeta(notFound, /<meta name="description" content="[^"]*" \/>/, '<meta name="description" content="The page you requested could not be found on CraftC." />');
 notFound = setMeta(notFound, /<meta name="robots" content="[^"]*" \/>/, '<meta name="robots" content="noindex, nofollow" />');
 await writeFile(join(distDir, '404.html'), notFound);
