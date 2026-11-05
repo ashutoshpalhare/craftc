@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/generate-seo-pages.mjs",
     "check:dsa": "node scripts/check-dsa-solutions.mjs",
     "preview": "vite preview"
   },
