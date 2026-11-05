@@ -132,7 +132,7 @@ Fully responsive from mobile to desktop with an 8px spacing system, fluid typogr
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/craftc.git
+git clone https://github.com/ashutoshpalhare/craftc.git
 cd craftc
 
 # Install dependencies
@@ -143,6 +143,8 @@ npm run dev
 ```
 
 The dev server runs at `http://localhost:5173`.
+
+The production site is published at [https://ashutoshpalhare.github.io/craftc/](https://ashutoshpalhare.github.io/craftc/). Crawler discovery files are available at `/robots.txt` and `/sitemap.xml`.
 
 ### Build for Production
 
@@ -162,7 +164,7 @@ The built files are output to `dist/`.
 
 ```
 craftc/
-├── public/
+├── public/                 # Static assets, robots.txt and sitemap.xml
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── CodeBlock.tsx    # Shiki-powered syntax-highlighted code block
@@ -175,7 +177,8 @@ craftc/
 │   ├── data/                # All content data (curriculum, projects, etc.)
 │   │   ├── cCurriculum.ts   # Full C programming curriculum
 │   │   ├── cppCurriculum.ts # Full C++ programming curriculum
-│   │   ├── roadmaps.ts      # Learning roadmaps for C and C++
+│   │   ├── roadmaps.ts      # Learning roadmaps for C, C++ and DSA
+│   │   ├── dsa.ts            # DSA topics and solved problems
 │   │   ├── projects.ts      # Project library (12 projects)
 │   │   ├── interviewQuestions.ts  # Interview Q&A bank
 │   │   ├── cheatsheets.ts   # Syntax cheatsheets for C and C++
@@ -219,7 +222,7 @@ craftc/
 | `/` | Home | Hero, features, learning path, roadmap preview, projects showcase, interview teaser, testimonials, FAQ, and CTA |
 | `/learn/:courseId` | Course | Course overview with a sidebar listing all categories and lessons |
 | `/learn/:courseId/:lessonSlug` | Lesson | Full lesson with all structured sections and syntax-highlighted code |
-| `/roadmaps` | Roadmaps | Phase-by-phase visual roadmaps for C and C++ |
+| `/roadmaps` | Roadmaps | Phase-by-phase visual roadmaps for C, C++ and DSA |
 | `/projects` | Projects | Filterable project briefs with requirements, milestones, sample I/O, architecture and quality checks |\n| `/dsa` | DSA | Data structure explanations, complexity guidance and solved C++17 practice problems |
 | `/interview-prep` | Interview Prep | Filterable interview questions with answers |
 | `/cheatsheets` | Cheatsheets | Quick syntax reference tables for C and C++ |
