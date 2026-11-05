@@ -1,9 +1,37 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Filter } from 'lucide-react';
+import { BookOpen, Filter, Download } from 'lucide-react';
 import { cheatsheets } from '@/data/cheatsheets';
 import { CodeBlock } from '@/components/CodeBlock';
 import { Badge, Card, SectionHeading } from '@/components/ui';
+
+function downloadCheatsheet(sheet: (typeof cheatsheets)[number]) {
+  const markdown = [
+    '# ' + sheet.title,
+    '',
+    '> CraftC quick reference. Verify compiler and language-version support before using examples.',
+    '',
+    ...sheet.items.flatMap((item) => [
+      '## ' + item.topic,
+      '',
+      item.description,
+      '',
+      '```' + (sheet.language === 'C' ? 'c' : 'cpp'),
+      item.syntax,
+      '```',
+      '',
+    ]),
+  ].join('\n');
+  const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = sheet.id + '-cheatsheet.md';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
 
 export function CheatsheetsPage() {
   const [filter, setFilter] = useState<'all' | 'C' | 'C++'>('all');
@@ -39,7 +67,7 @@ export function CheatsheetsPage() {
                   <BookOpen size={20} className="text-[var(--color-primary)]" />
                 </div>
                 <h2 className="font-semibold text-[var(--color-text)] flex-1">{sheet.title}</h2>
-                <Badge variant="primary">{sheet.language}</Badge>
+                <Badge variant="primary">{sheet.language}</Badge>\n                <button type="button" onClick={() => downloadCheatsheet(sheet)} className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-2 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text)]" aria-label={`Download ${sheet.title} as Markdown`}>\n                  <Download size={14} /> Download\n                </button>
               </div>
               <div className="p-6 space-y-4">
                 {sheet.items.map((item) => (
