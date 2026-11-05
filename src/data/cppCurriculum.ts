@@ -890,7 +890,7 @@ int main() {
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'Exceptions let you handle errors without crashing. Wrap risky code in try, catch the error, and handle it gracefully.',
+              content: 'C++ exceptions report exceptional conditions by throwing an object. A matching catch handler can respond or rethrow; if no handler is found, the program terminates. Exceptions do not make every error recoverable, so use them for exceptional failures and validate ordinary input explicitly.',
             },
             {
               type: 'example',
@@ -899,17 +899,24 @@ int main() {
                 filename: 'exception.cpp',
                 language: 'cpp',
                 code: `#include <iostream>
-using namespace std;
+#include <stdexcept>
+
+int divide(int numerator, int denominator) {
+    if (denominator == 0) {
+        throw std::invalid_argument("denominator must not be zero");
+    }
+    return numerator / denominator;
+}
 
 int main() {
     try {
-        int a = 10, b = 0;
-        if (b == 0)
-            throw "Division by zero error!";
-        cout << a / b << endl;
-    } catch (const char* msg) {
-        cout << "Caught: " << msg << endl;
+        std::cout << divide(10, 0) << std::endl;
+    } catch (const std::invalid_argument& error) {
+        std::cout << "Invalid argument: " << error.what() << std::endl;
+    } catch (const std::exception& error) {
+        std::cout << "Standard exception: " << error.what() << std::endl;
     }
+
     return 0;
 }`,
               },
@@ -917,22 +924,26 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `Caught: Division by zero error!` },
+              code: { filename: 'output', language: 'bash', code: `Invalid argument: denominator must not be zero` },
             },
             {
               type: 'notes',
               title: 'Key Concepts',
               items: [
-                'try — wrap code that might throw.',
-                'throw — raise an exception.',
-                'catch — handle the exception.',
-                'You can catch specific types or catch(...) for anything.',
+                'throw creates an exception object; the exception type helps handlers distinguish failure categories.',
+                'Catch standard library exceptions through const std::exception& and inspect what() for a diagnostic message.',
+                'Place more specific handlers before broader base-class handlers; otherwise the broad handler may make later handlers unreachable.',
+                'Catch by const reference to avoid unnecessary copies and preserve polymorphic exception information.',
+                'Stack unwinding destroys automatic local objects as control leaves scopes; use RAII so resources are released during exception propagation.',
+                'Use std::invalid_argument for invalid arguments and std::runtime_error for other runtime failures when those types fit.',
+                'Do not use catch(...) as a routine substitute for handling known errors. It is appropriate only at deliberate boundaries where unknown failures can be safely handled or rethrown.',
+                'After catching an exception, either recover meaningfully, translate it, or rethrow with throw; avoid silently swallowing failures.',
               ],
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Exception handling uses try/throw/catch to handle errors gracefully without crashing the program.',
+              content: 'Use try, throw, and catch to communicate exceptional failures. Prefer typed exceptions and catch standard exceptions by const reference. RAII protects resources during stack unwinding; catch(...) should be reserved for deliberate last-resort boundaries.',
             },
           ],
         },
