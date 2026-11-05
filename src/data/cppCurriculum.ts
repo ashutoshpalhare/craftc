@@ -1155,22 +1155,25 @@ int main() {
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'The STL is a powerful library of containers (vector, map, set), algorithms (sort, find), and iterators. It saves you from writing common data structures from scratch.',
+              content: 'The Standard Template Library (STL) is the commonly used part of the C++ standard library built around generic containers, algorithms, iterators, and callable objects. Containers manage collections, iterators connect containers to algorithms, and algorithms perform operations over iterator ranges. The examples in this course use C++17.',
             },
             {
               type: 'notes',
               title: 'STL Components',
               items: [
-                'Containers — vector, list, map, set, stack, queue, deque.',
-                'Algorithms — sort, find, reverse, count, accumulate.',
-                'Iterators — objects that point to elements and let you traverse containers.',
-                'Function objects — lambdas and functors.',
+                'Sequence containers — vector, deque, and list store elements in a sequence; choose based on access and insertion patterns.',
+                'Associative containers — set and map keep unique keys in sorted order; their lookup and insertion are logarithmic.',
+                'Unordered associative containers — unordered_set and unordered_map use hash tables; operations are average constant time but can be linear in the worst case, and iteration order is unspecified.',
+                'Container adaptors — stack, queue, and priority_queue expose restricted interfaces over underlying containers.',
+                'Algorithms — sort, find, reverse, count_if, and accumulate operate on iterator ranges; include the header that declares each algorithm.',
+                'Iterators — connect containers to algorithms; [begin, end) includes the first iterator and excludes end().',
+                'Callable objects — lambdas, function objects, and function pointers customize algorithms.',
               ],
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'The STL provides ready-to-use containers, algorithms, and iterators. Learning it dramatically speeds up C++ development.',
+              content: 'Choose a container by its access, ordering, and mutation requirements. Use iterator ranges with standard algorithms, and check each operation\'s complexity and invalidation rules rather than assuming all containers behave alike.',
             },
           ],
         },
@@ -1228,9 +1231,13 @@ int main() {
                 'push_back(x) — add to end.',
                 'pop_back() — remove last.',
                 'size() — number of elements.',
-                'at(i) — access with bounds checking.',
-                'begin() / end() — iterators.',
-                'clear() — remove all elements.',
+                'at(i) — access with bounds checking; it throws std::out_of_range for an invalid index.',
+                'operator[] — unchecked access; the index must be valid.',
+                'empty() — check whether there are no elements; prefer it to comparing size() with zero.',
+                'begin() / end() — the half-open iterator range [begin(), end()).',
+                'reserve(n) — request capacity for at least n elements; it does not change size().',
+                'clear() — remove all elements; existing element references and iterators are invalidated.',
+                'A vector reallocation invalidates all iterators, pointers, and references to its elements. Insert/erase can also invalidate positions at or after the change; check the operation-specific rules.'
               ],
             },
             {
@@ -1274,8 +1281,10 @@ int main() {
         cout << name << " -> " << age << endl;
     }
 
-    if (ages.count("Rahul"))
-        cout << "Rahul is " << ages["Rahul"] << endl;
+    auto it = ages.find("Rahul");
+    if (it != ages.end()) {
+        cout << "Rahul is " << it->second << endl;
+    }
     return 0;
 }`,
               },
@@ -1288,7 +1297,7 @@ int main() {
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Maps store sorted key-value pairs. Use [] or insert to add, count/find to check existence. unordered_map is faster but unsorted.',
+              content: 'std::map stores unique keys in sorted order and provides logarithmic lookup, insertion, and removal. operator[] inserts a default value when a key is absent; use find() or at() when you only want to inspect an existing key. std::unordered_map uses hashing, has average constant-time lookup, and does not preserve sorted iteration order.',
             },
           ],
         },
@@ -1303,7 +1312,7 @@ int main() {
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'A set stores unique elements in sorted order. Duplicate insertions are ignored.',
+              content: 'std::set stores unique keys in sorted order. It is useful for membership checks and maintaining ordered unique values; insert, find, and erase take logarithmic time.',
             },
             {
               type: 'example',
@@ -1320,6 +1329,9 @@ int main() {
     for (int n : s) cout << n << " ";
     cout << endl;
     // Duplicate values are removed; set iteration is sorted.
+    if (s.find(5) != s.end()) {
+        cout << "5 is present" << endl;
+    }
     return 0;
 }`,
               },
@@ -1327,12 +1339,12 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `1 2 3 4 5 6 9` },
+              code: { filename: 'output', language: 'bash', code: `1 2 3 4 5 6 9\n5 is present` },
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'Sets store unique, sorted elements. Use them when you need to eliminate duplicates and keep order.',
+              content: 'A std::set keeps unique values sorted by its comparison rule. Use find() to test membership; use std::unordered_set when ordering is unnecessary and average constant-time lookup is more important.',
             },
           ],
         },
@@ -1347,7 +1359,7 @@ int main() {
             {
               type: 'introduction',
               title: 'Introduction',
-              content: 'The STL <algorithm> header provides dozens of ready-to-use algorithms that work on any container via iterators.',
+              content: 'The <algorithm> header provides non-member algorithms that operate on iterator ranges. They work with containers whose iterators meet the algorithm\'s requirements; not every algorithm works with every container (for example, std::sort requires random-access iterators).' ,
             },
             {
               type: 'example',
@@ -1358,6 +1370,7 @@ int main() {
                 code: `#include <iostream>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 using namespace std;
 
 int main() {
@@ -1373,6 +1386,9 @@ int main() {
     reverse(v.begin(), v.end());
     for (int n : v) cout << n << " ";
     cout << endl;
+
+    const int total = accumulate(v.begin(), v.end(), 0);
+    cout << "Sum: " << total << endl;
     return 0;
 }`,
               },
@@ -1380,12 +1396,12 @@ int main() {
             {
               type: 'output',
               title: 'Output',
-              code: { filename: 'output', language: 'bash', code: `1 2 3 5 8 9\nFound 8\n9 8 5 3 2 1` },
+              code: { filename: 'output', language: 'bash', code: `1 2 3 5 8 9\nFound 8\n9 8 5 3 2 1\nSum: 28` },
             },
             {
               type: 'summary',
               title: 'Summary',
-              content: 'STL algorithms (sort, find, reverse, count, accumulate) work on any container through iterators — no need to write them yourself.',
+              content: 'Algorithms such as sort, find, reverse, count_if, and accumulate operate on iterator ranges. Check iterator requirements: std::sort needs random-access iterators, while std::find works with input iterators. Include <algorithm> for these algorithms and <numeric> for accumulate.',
             },
           ],
         },
@@ -1426,10 +1442,10 @@ int main() {
 
     // Capture and use
     int threshold = 5;
-    int count = count_if(v.begin(), v.end(), [threshold](int x) {
+    const auto countAbove = count_if(v.begin(), v.end(), [threshold](int x) {
         return x > threshold;
     });
-    cout << "Above " << threshold << ": " << count << endl;
+    cout << "Above " << threshold << ": " << countAbove << endl;
     return 0;
 }`,
               },
