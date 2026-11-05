@@ -219,7 +219,7 @@ craftc/
 
 | Route | Page | Description |
 |-------|------|-------------|
-| `/` | Home | Hero, features, learning path, roadmap preview, projects showcase, interview teaser, testimonials, FAQ, and CTA |
+| `/` | Home | Hero, features, learning path, roadmap preview, projects showcase, interview teaser, FAQ, and CTA |
 | `/learn/:courseId` | Course | Course overview with a sidebar listing all categories and lessons |
 | `/learn/:courseId/:lessonSlug` | Lesson | Full lesson with all structured sections and syntax-highlighted code |
 | `/roadmaps` | Roadmaps | Phase-by-phase visual roadmaps for C, C++ and DSA |
