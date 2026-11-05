@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Monitor, Apple, Terminal as TerminalIcon } from 'lucide-react';
+import { ExternalLink, Monitor, Apple, Terminal as TerminalIcon, BookOpen } from 'lucide-react';
 import { downloads } from '@/data/downloads';
 import { Badge, Card, SectionHeading } from '@/components/ui';
 import {
@@ -60,6 +60,31 @@ export function DownloadsPage() {
           );
         })}
       </div>
+
+      <section className="mt-16">
+        <SectionHeading eyebrow="Official references" title="Keep learning from primary sources" subtitle="Use language references and toolchain documentation for exact rules, compiler options and deeper explanations." center />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { title: 'cppreference — C', description: 'C language reference, standard library headers and language rules.', url: 'https://en.cppreference.com/w/c' },
+            { title: 'cppreference — C++', description: 'C++ language reference, standard library and version-specific features.', url: 'https://en.cppreference.com/w/cpp' },
+            { title: 'LearnCpp', description: 'Structured modern C++ tutorials with practical explanations.', url: 'https://www.learncpp.com/' },
+            { title: 'GCC Documentation', description: 'Compiler options, diagnostics and GCC toolchain reference.', url: 'https://gcc.gnu.org/onlinedocs/' },
+            { title: 'Clang Documentation', description: 'Clang compiler user manual, diagnostics and tooling.', url: 'https://clang.llvm.org/docs/' },
+            { title: 'C++ Core Guidelines', description: 'Guidelines for safer, clearer modern C++ design.', url: 'https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines' },
+          ].map((resource) => (
+            <Card key={resource.title} className="p-5 h-full">
+              <div className="flex items-center gap-2 mb-3">
+                <BookOpen size={18} className="text-[var(--color-primary)]" />
+                <h3 className="font-semibold text-[var(--color-text)]">{resource.title}</h3>
+              </div>
+              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-4">{resource.description}</p>
+              <a href={resource.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] hover:underline">
+                Open reference <ExternalLink size={14} />
+              </a>
+            </Card>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
