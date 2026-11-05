@@ -8,6 +8,7 @@ const navLinks = [
   { label: 'Learn C', path: '/learn/c' },
   { label: 'Learn C++', path: '/learn/cpp' },
   { label: 'Roadmaps', path: '/roadmaps' },
+  { label: 'DSA', path: '/dsa' },
   { label: 'Projects', path: '/projects' },
   { label: 'Interview Prep', path: '/interview-prep' },
   { label: 'Cheatsheets', path: '/cheatsheets' },
