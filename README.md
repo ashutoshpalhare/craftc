@@ -38,10 +38,12 @@ The curriculum is organised into structured lessons that follow a consistent for
 |----------|-------|---------|
 | **Lessons** | 40+ | Across C and C++ curricula, grouped by category |
 | **Projects** | 12 | Guided C and C++ project briefs with requirements, milestones, sample I/O, architecture and quality checks |
-| **DSA Topics** | 13 | Foundation-to-advanced explanations, complexity notes and C++17 examples |\n| **DSA Problems** | 11 | Progressive problems with approaches, reference solutions and complexity analysis |\n| **Interview Questions** | 27+ | Categorized by C, C++, DSA, and General |
-| **Roadmaps** | 2 | Phase-by-phase roadmaps for C and C++ |
+| **DSA Topics** | 13 | Foundation-to-advanced explanations, complexity notes and C++17 examples |
+| **DSA Problems** | 11 | Progressive problems with approaches, reference solutions and complexity analysis |
+| **Interview Questions** | 42 | Categorized by C, C++, DSA, and General |
+| **Roadmaps** | 3 | Phase-by-phase roadmaps for C, C++, and DSA |
 | **Cheatsheets** | 2 | Quick syntax reference for C and C++ |
-| **Downloads** | 6 | Editors, compilers, and development tools, plus official language references |
+| **Downloads & References** | 6 tools + 6 references | Editors, compilers, development tools, and official language documentation |
 
 ---
 
