@@ -25,7 +25,7 @@ export const projects: ProjectItem[] = [
     estimatedTime: '1-2 hours',
     requirements: ['Support addition, subtraction, multiplication and division.', 'Keep each operation in a separate function.', 'Repeat until the user chooses Exit.', 'Reject invalid menu choices and non-numeric input.'],
     milestones: ['Implement one calculation and verify the result.', 'Extract operations into functions.', 'Add the menu loop and exit option.', 'Handle division by zero and malformed input.'],
-    sampleInput: '1\n12 4\n4\n',
+    sampleInput: '4\n12 4\n0\n',
     expectedOutput: 'Select: 1) Add 2) Subtract 3) Multiply 4) Divide 0) Exit\nResult: 3',
     qualityChecks: ['Use int return values from scanf/fscanf to validate conversion.', 'Do not continue using stale operands after failed input.', 'Use clear function names and avoid global mutable state.'],
     architecture: 'main.c owns the menu loop; calculator.h declares operations; calculator.c implements arithmetic and input-independent functions. Keep input parsing separate from arithmetic.',
