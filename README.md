@@ -73,7 +73,7 @@ A command-palette-style search modal (`Ctrl+K` / `Cmd+K`) lets you instantly sea
 
 ### Visual Roadmaps
 
-Two complete roadmaps (C and C++) break the learning journey into phases with topics and estimated durations — from Foundations through Projects & Interview Prep.
+Three complete roadmaps (C, C++ and DSA) break the learning journey into phases with topics and estimated durations — from Foundations through Projects & Interview Prep.
 
 ### Project Library
 
@@ -81,7 +81,7 @@ Two complete roadmaps (C and C++) break the learning journey into phases with to
 
 ### Interview Preparation
 
-Curated interview questions across four categories — C, C++, DSA, and General programming — each with a concise answer. Filterable by category and difficulty.
+42+ interview questions across C, C++, DSA and General programming — C, C++, DSA, and General programming — each with a concise answer. Filterable by category and difficulty.
 
 ### Cheatsheets
 
