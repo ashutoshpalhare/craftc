@@ -67,7 +67,10 @@ export function CheatsheetsPage() {
                   <BookOpen size={20} className="text-[var(--color-primary)]" />
                 </div>
                 <h2 className="font-semibold text-[var(--color-text)] flex-1">{sheet.title}</h2>
-                <Badge variant="primary">{sheet.language}</Badge>\n                <button type="button" onClick={() => downloadCheatsheet(sheet)} className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-2 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text)]" aria-label={`Download ${sheet.title} as Markdown`}>\n                  <Download size={14} /> Download\n                </button>
+                <Badge variant="primary">{sheet.language}</Badge>
+                <button type="button" onClick={() => downloadCheatsheet(sheet)} className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-2 text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text)]" aria-label={`Download ${sheet.title} as Markdown`}>
+                  <Download size={14} /> Download
+                </button>
               </div>
               <div className="p-6 space-y-4">
                 {sheet.items.map((item) => (
