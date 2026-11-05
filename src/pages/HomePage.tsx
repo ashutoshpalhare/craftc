@@ -21,6 +21,7 @@ export function HomePage() {
       <LearningPath />
       <PlatformFeatures />
       <RoadmapsSection />
+      <DsaSection />
       <PopularTopics />
       <ProjectsSection />
       <InterviewSection />
@@ -306,6 +307,32 @@ function RoadmapsSection() {
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function DsaSection() {
+  return (
+    <section className="py-16 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <Card className="p-7 sm:p-10 overflow-hidden">
+          <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
+            <div>
+              <Badge variant="primary">New learning track</Badge>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mt-3">Data Structures & Algorithms</h2>
+              <p className="text-[var(--color-text-secondary)] leading-relaxed mt-3 max-w-2xl">
+                Learn complexity, arrays, linked lists, stacks, queues, hashing, trees, graphs, greedy methods and dynamic programming — with C++17 examples and solved practice problems.
+              </p>
+            </div>
+            <Link
+              to="/dsa"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:bg-[var(--color-primary-hover)] transition-colors"
+            >
+              Explore DSA <ArrowRight size={18} />
+            </Link>
+          </div>
+        </Card>
       </div>
     </section>
   );
