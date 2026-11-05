@@ -122,4 +122,20 @@ export const roadmaps: Roadmap[] = [
       },
     ],
   },
+
+  {
+    id: 'dsa-roadmap',
+    title: 'Data Structures & Algorithms Roadmap',
+    language: 'Both',
+    description: 'A language-independent problem-solving path supported by the C++17 examples in the DSA learning section.',
+    phases: [
+      { id: 'dsa-p1', title: 'Phase 1: Complexity & Problem Solving', description: 'Learn to reason about correctness, constraints, time and space.', topics: ['Input constraints', 'Big-O, Theta and Omega', 'Time vs space', 'Recursion basics', 'Dry runs and edge cases'], duration: '1 week' },
+      { id: 'dsa-p2', title: 'Phase 2: Linear Data Structures', description: 'Understand contiguous and linked collections and their trade-offs.', topics: ['Arrays', 'Strings', 'Two pointers', 'Sliding window', 'Linked lists', 'Stacks', 'Queues'], duration: '2-3 weeks' },
+      { id: 'dsa-p3', title: 'Phase 3: Searching, Sorting & Hashing', description: 'Choose techniques for ordering data and efficient lookups.', topics: ['Linear and binary search', 'Sorting', 'Stable sorting', 'Hash maps and sets', 'Frequency counting', 'Prefix sums'], duration: '2 weeks' },
+      { id: 'dsa-p4', title: 'Phase 4: Recursion, Trees & Heaps', description: 'Model hierarchical data and decompose problems into smaller states.', topics: ['Backtracking', 'Binary trees', 'BST operations', 'Tree traversals', 'Heaps', 'Priority queues'], duration: '2-3 weeks' },
+      { id: 'dsa-p5', title: 'Phase 5: Graphs & Greedy Algorithms', description: 'Explore graph traversal, shortest paths and greedy strategies.', topics: ['Graph representations', 'BFS and DFS', 'Topological sorting', 'Dijkstra constraints', 'Disjoint set union', 'Greedy proofs'], duration: '2-3 weeks' },
+      { id: 'dsa-p6', title: 'Phase 6: Dynamic Programming & Interview Practice', description: 'Recognize overlapping subproblems and build a repeatable interview workflow.', topics: ['Memoization', 'Tabulation', 'Knapsack patterns', 'Subsequence patterns', 'Timed practice', 'Complexity explanation'], duration: '3-4 weeks' },
+    ],
+  },
+
 ];
