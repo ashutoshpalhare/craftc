@@ -26,7 +26,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
       <Navbar onSearchOpen={() => setSearchOpen(true)} />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</main>
       <Footer />
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
