@@ -93,8 +93,9 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]"
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileOpen}
+              aria-controls="craftc-mobile-navigation"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -103,7 +104,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
       </nav>
 
       {mobileOpen && (
-        <div className="lg:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]">
+        <div id="craftc-mobile-navigation" className="lg:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map((link) => (
               <NavLink
