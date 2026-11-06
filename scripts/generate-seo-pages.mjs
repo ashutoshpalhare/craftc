@@ -103,7 +103,7 @@ function setMeta(html, pattern, replacement) {
 function renderPage(template, page) {
   const url = `${baseUrl}${page.path === '/' ? '/' : `${page.path}/`}`;
   let html = template;
-  html = setMeta(html, /<title>[^<]*<\\/title>/, `<title>${escapeAttribute(page.title)}</title>`);
+  html = setMeta(html, /<title>[^<]*<\/title>/, `<title>${escapeAttribute(page.title)}</title>`);
   html = setMeta(html, /<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escapeAttribute(page.description)}" />`);
   html = setMeta(html, /<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`);
   html = setMeta(html, /<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`);
@@ -115,7 +115,7 @@ function renderPage(template, page) {
 }
 
 function truncateDescription(value, maxLength = 160) {
-  const normalized = String(value ?? '').replace(/\\s+/g, ' ').trim();
+  const normalized = String(value ?? '').replace(/\s+/g, ' ').trim();
   if (!normalized) return 'Study this programming lesson with examples and guided explanations on CraftC.';
   if (normalized.length <= maxLength) return normalized;
 
@@ -136,7 +136,7 @@ async function loadCurriculum(sourcePath, exportName) {
 
   const errors = (result.diagnostics ?? []).filter((diagnostic) => diagnostic.category === ts.DiagnosticCategory.Error);
   if (errors.length) {
-    const messages = errors.map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, '\\n'));
+    const messages = errors.map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
     throw new Error(`Could not compile ${sourcePath}: ${messages.join('; ')}`);
   }
 
@@ -201,7 +201,7 @@ function renderSitemap(allPages) {
       `    <changefreq>${page.changefreq}</changefreq>`,
       `    <priority>${page.priority}</priority>`,
       '  </url>',
-    ].join('\\n');
+    ].join('\n');
   });
 
   return [
@@ -210,7 +210,7 @@ function renderSitemap(allPages) {
     ...entries,
     '</urlset>',
     '',
-  ].join('\\n');
+  ].join('\n');
 }
 
 const [cCurriculum, cppCurriculum] = await Promise.all([
@@ -231,7 +231,7 @@ for (const page of allPages) {
 }
 
 let notFound = template;
-notFound = setMeta(notFound, /<title>[^<]*<\\/title>/, '<title>Page Not Found | CraftC</title>');
+notFound = setMeta(notFound, /<title>[^<]*<\/title>/, '<title>Page Not Found | CraftC</title>');
 notFound = setMeta(notFound, /<meta name="description" content="[^"]*" \/>/, '<meta name="description" content="The page you requested could not be found on CraftC." />');
 notFound = setMeta(notFound, /<meta name="robots" content="[^"]*" \/>/, '<meta name="robots" content="noindex, nofollow" />');
 
