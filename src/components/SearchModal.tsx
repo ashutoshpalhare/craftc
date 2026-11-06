@@ -121,11 +121,14 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
   useEffect(() => {
     if (!open) return;
     previouslyFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     setQuery('');
     setSelectedIndex(0);
     const focusTimeout = window.setTimeout(() => inputRef.current?.focus(), 0);
     return () => {
       window.clearTimeout(focusTimeout);
+      document.body.style.overflow = previousOverflow;
       previouslyFocusedRef.current?.focus();
     };
   }, [open]);
@@ -195,7 +198,8 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
             aria-label="Search CraftC content"
             role="combobox"
             aria-autocomplete="list"
-            aria-expanded={filteredResults.length > 0}
+            aria-expanded="true"
+            aria-haspopup="listbox"
             aria-controls="craftc-search-results"
             aria-activedescendant={filteredResults[selectedIndex] ? `search-result-${filteredResults[selectedIndex].id}` : undefined}
             value={query}
