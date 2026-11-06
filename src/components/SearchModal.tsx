@@ -27,6 +27,8 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const navigate = useNavigate();
 
   const allResults = useMemo<SearchResult[]>(() => {
@@ -118,10 +120,14 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
 
   useEffect(() => {
     if (!open) return;
+    previouslyFocusedRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setQuery('');
     setSelectedIndex(0);
-    const focusTimeout = window.setTimeout(() => inputRef.current?.focus(), 50);
-    return () => window.clearTimeout(focusTimeout);
+    const focusTimeout = window.setTimeout(() => inputRef.current?.focus(), 0);
+    return () => {
+      window.clearTimeout(focusTimeout);
+      previouslyFocusedRef.current?.focus();
+    };
   }, [open]);
 
   useEffect(() => {
@@ -131,7 +137,30 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) {
+          e.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+        return;
+      }
       if (document.activeElement !== inputRef.current) return;
       if (e.key === 'ArrowDown' && filteredResults.length > 0) {
         e.preventDefault();
@@ -156,7 +185,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4" role="dialog" aria-modal="true" aria-label="Search">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-2xl bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-2xl overflow-hidden">
+      <div ref={dialogRef} className="relative w-full max-w-2xl bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-2xl overflow-hidden">
         <div className="flex items-center gap-3 px-4 border-b border-[var(--color-border)]">
           <Search size={20} className="text-[var(--color-text-muted)]" />
           <input
