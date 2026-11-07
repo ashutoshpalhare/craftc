@@ -69,6 +69,15 @@ export function LearnLayout({ children }: LearnLayoutProps) {
     setSidebarOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (!sidebarOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSidebarOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sidebarOpen]);
+
   if (!curriculum) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
@@ -143,11 +152,13 @@ export function LearnLayout({ children }: LearnLayoutProps) {
                 animate={{ x: 0 }}
                 exit={{ x: -320 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                id="craftc-mobile-lesson-navigation"
+                aria-label="Lesson navigation"
                 className="fixed left-0 top-0 bottom-0 z-50 w-80 bg-[var(--color-bg)] border-r border-[var(--color-border)] lg:hidden overflow-y-auto"
               >
                 <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)] sticky top-0 bg-[var(--color-bg)] z-10">
                   <span className="font-semibold text-[var(--color-text)]">{curriculum.title}</span>
-                  <button onClick={() => setSidebarOpen(false)} className="p-1 text-[var(--color-text-muted)]">
+                  <button onClick={() => setSidebarOpen(false)} aria-label="Close lesson navigation" className="p-1 text-[var(--color-text-muted)]">
                     <X size={20} />
                   </button>
                 </div>
@@ -167,13 +178,15 @@ export function LearnLayout({ children }: LearnLayoutProps) {
         </AnimatePresence>
 
         {/* Main Content */}
-        <div id="main-content" tabIndex={-1} className="flex-1 min-w-0 flex flex-col outline-none">
+        <main id="main-content" tabIndex={-1} className="flex-1 min-w-0 flex flex-col outline-none">
           {/* Mobile bar */}
           <div className="lg:hidden sticky top-16 z-30 flex items-center gap-3 px-4 py-3 bg-[var(--color-bg)]/85 backdrop-blur-xl border-b border-[var(--color-border)]">
             <button
               onClick={() => setSidebarOpen(true)}
               className="p-2 rounded-lg hover:bg-[var(--color-surface)] text-[var(--color-text-secondary)]"
-              aria-label="Open sidebar"
+              aria-label="Open lesson navigation"
+              aria-expanded={sidebarOpen}
+              aria-controls="craftc-mobile-lesson-navigation"
             >
               <Menu size={20} />
             </button>
@@ -232,7 +245,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
           )}
 
           <Footer />
-        </div>
+        </main>
       </div>
 
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
