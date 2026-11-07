@@ -36,7 +36,7 @@ export function AboutPage() {
               </div>
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-[var(--color-primary-foreground)] text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-all"
               >
                 <Download size={16} /> Resume
               </a>
