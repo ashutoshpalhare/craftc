@@ -121,7 +121,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
         <div className="text-center px-4">
           <p className="text-[var(--color-text)] text-xl font-semibold">Course not found</p>
           <p className="text-[var(--color-text-secondary)] mt-2 mb-5">This course may have moved or the URL may be incorrect.</p>
-          <Link to="/" className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-white font-medium hover:bg-[var(--color-primary-hover)] transition-colors">
+          <Link to="/" className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-[var(--color-primary-foreground)] font-medium hover:bg-[var(--color-primary-hover)] transition-colors">
             <ArrowLeft size={16} /> Back to CraftC
           </Link>
         </div>
