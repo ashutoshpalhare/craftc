@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from '@/layouts/MainLayout';
 import { LearnLayout } from '@/layouts/LearnLayout';
@@ -25,7 +26,8 @@ function PageLoader() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/craftc">
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter basename="/craftc">
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
@@ -41,6 +43,7 @@ export default function App() {
           <Route path="*" element={<MainLayout><NotFoundPage /></MainLayout>} />
         </Routes>
       </Suspense>
-    </BrowserRouter>
+      </BrowserRouter>
+    </MotionConfig>
   );
 }
