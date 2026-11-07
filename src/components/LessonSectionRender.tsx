@@ -66,7 +66,7 @@ export function LessonSectionRender({ section, index }: { section: LessonSection
     href={section.link.url}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex items-center gap-2.5 mt-4 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white font-medium text-sm hover:opacity-90 transition-opacity"
+    className="inline-flex items-center gap-2.5 mt-4 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-medium text-sm hover:opacity-90 transition-opacity"
   >
     {section.link.icon === 'vscode' && (
       <img
