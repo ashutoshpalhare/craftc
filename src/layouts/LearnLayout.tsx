@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -29,6 +29,7 @@ export function LearnLayout({ children }: LearnLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const drawerRef = useRef<HTMLElement | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const [completedLessons, setCompletedLessons] = useState<string[]>(() => courseId ? getCompletedLessons(courseId) : []);
@@ -71,11 +72,47 @@ export function LearnLayout({ children }: LearnLayoutProps) {
 
   useEffect(() => {
     if (!sidebarOpen) return;
+
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    const drawer = drawerRef.current;
+    const getFocusable = () => drawer?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ) ?? [];
+
+    getFocusable()[0]?.focus();
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSidebarOpen(false);
+      if (event.key === 'Escape') {
+        setSidebarOpen(false);
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) {
+        event.preventDefault();
+        drawer?.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
   }, [sidebarOpen]);
 
   if (!curriculum) {
@@ -148,6 +185,8 @@ export function LearnLayout({ children }: LearnLayoutProps) {
                 onClick={() => setSidebarOpen(false)}
               />
               <motion.aside
+                ref={drawerRef}
+                tabIndex={-1}
                 initial={{ x: -320 }}
                 animate={{ x: 0 }}
                 exit={{ x: -320 }}
@@ -244,8 +283,8 @@ export function LearnLayout({ children }: LearnLayoutProps) {
             </div>
           )}
 
-          <Footer />
         </main>
+        <Footer />
       </div>
 
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
