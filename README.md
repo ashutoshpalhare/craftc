@@ -223,7 +223,8 @@ craftc/
 | `/learn/:courseId` | Course | Course overview with a sidebar listing all categories and lessons |
 | `/learn/:courseId/:lessonSlug` | Lesson | Full lesson with all structured sections and syntax-highlighted code |
 | `/roadmaps` | Roadmaps | Phase-by-phase visual roadmaps for C, C++ and DSA |
-| `/projects` | Projects | Filterable project briefs with requirements, milestones, sample I/O, architecture and quality checks |\n| `/dsa` | DSA | Data structure explanations, complexity guidance and solved C++17 practice problems |
+| `/projects` | Projects | Filterable project briefs with requirements, milestones, sample I/O, architecture and quality checks |
+| `/dsa` | DSA | Data structure explanations, complexity guidance and solved C++17 practice problems |
 | `/interview-prep` | Interview Prep | Filterable interview questions with answers |
 | `/cheatsheets` | Cheatsheets | Quick syntax reference tables for C and C++ |
 | `/downloads` | Downloads | Links to editors, compilers, and development tools |
