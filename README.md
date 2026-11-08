@@ -71,7 +71,7 @@ Code blocks are rendered with [Shiki](https://shiki.style) using the GitHub Dark
 
 ### Global Search
 
-A command-palette-style search modal (`Ctrl+K` / `Cmd+K`) lets you instantly search across all lessons, projects, interview questions, roadmaps, and cheatsheets. Results are grouped by category with icons and keyboard navigation.
+A command-palette-style search modal (`Ctrl+K` / `Cmd+K`) lets you instantly search across all lessons, projects, practice quizzes, interview questions, roadmaps, and cheatsheets. Results are grouped by category with icons and keyboard navigation.
 
 ### Visual Roadmaps
 
@@ -84,6 +84,10 @@ Three complete roadmaps (C, C++ and DSA) break the learning journey into phases 
 ### Interview Preparation
 
 42 interview questions across C, C++, DSA and General programming, each with a concise answer. Filterable by category and difficulty.
+
+### Interactive Practice Center
+
+The Practice Center offers 18 original multiple-choice questions across C, C++17 and DSA, with subject and difficulty filters, four answer choices, scored results, per-question explanations, retry controls and best-score tracking saved locally in the browser.
 
 ### Cheatsheets
 
@@ -171,7 +175,7 @@ The built files are output to `dist/`.
 craftc/
 ├── .github/workflows/      # Build, accessibility checks and GitHub Pages deployment
 ├── public/                 # Static assets, robots.txt and sitemap.xml
-├── scripts/                # SEO generation, DSA validation and browser QA
+├── scripts/                # SEO generation, DSA/practice validation and browser QA
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── CodeBlock.tsx    # Shiki-powered syntax-highlighted code block
@@ -188,6 +192,7 @@ craftc/
 │   │   ├── dsa.ts            # DSA topics and solved problems
 │   │   ├── projects.ts      # Project library (12 projects)
 │   │   ├── interviewQuestions.ts  # Interview Q&A bank
+│   │   ├── practiceQuestions.ts   # Interactive quiz question bank
 │   │   ├── cheatsheets.ts   # Syntax cheatsheets for C and C++
 │   │   └── downloads.ts     # Dev tool download links
 │   ├── hooks/
@@ -203,6 +208,7 @@ craftc/
 │   │   ├── ProjectsPage.tsx # Project library
 │   │   ├── DsaPage.tsx      # DSA topics and C++17 practice
 │   │   ├── InterviewPrepPage.tsx  # Interview questions
+│   │   ├── PracticePage.tsx       # Interactive practice quizzes
 │   │   ├── CheatsheetsPage.tsx    # Quick reference
 │   │   ├── DownloadsPage.tsx      # Dev tools
 │   │   ├── AboutPage.tsx    # About the project
@@ -234,6 +240,7 @@ craftc/
 | `/roadmaps` | Roadmaps | Phase-by-phase visual roadmaps for C, C++ and DSA |
 | `/projects` | Projects | Filterable project briefs with requirements, milestones, sample I/O, architecture and quality checks |
 | `/dsa` | DSA | Data structure explanations, complexity guidance and solved C++17 practice problems |
+| `/practice` | Practice | Interactive C, C++ and DSA quizzes with scoring and explanations |
 | `/interview-prep` | Interview Prep | Filterable interview questions with answers |
 | `/cheatsheets` | Cheatsheets | Quick syntax reference tables for C and C++ |
 | `/downloads` | Downloads | Links to editors, compilers, and development tools |
