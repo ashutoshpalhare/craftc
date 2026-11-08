@@ -121,6 +121,18 @@ const readme = await readFile('README.md', 'utf8');
 
 check(!aboutSource.includes('href="#"'), 'About page contains a placeholder href="#" link.');
 check(!aboutSource.includes('hello@craftc.dev'), 'About page contains the placeholder CraftC email address.');
+for (const profileUrl of [
+  'https://www.linkedin.com/in/ashutoshpalhare',
+  'https://www.instagram.com/ashutoshpalhare/',
+  'https://www.facebook.com/ashutoshpalhare/',
+  'https://twitter.com/ashutoshpalhare',
+  'https://ashutoshpalhare.github.io/BioLinksV2/',
+  'mailto:ashutoshpalhare@gmail.com',
+]) {
+  check(aboutSource.includes(profileUrl), `About page is missing the verified profile link: ${profileUrl}`);
+  check(footerSource.includes(profileUrl), `Footer is missing the verified profile link: ${profileUrl}`);
+}
+check(aboutSource.includes('https://ashutoshpalhare.github.io/ResumeAP.pdf'), 'About page is missing the verified resume PDF link.');
 check(!footerSource.includes('https://github.com"'), 'Footer links to the generic GitHub homepage instead of the owner profile.');
 check(!packageJson.dependencies?.['@supabase/supabase-js'], 'Unused Supabase SDK is still listed as a direct dependency.');
 check(!lockJson.packages?.['node_modules/@supabase/supabase-js'], 'Unused Supabase SDK remains in package-lock.json.');
