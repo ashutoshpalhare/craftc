@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import {
-  GitBranch, Link as LinkIcon, ExternalLink,
+  Github, Linkedin, Instagram, Facebook, Twitter, Mail, Globe, Contact, Download, ExternalLink,
   Briefcase, GraduationCap, Code2, Heart, Target
 } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
@@ -8,8 +8,14 @@ import { Card, Badge } from '@/components/ui';
 const skills = ['C', 'C++', 'Data Structures', 'Algorithms', 'React', 'TypeScript', 'Python', 'Git', 'Linux', 'SQL'];
 
 const socials = [
-  { icon: GitBranch, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/', handle: 'github.com/ashutoshpalhare' },
-  { icon: LinkIcon, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/', handle: 'ashutoshpalhare.github.io' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/', handle: 'github.com/ashutoshpalhare', external: true },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutoshpalhare', handle: 'linkedin.com/in/ashutoshpalhare', external: true },
+  { icon: Globe, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/', handle: 'ashutoshpalhare.github.io', external: true },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/ashutoshpalhare/', handle: '@ashutoshpalhare', external: true },
+  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/ashutoshpalhare/', handle: 'facebook.com/ashutoshpalhare', external: true },
+  { icon: Twitter, label: 'X / Twitter', href: 'https://twitter.com/ashutoshpalhare', handle: '@ashutoshpalhare', external: true },
+  { icon: Contact, label: 'Digital Card', href: 'https://ashutoshpalhare.github.io/BioLinksV2/', handle: 'ashutoshpalhare.github.io/BioLinksV2', external: true },
+  { icon: Mail, label: 'Email', href: 'mailto:ashutoshpalhare@gmail.com', handle: 'ashutoshpalhare@gmail.com', external: false },
 ];
 
 export function AboutPage() {
@@ -30,14 +36,24 @@ export function AboutPage() {
                 <h1 className="text-2xl sm:text-3xl font-bold text-[var(--color-text)]">Ashutosh Palhare</h1>
                 <p className="text-[var(--color-text-secondary)] mt-1">Full Stack Developer · Technical Trainer · Open Source Contributor</p>
               </div>
-              <a
-                href="https://ashutoshpalhare.github.io/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-[var(--color-primary-foreground)] text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-all"
-              >
-                <ExternalLink size={16} /> Portfolio
-              </a>
+              <div className="flex flex-wrap gap-2 pb-2">
+                <a
+                  href="https://ashutoshpalhare.github.io/ResumeAP.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-[var(--color-primary-foreground)] text-sm font-semibold hover:bg-[var(--color-primary-hover)] transition-all"
+                >
+                  <Download size={16} /> Download Resume
+                </a>
+                <a
+                  href="https://ashutoshpalhare.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text)] text-sm font-semibold hover:border-[var(--color-primary)] transition-all"
+                >
+                  <ExternalLink size={16} /> Portfolio
+                </a>
+              </div>
             </div>
 
             <p className="mt-6 text-[var(--color-text-secondary)] leading-relaxed">
@@ -149,8 +165,8 @@ export function AboutPage() {
                 <a
                   key={social.label}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={social.external ? '_blank' : undefined}
+                  rel={social.external ? 'noopener noreferrer' : undefined}
                   className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/40 transition-all group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[var(--color-surface)] flex items-center justify-center group-hover:bg-[var(--color-primary)]/10 transition-colors">
