@@ -13,7 +13,7 @@ interface SearchResult {
   id: string;
   title: string;
   description: string;
-  type: 'lesson' | 'project' | 'interview' | 'roadmap' | 'cheatsheet' | 'dsa';
+  type: 'lesson' | 'project' | 'interview' | 'roadmap' | 'cheatsheet' | 'dsa' | 'practice';
   path: string;
   icon: typeof FileCode;
 }
@@ -47,6 +47,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
         });
       });
     });
+    results.push({ id: 'practice-center', title: 'Interactive Practice Center', description: 'Test C, C++ and DSA knowledge with scored quizzes and explanations.', type: 'practice', path: '/practice', icon: BrainCircuit });
     projects.forEach((p) => {
       results.push({
         id: `project-${p.id}`,
