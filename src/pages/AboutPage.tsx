@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import {
-  Github, Linkedin, Instagram, Facebook, Twitter, Mail, Globe, Contact, Download, ExternalLink,
+  GitBranch, Mail, Globe, Contact, Download, ExternalLink, Camera, Users, MessageCircle,
   Briefcase, GraduationCap, Code2, Heart, Target
 } from 'lucide-react';
 import { Card, Badge } from '@/components/ui';
@@ -8,12 +8,12 @@ import { Card, Badge } from '@/components/ui';
 const skills = ['C', 'C++', 'Data Structures', 'Algorithms', 'React', 'TypeScript', 'Python', 'Git', 'Linux', 'SQL'];
 
 const socials = [
-  { icon: Github, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/', handle: 'github.com/ashutoshpalhare', external: true },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutoshpalhare', handle: 'linkedin.com/in/ashutoshpalhare', external: true },
+  { icon: GitBranch, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/', handle: 'github.com/ashutoshpalhare', external: true },
+  { icon: Briefcase, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutoshpalhare', handle: 'linkedin.com/in/ashutoshpalhare', external: true },
   { icon: Globe, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/', handle: 'ashutoshpalhare.github.io', external: true },
-  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/ashutoshpalhare/', handle: '@ashutoshpalhare', external: true },
-  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/ashutoshpalhare/', handle: 'facebook.com/ashutoshpalhare', external: true },
-  { icon: Twitter, label: 'X / Twitter', href: 'https://twitter.com/ashutoshpalhare', handle: '@ashutoshpalhare', external: true },
+  { icon: Camera, label: 'Instagram', href: 'https://www.instagram.com/ashutoshpalhare/', handle: '@ashutoshpalhare', external: true },
+  { icon: Users, label: 'Facebook', href: 'https://www.facebook.com/ashutoshpalhare/', handle: 'facebook.com/ashutoshpalhare', external: true },
+  { icon: MessageCircle, label: 'X / Twitter', href: 'https://twitter.com/ashutoshpalhare', handle: '@ashutoshpalhare', external: true },
   { icon: Contact, label: 'Digital Card', href: 'https://ashutoshpalhare.github.io/BioLinksV2/', handle: 'ashutoshpalhare.github.io/BioLinksV2', external: true },
   { icon: Mail, label: 'Email', href: 'mailto:ashutoshpalhare@gmail.com', handle: 'ashutoshpalhare@gmail.com', external: false },
 ];
