@@ -41,7 +41,7 @@ try {
       }
       window.scrollTo(0, 0);
     });
-    await page.waitForTimeout(700);
+    await page.waitForTimeout(1200);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
@@ -61,6 +61,38 @@ try {
     if (moderate.length) {
       warnings.push(`${route}: ${moderate.length} moderate axe violation(s): ${moderate.map((item) => item.id).join(', ')}`);
     }
+  }
+
+  // Repeat the route scan in the light theme to catch theme-specific contrast regressions.
+  for (const route of routes) {
+    const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' });
+    if (!response?.ok()) {
+      failures.push(`Light theme route ${route} returned HTTP ${response?.status() ?? 'no response'}`);
+      continue;
+    }
+    await page.locator('main').first().waitFor({ state: 'visible' });
+    await page.evaluate(async () => {
+      document.documentElement.classList.add('light');
+      const height = document.documentElement.scrollHeight;
+      for (let y = 0; y < height; y += Math.max(window.innerHeight, 600)) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => window.setTimeout(resolve, 100));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForTimeout(1200);
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    const serious = results.violations.filter((item) => ['critical', 'serious'].includes(item.impact));
+    for (const item of serious) {
+      failures.push(`Light theme ${route}: [${item.impact}] ${item.id}: ${item.help} (${item.nodes.length} node(s))`);
+      for (const node of item.nodes) {
+        const details = node.any?.map((check) => check.data ? JSON.stringify(check.data) : check.message).join('; ');
+        failures.push(`      target: ${node.target.join(' ')} | ${node.failureSummary ?? details ?? 'No details'}`);
+      }
+    }
+    document.documentElement.classList.remove('light');
   }
 
   // Footer must sit below the lesson content, not beside the sidebar/content row.
