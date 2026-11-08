@@ -127,7 +127,10 @@ export function CodeBlock({ code, language, filename, showLineNumbers = true }: 
 
     tokens.forEach((line, i) => {
       const lineContent = line
-        .map((token) => `<span style="color:${token.color || '#e1e4e8'}">${escapeHtml(token.content)}</span>`)
+        .map((token) => {
+          const color = token.color?.toLowerCase() === '#6a737d' ? '#8b949e' : token.color || '#e1e4e8';
+          return `<span style="color:${color}">${escapeHtml(token.content)}</span>`;
+        })
         .join('');
       const lineNumber = showLineNumbers
         ? `<span class="code-line-number">${i + 1}</span>`
