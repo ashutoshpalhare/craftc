@@ -49,6 +49,13 @@ const pages = [
     changefreq: 'monthly',
   },
   {
+    path: '/practice',
+    title: 'C, C++ & DSA Practice Quizzes — Interactive Coding Knowledge Checks | CraftC',
+    description: 'Test your programming knowledge with interactive C, C++ and DSA quizzes, instant scoring, clear explanations and saved best scores.',
+    priority: '0.8',
+    changefreq: 'monthly',
+  },
+  {
     path: '/interview-prep',
     title: 'C, C++ & DSA Interview Questions | CraftC',
     description: 'Prepare for developer interviews with curated C, C++ and DSA questions and clear explanations.',
