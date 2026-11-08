@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Terminal, GitBranch, Link as LinkIcon, Camera, Video, Hash, Mail } from 'lucide-react';
+import { Terminal, GitBranch, Link as LinkIcon } from 'lucide-react';
 
 const footerLinks = {
   Learn: [
@@ -17,12 +17,8 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: GitBranch, label: 'GitHub', href: 'https://github.com' },
-  { icon: LinkIcon, label: 'LinkedIn', href: 'https://linkedin.com' },
-  { icon: Camera, label: 'Instagram', href: 'https://instagram.com' },
-  { icon: Video, label: 'YouTube', href: 'https://youtube.com' },
-  { icon: Hash, label: 'X', href: 'https://x.com' },
-  { icon: Mail, label: 'Email', href: 'mailto:hello@craftc.dev' },
+  { icon: GitBranch, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/' },
+  { icon: LinkIcon, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/' },
 ];
 
 export function Footer() {
@@ -40,7 +36,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-[var(--color-text-secondary)] max-w-sm leading-relaxed">
-              India's most beautiful C & C++ learning platform. Master C and C++ from zero to job-ready through structured lessons, real projects, and interview preparation.
+              A practical, beginner-friendly C & C++ learning platform. Master C and C++ from zero to job-ready through structured lessons, real projects, and interview preparation.
             </p>
             <div className="flex items-center gap-3 mt-6">
               {socials.map((social) => {
