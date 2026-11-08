@@ -41,6 +41,10 @@ try {
       failures.push(`${route}: ${serious.length} serious/critical axe violation(s)`);
       for (const item of serious) {
         failures.push(`  - [${item.impact}] ${item.id}: ${item.help} (${item.nodes.length} node(s))`);
+        for (const node of item.nodes) {
+          const details = node.any?.map((check) => check.data ? JSON.stringify(check.data) : check.message).join('; ');
+          failures.push(`      target: ${node.target.join(' ')} | ${node.failureSummary ?? details ?? 'No details'}`);
+        }
       }
     }
     if (moderate.length) {
