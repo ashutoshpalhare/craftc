@@ -56,7 +56,7 @@ Every lesson follows a consistent, repeatable structure:
 1. **Introduction** — what the concept is and why it matters
 2. **Theory** — the underlying mechanics
 3. **Syntax** — the formal grammar
-4. **Example** — runnable code with a copy button
+4. **Example** — annotated code with a copy button
 5. **Output** — what the code prints
 6. **Explanation** — line-by-line walkthrough
 7. **Notes & Tips** — gotchas and best practices
@@ -79,7 +79,7 @@ Three complete roadmaps (C, C++ and DSA) break the learning journey into phases 
 
 ### Project Library
 
-12 real-world projects ranging from a beginner Calculator to an advanced HTTP Server and Snake Game. Each project lists its language, difficulty, topics covered, and estimated build time.
+12 guided project briefs ranging from a beginner Calculator to advanced ideas such as an HTTP Server and Snake Game. Each project lists its language, difficulty, topics covered, and estimated build time.
 
 ### Interview Preparation
 
@@ -97,11 +97,17 @@ A persistent theme toggle with smooth transitions. The entire color system is bu
 
 Fully responsive from mobile to desktop with an 8px spacing system, fluid typography, and adaptive layouts throughout.
 
+### Quality Checks
+
+- **C++17 validation** — DSA reference snippets are compiled with strict warning flags in CI.
+- **Accessibility smoke tests** — Playwright and axe scan the main routes in dark/light themes and key mobile layouts, and exercise keyboard focus behavior.
+- **Release artifact checks** — the build validates generated SEO pages, sitemap coverage, metadata, crawler files and local assets.
+
 ### Performance
 
 - **Lazy-loaded routes** — each page is code-split and loaded on demand
 - **Lazy-loaded syntax highlighter** — Shiki loads only when a code block is first rendered
-- **CSS-based theming** — no JavaScript theme runtime; all colors are CSS variables
+- **CSS-based theming** — centralized CSS variables keep theme colors consistent across components
 
 ---
 
@@ -117,7 +123,6 @@ Fully responsive from mobile to desktop with an 8px spacing system, fluid typogr
 | [Framer Motion](https://www.framer.com/motion) | 13 | Animations & micro-interactions |
 | [Shiki](https://shiki.style) | 4 | Syntax highlighting |
 | [Lucide React](https://lucide.dev) | — | Icon library |
-| [Supabase](https://supabase.com) | — | Backend (auth, database, edge functions) |
 
 ---
 
@@ -135,8 +140,8 @@ Fully responsive from mobile to desktop with an 8px spacing system, fluid typogr
 git clone https://github.com/ashutoshpalhare/craftc.git
 cd craftc
 
-# Install dependencies
-npm install
+# Install the locked dependencies
+npm ci
 
 # Start the development server
 npm run dev
@@ -164,7 +169,9 @@ The built files are output to `dist/`.
 
 ```
 craftc/
-├── .github/workflows/      # Build, accessibility checks and GitHub Pages deployment\n├── public/                 # Static assets, robots.txt and sitemap.xml\n├── scripts/                # SEO generation, DSA validation and browser QA
+├── .github/workflows/      # Build, accessibility checks and GitHub Pages deployment
+├── public/                 # Static assets, robots.txt and sitemap.xml
+├── scripts/                # SEO generation, DSA validation and browser QA
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── CodeBlock.tsx    # Shiki-powered syntax-highlighted code block
@@ -193,7 +200,8 @@ craftc/
 │   │   ├── CoursePage.tsx   # Course overview (/learn/:courseId)
 │   │   ├── LessonPage.tsx   # Individual lesson view
 │   │   ├── RoadmapsPage.tsx # Visual roadmaps
-│   │   ├── ProjectsPage.tsx # Project library\n│   │   ├── DsaPage.tsx      # DSA topics and C++17 practice
+│   │   ├── ProjectsPage.tsx # Project library
+│   │   ├── DsaPage.tsx      # DSA topics and C++17 practice
 │   │   ├── InterviewPrepPage.tsx  # Interview questions
 │   │   ├── CheatsheetsPage.tsx    # Quick reference
 │   │   ├── DownloadsPage.tsx      # Dev tools
@@ -210,7 +218,8 @@ craftc/
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ---
