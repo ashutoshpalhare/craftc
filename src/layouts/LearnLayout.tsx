@@ -12,7 +12,7 @@ import { cCurriculum } from '@/data/cCurriculum';
 import { cppCurriculum } from '@/data/cppCurriculum';
 import type { Curriculum, LessonCategory } from '@/types';
 import { getAllLessons, getPrevNextLessons } from '@/utils/curriculum';
-import { getCompletedLessons, saveCompletedLessons } from '@/utils/progress';
+import { getCompletedLessons, saveCompletedLessons, saveLastVisitedLesson } from '@/utils/progress';
 
 function getCurriculum(id: string): Curriculum | null {
   if (id === 'c') return cCurriculum;
@@ -61,6 +61,14 @@ export function LearnLayout({ children }: LearnLayoutProps) {
       }
     }
   }, [curriculum, lessonSlug]);
+
+  useEffect(() => {
+    if (!courseId || !curriculum || !lessonSlug) return;
+    const isValidLesson = curriculum.categories.some((category) =>
+      category.lessons.some((lesson) => lesson.slug === lessonSlug)
+    );
+    if (isValidLesson) saveLastVisitedLesson(courseId, lessonSlug);
+  }, [courseId, curriculum, lessonSlug]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
