@@ -127,10 +127,10 @@ check(!lockJson.packages?.['node_modules/@supabase/supabase-js'], 'Unused Supaba
 check(Boolean(packageJson.engines?.node), 'package.json must declare its supported Node.js engine range.');
 check(readme.includes('Node.js** 20.19+ or 22.12+'), 'README Node.js requirement does not match Vite 8.');
 check(!readme.includes('Supabase'), 'README still advertises a Supabase backend that the app does not use.');
-check(!/\\\\n\\|/.test(readme), 'README route table contains a literal escaped newline.');
+check(!readme.includes('\\n|'), 'README route table contains a literal escaped newline.');
 
 if (failures.length) {
-  console.error('Release artifact audit failed:\\n' + failures.map((failure) => `- ${failure}`).join('\\n'));
+  console.error(['Release artifact audit failed:', ...failures.map((failure) => \`- \${failure}\`)].join('\n'));
   process.exitCode = 1;
 } else {
   console.log(`Release artifact audit passed: ${locs.length} sitemap URLs (${requiredRoutes.length} main routes + ${lessonCount} lesson routes), unique canonical metadata, local assets, robots.txt and noindex 404.`);
