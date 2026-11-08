@@ -92,7 +92,7 @@ try {
         failures.push(`      target: ${node.target.join(' ')} | ${node.failureSummary ?? details ?? 'No details'}`);
       }
     }
-    document.documentElement.classList.remove('light');
+    await page.evaluate(() => document.documentElement.classList.remove('light'));
   }
 
   // Footer must sit below the lesson content, not beside the sidebar/content row.
