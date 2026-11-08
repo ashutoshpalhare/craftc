@@ -89,6 +89,10 @@ Three complete roadmaps (C, C++ and DSA) break the learning journey into phases 
 
 The Practice Center offers 18 original multiple-choice questions across C, C++17 and DSA, with subject and difficulty filters, four answer choices, scored results, per-question explanations, retry controls and best-score tracking saved locally in the browser.
 
+### Course Completion Certificates
+
+When a learner marks every lesson in a C or C++ course complete, the course page reveals a ₹99 certificate request form. Learners can request a digital or printed certificate; the form opens a pre-filled email draft for manual review. Payment is not collected on the website and certificate issuance is not automated. Printed delivery details are requested separately after review.
+
 ### Cheatsheets
 
 Two quick-reference cheatsheets (C and C++) covering the most common syntax patterns — from Hello World to smart pointers and lambdas.
@@ -184,6 +188,7 @@ craftc/
 │   │   ├── Navbar.tsx       # Top navigation with theme toggle & search
 │   │   ├── SearchModal.tsx  # Command-palette global search (Ctrl+K)
 │   │   ├── ThemeToggle.tsx  # Dark/light theme switcher
+│   │   ├── CertificationCard.tsx # Course completion certificate request
 │   │   └── ui.tsx           # Shared primitives (Card, Badge, SectionHeading, etc.)
 │   ├── data/                # All content data (curriculum, projects, etc.)
 │   │   ├── cCurriculum.ts   # Full C programming curriculum
@@ -241,6 +246,7 @@ craftc/
 | `/projects` | Projects | Filterable project briefs with requirements, milestones, sample I/O, architecture and quality checks |
 | `/dsa` | DSA | Data structure explanations, complexity guidance and solved C++17 practice problems |
 | `/practice` | Practice | Interactive C, C++ and DSA quizzes with scoring and explanations |
+| `/learn/:courseId` | Certificate request | Appears after all lessons in a course are marked complete |
 | `/interview-prep` | Interview Prep | Filterable interview questions with answers |
 | `/cheatsheets` | Cheatsheets | Quick syntax reference tables for C and C++ |
 | `/downloads` | Downloads | Links to editors, compilers, and development tools |
