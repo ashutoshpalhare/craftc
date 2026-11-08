@@ -59,16 +59,17 @@
   --color-surface-active: #FFE8D5;
   --color-border: #F0E0D0;
   --color-border-light: #E0D0C0;
-  --color-primary: #C2410C;
+  --color-primary: #9A3412;
   --color-primary-foreground: #FFFFFF;
-  --color-primary-on-light: #9A3412;
-  --color-primary-hover: #9A3412;
-  --color-primary-dim: #9A3412;
+  --color-primary-on-light: #7C2D12;
+  --color-primary-hover: #7C2D12;
+  --color-primary-dim: #7C2D12;
   --color-accent: #FB923C;
+  --color-accent-foreground: #9A3412;
   --color-text: #1A1A1A;
   --color-text-secondary: #5A5A5A;
   --color-text-muted: #6B625B;
-  --color-success: #047857;
+  --color-success: #065F46;
   --color-warning: #92400E;
   --color-error: #B91C1C;
 }
@@ -110,6 +111,15 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+/* Light-theme accent text needs a darker foreground than the decorative orange accent. */
+:root.light [class~="text-[var(--color-accent)]"] {
+  color: var(--color-accent-foreground) !important;
+}
+
+.code-block pre {
+  color: #e1e4e8;
 }
 
 /* Keep text readable on primary and white action surfaces in both themes. */
