@@ -9,6 +9,7 @@ const routes = [
   '/roadmaps',
   '/dsa',
   '/projects',
+  '/practice',
   '/interview-prep',
   '/cheatsheets',
   '/downloads',
@@ -97,7 +98,7 @@ try {
 
   // Scan the most interaction-heavy screens at a narrow mobile viewport as well.
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const route of ['/', '/learn/c', '/dsa', '/projects']) {
+  for (const route of ['/', '/learn/c', '/dsa', '/projects', '/practice']) {
     const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' });
     if (!response?.ok()) {
       failures.push(`Mobile route ${route} returned HTTP ${response?.status() ?? 'no response'}`);
@@ -185,6 +186,30 @@ try {
   await page.locator('#craftc-mobile-lesson-navigation').waitFor({ state: 'detached' });
   if (!(await drawerButton.evaluate((element) => element === document.activeElement))) {
     failures.push('Lesson drawer did not restore focus to its trigger after Escape.');
+  }
+
+  // Practice Center: answer every question, submit, verify result feedback and retry.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/practice`, { waitUntil: 'networkidle' });
+  const quizRadios = page.locator('input[type="radio"]');
+  const quizQuestionCount = await quizRadios.count();
+  if (quizQuestionCount !== 72) {
+    failures.push(`Practice Center expected 72 radio options (18 questions × 4); found ${quizQuestionCount}.`);
+  } else {
+    const questionNames = await quizRadios.evaluateAll((items) => [...new Set(items.map((item) => item.getAttribute('name')))]);
+    for (const name of questionNames) {
+      await page.locator(`input[name="${name}"]`).first().check();
+    }
+    const submitButton = page.getByRole('button', { name: /Submit quiz/ });
+    if (await submitButton.isDisabled()) failures.push('Practice Center submit remained disabled after every question was answered.');
+    await submitButton.click();
+    if (!(await page.getByText(/Attempt 1 · Best score/).isVisible())) failures.push('Practice Center did not show the saved quiz result.');
+    await page.getByRole('button', { name: /Retry quiz/ }).click();
+    if (await page.getByRole('button', { name: /Submit quiz/ }).isDisabled()) {
+      // Retry correctly clears answers; submit should be disabled until the learner answers again.
+    } else {
+      failures.push('Practice Center retry did not clear the previous answers.');
+    }
   }
 
   for (const warning of warnings) console.warn(`WARN ${warning}`);
