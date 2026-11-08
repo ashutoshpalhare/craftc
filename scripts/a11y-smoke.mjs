@@ -212,6 +212,33 @@ try {
     }
   }
 
+  // Course certificate request is gated on all lesson slugs being marked complete.
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/learn/c`, { waitUntil: 'networkidle' });
+  const courseSlugs = await page.locator('a[href*="/learn/c/"]').evaluateAll((anchors) => {
+    const slugs = anchors.map((anchor) => {
+      const segments = new URL(anchor.href).pathname.split('/').filter(Boolean);
+      return segments.at(-1);
+    }).filter(Boolean);
+    return [...new Set(slugs)];
+  });
+  if (!courseSlugs.length) {
+    failures.push('Certificate smoke test could not find C course lesson links.');
+  } else {
+    await page.evaluate((slugs) => {
+      localStorage.setItem('craftc:completed-lessons:v1:c', JSON.stringify(slugs));
+    }, courseSlugs);
+    await page.reload({ waitUntil: 'networkidle' });
+    if (!(await page.getByRole('heading', { name: 'Request your CraftC certificate' }).isVisible())) {
+      failures.push('Certificate request did not appear after all C lessons were marked complete.');
+    } else {
+      const certificateForm = page.locator('form').filter({ has: page.getByRole('button', { name: 'Prepare certificate request' }) });
+      if (!(await certificateForm.getByLabel('Full name').count())) failures.push('Certificate form is missing the required full-name field.');
+      if (!(await certificateForm.locator('input[type="email"][required]').count())) failures.push('Certificate form is missing the required email field.');
+      if (!(await certificateForm.getByRole('radio', { name: /Printed/ }).count())) failures.push('Certificate form is missing the printed delivery option.');
+    }
+  }
+
   for (const warning of warnings) console.warn(`WARN ${warning}`);
   if (failures.length) {
     console.error('Accessibility smoke test failures:\n' + failures.join('\n'));
