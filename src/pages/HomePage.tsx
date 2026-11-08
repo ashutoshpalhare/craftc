@@ -10,13 +10,15 @@ import { cCurriculum } from '@/data/cCurriculum';
 import { cppCurriculum } from '@/data/cppCurriculum';
 import { projects } from '@/data/projects';
 import { roadmaps } from '@/data/roadmaps';
-import { getTotalLessons } from '@/utils/curriculum';
+import { getAllLessons, getTotalLessons } from '@/utils/curriculum';
+import { getCompletedLessons, getLastVisitedLesson } from '@/utils/progress';
 import { useState } from 'react';
 
 export function HomePage() {
   return (
     <>
       <Hero />
+      <LearningProgress />
       <WhyCraftC />
       <LearningPath />
       <PlatformFeatures />
@@ -29,6 +31,63 @@ export function HomePage() {
       <FAQ />
       <FinalCTA />
     </>
+  );
+}
+
+function LearningProgress() {
+  const courses = [
+    { id: 'c', title: 'C Programming', curriculum: cCurriculum },
+    { id: 'cpp', title: 'C++ Programming', curriculum: cppCurriculum },
+  ].map((course) => {
+    const lessons = getAllLessons(course.curriculum);
+    const completed = new Set(getCompletedLessons(course.id));
+    const completedCount = lessons.filter(({ lesson }) => completed.has(lesson.slug)).length;
+    const lastVisited = getLastVisitedLesson(course.id);
+    const resumeLesson = lessons.find(({ lesson }) => lesson.slug === lastVisited)?.lesson
+      ?? lessons.find(({ lesson }) => !completed.has(lesson.slug))?.lesson;
+    return { ...course, total: lessons.length, completedCount, progress: lessons.length ? Math.round((completedCount / lessons.length) * 100) : 0, resumeLesson };
+  }).filter((course) => course.completedCount > 0 || course.resumeLesson);
+
+  if (courses.length === 0) return null;
+
+  return (
+    <section className="px-4 sm:px-6 -mt-8 mb-12 relative z-10" aria-labelledby="learning-progress-title">
+      <div className="max-w-7xl mx-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur p-5 sm:p-6 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-primary)]">Pick up where you left off</p>
+            <h2 id="learning-progress-title" className="text-xl font-bold text-[var(--color-text)] mt-1">Your learning progress</h2>
+          </div>
+          <span className="text-xs text-[var(--color-text-muted)]">Saved on this device</span>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {courses.map((course) => (
+            <div key={course.id} className="rounded-xl border border-[var(--color-border)] p-4">
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-semibold text-[var(--color-text)]">{course.title}</h3>
+                <span className="text-sm font-mono text-[var(--color-primary)]">{course.progress}%</span>
+              </div>
+              <div className="h-2 rounded-full bg-[var(--color-surface-active)] overflow-hidden mt-3">
+                <div className="h-full rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]" style={{ width: `${course.progress}%` }} />
+              </div>
+              <div className="flex items-center justify-between gap-3 mt-3">
+                <span className="text-xs text-[var(--color-text-muted)]">{course.completedCount}/{course.total} lessons complete</span>
+                {course.resumeLesson && (
+                  <Link to={`/learn/${course.id}/${course.resumeLesson.slug}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:underline">
+                    Continue <ArrowRight size={15} />
+                  </Link>
+                )}
+                {!course.resumeLesson && (
+                  <Link to={`/learn/${course.id}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:underline">
+                    Review course <ArrowRight size={15} />
+                  </Link>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
