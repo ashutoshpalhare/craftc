@@ -10,6 +10,7 @@ const navLinks = [
   { label: 'Roadmaps', path: '/roadmaps' },
   { label: 'DSA', path: '/dsa' },
   { label: 'Projects', path: '/projects' },
+  { label: 'Practice', path: '/practice' },
   { label: 'Interview Prep', path: '/interview-prep' },
   { label: 'Cheatsheets', path: '/cheatsheets' },
   { label: 'Downloads', path: '/downloads' },
