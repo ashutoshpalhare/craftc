@@ -95,6 +95,39 @@ try {
     await page.evaluate(() => document.documentElement.classList.remove('light'));
   }
 
+  // Scan the most interaction-heavy screens at a narrow mobile viewport as well.
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const route of ['/', '/learn/c', '/dsa', '/projects']) {
+    const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' });
+    if (!response?.ok()) {
+      failures.push(`Mobile route ${route} returned HTTP ${response?.status() ?? 'no response'}`);
+      continue;
+    }
+    await page.locator('main').first().waitFor({ state: 'visible' });
+    await page.evaluate(async () => {
+      const height = document.documentElement.scrollHeight;
+      for (let y = 0; y < height; y += Math.max(window.innerHeight, 600)) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => window.setTimeout(resolve, 100));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForTimeout(1200);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+    if (overflow) failures.push(`Mobile ${route}: page has horizontal overflow at 390px.`);
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    const serious = results.violations.filter((item) => ['critical', 'serious'].includes(item.impact));
+    for (const item of serious) {
+      failures.push(`Mobile ${route}: [${item.impact}] ${item.id}: ${item.help} (${item.nodes.length} node(s))`);
+      for (const node of item.nodes) {
+        const details = node.any?.map((check) => check.data ? JSON.stringify(check.data) : check.message).join('; ');
+        failures.push(`      target: ${node.target.join(' ')} | ${node.failureSummary ?? details ?? 'No details'}`);
+      }
+    }
+  }
+
   // Footer must sit below the lesson content, not beside the sidebar/content row.
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(`${baseUrl}/learn/c`, { waitUntil: 'networkidle' });
@@ -108,7 +141,9 @@ try {
     failures.push(`Footer overlaps lesson content: ${JSON.stringify(layout)}`);
   }
 
-  // Search dialog: focus entry, tab containment, Escape close, focus restoration and scroll unlock.
+  // Search dialog: verify its focus management at the mobile viewport too.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${baseUrl}/`, { waitUntil: 'networkidle' });
   const searchButton = page.getByRole('button', { name: 'Search' }).first();
   await searchButton.click();
   const dialog = page.getByRole('dialog', { name: 'Search' });
@@ -157,7 +192,7 @@ try {
     console.error('Accessibility smoke test failures:\n' + failures.join('\n'));
     process.exitCode = 1;
   } else {
-    console.log(`Accessibility smoke tests passed across ${routes.length} routes, plus search, mobile navigation, lesson drawer and footer layout.`);
+    console.log(`Accessibility smoke tests passed across ${routes.length} routes in dark/light themes, plus mobile scans, search, navigation, lesson drawer and footer layout.`);
   }
 } finally {
   await browser.close();
