@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Terminal, GitBranch, Link as LinkIcon } from 'lucide-react';
+import { Terminal, Github, Linkedin, Instagram, Facebook, Twitter, Globe, Mail, Contact } from 'lucide-react';
 
 const footerLinks = {
   Learn: [
@@ -17,8 +17,14 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: GitBranch, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/' },
-  { icon: LinkIcon, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutoshpalhare' },
+  { icon: Globe, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/ashutoshpalhare/' },
+  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/ashutoshpalhare/' },
+  { icon: Twitter, label: 'X / Twitter', href: 'https://twitter.com/ashutoshpalhare' },
+  { icon: Contact, label: 'Digital Card', href: 'https://ashutoshpalhare.github.io/BioLinksV2/' },
+  { icon: Mail, label: 'Email', href: 'mailto:ashutoshpalhare@gmail.com' },
 ];
 
 export function Footer() {
@@ -36,7 +42,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-[var(--color-text-secondary)] max-w-sm leading-relaxed">
-              A practical, beginner-friendly C & C++ learning platform. Master C and C++ from zero to job-ready through structured lessons, real projects, and interview preparation.
+              A practical, beginner-friendly C & C++ learning platform. Master C and C++ from zero to job-ready through structured lessons, guided project briefs, and interview preparation.
             </p>
             <div className="flex items-center gap-3 mt-6">
               {socials.map((social) => {
