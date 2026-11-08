@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Terminal, Github, Linkedin, Instagram, Facebook, Twitter, Globe, Mail, Contact } from 'lucide-react';
+import { Terminal, GitBranch, Briefcase, Camera, Users, MessageCircle, Globe, Mail, Contact } from 'lucide-react';
 
 const footerLinks = {
   Learn: [
@@ -17,12 +17,12 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: Github, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutoshpalhare' },
+  { icon: GitBranch, label: 'GitHub', href: 'https://github.com/ashutoshpalhare/' },
+  { icon: Briefcase, label: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutoshpalhare' },
   { icon: Globe, label: 'Portfolio', href: 'https://ashutoshpalhare.github.io/' },
-  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/ashutoshpalhare/' },
-  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/ashutoshpalhare/' },
-  { icon: Twitter, label: 'X / Twitter', href: 'https://twitter.com/ashutoshpalhare' },
+  { icon: Camera, label: 'Instagram', href: 'https://www.instagram.com/ashutoshpalhare/' },
+  { icon: Users, label: 'Facebook', href: 'https://www.facebook.com/ashutoshpalhare/' },
+  { icon: MessageCircle, label: 'X / Twitter', href: 'https://twitter.com/ashutoshpalhare' },
   { icon: Contact, label: 'Digital Card', href: 'https://ashutoshpalhare.github.io/BioLinksV2/' },
   { icon: Mail, label: 'Email', href: 'mailto:ashutoshpalhare@gmail.com' },
 ];
