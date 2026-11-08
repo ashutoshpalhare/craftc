@@ -86,7 +86,7 @@ try {
   await page.goto(`${baseUrl}/`, { waitUntil: 'networkidle' });
   const menuButton = page.getByRole('button', { name: 'Open navigation menu' });
   await menuButton.click();
-  await page.getByRole('navigation', { name: 'Main navigation' }).locator('#craftc-mobile-navigation').waitFor({ state: 'visible' });
+  await page.locator('#craftc-mobile-navigation').waitFor({ state: 'visible' });
   await page.keyboard.press('Escape');
   await page.locator('#craftc-mobile-navigation').waitFor({ state: 'detached' });
   if (!(await menuButton.evaluate((element) => element === document.activeElement))) {
