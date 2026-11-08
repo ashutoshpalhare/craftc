@@ -199,7 +199,9 @@ export function CodeBlock({ code, language, filename, showLineNumbers = true }: 
         </div>
       </div>
       <pre
-        className="overflow-x-auto p-4 text-sm leading-relaxed"
+        tabIndex={0}
+        aria-label={`${langLabel} code example`}
+        className="overflow-x-auto p-4 text-sm leading-relaxed focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-primary)]"
         dangerouslySetInnerHTML={{ __html: highlighted || `<code>${escapeHtml(code)}</code>` }}
       />
     </div>
