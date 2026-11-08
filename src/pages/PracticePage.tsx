@@ -37,7 +37,7 @@ export function PracticePage() {
 
   const submitQuiz = () => {
     if (submitted || answeredCount !== questions.length || questions.length === 0) return;
-    setSavedResult(savePracticeResult(quizKey, score));
+    setSavedResult(savePracticeResult(quizKey, percentage));
     setSubmitted(true);
   };
 
