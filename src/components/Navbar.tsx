@@ -96,7 +96,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
             <button
               onClick={onSearchOpen}
               className="flex items-center gap-2 px-3 py-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)] rounded-lg transition-colors"
-              aria-label="Search"
+              aria-label="Search ⌘K"
             >
               <Search size={18} />
               <span className="hidden xl:inline">Search</span>
