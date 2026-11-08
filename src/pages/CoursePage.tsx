@@ -37,7 +37,6 @@ export function CoursePage() {
   const resumeLesson = allLessons.find(({ lesson }) => lesson.slug === lastVisitedSlug)?.lesson
     ?? allLessons.find(({ lesson }) => !completedSet.has(lesson.slug))?.lesson
     ?? allLessons[0]?.lesson;
-  const firstLesson = curriculum.categories[0]?.lessons[0];
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
