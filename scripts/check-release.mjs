@@ -46,12 +46,12 @@ for (const asset of ['favicon.png', 'og-image.png']) {
 
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].trim());
 const uniqueLocs = new Set(locs);
-check(locs.length >= 72, `Expected at least 72 sitemap URLs (10 main + 62 lessons); found ${locs.length}.`);
+check(locs.length >= 73, `Expected at least 73 sitemap URLs (11 main + 62 lessons); found ${locs.length}.`);
 check(uniqueLocs.size === locs.length, 'Sitemap contains duplicate URLs.');
 
 const requiredRoutes = [
   '/', '/learn/c', '/learn/cpp', '/roadmaps', '/dsa',
-  '/projects', '/interview-prep', '/cheatsheets', '/downloads', '/about',
+  '/projects', '/practice', '/interview-prep', '/cheatsheets', '/downloads', '/about',
 ];
 const sitemapPaths = new Set(locs.map((loc) => {
   try {
