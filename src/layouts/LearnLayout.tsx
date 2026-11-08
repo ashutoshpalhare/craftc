@@ -284,9 +284,9 @@ export function LearnLayout({ children }: LearnLayoutProps) {
           )}
 
         </main>
-        <Footer />
       </div>
 
+      <Footer />
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
   );
