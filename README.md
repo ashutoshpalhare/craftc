@@ -1,6 +1,6 @@
 # CraftC — Master C & C++ From Zero to Job Ready
 
-CraftC is a complete, free learning platform for C and C++. It takes you from absolute beginner to job-ready through structured lessons, runnable code examples, visual roadmaps, real-world projects, interview preparation, and quick-reference cheatsheets — all in a fast, modern, responsive interface with light/dark themes.
+CraftC is a complete, free learning platform for C and C++. It takes you from absolute beginner to job-ready through structured lessons, explained code examples, visual roadmaps, guided project briefs, interview preparation, and quick-reference cheatsheets — all in a fast, modern, responsive interface with light/dark themes.
 
 ![Built with React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
@@ -36,7 +36,7 @@ The curriculum is organised into structured lessons that follow a consistent for
 
 | Resource | Count | Details |
 |----------|-------|---------|
-| **Lessons** | 40+ | Across C and C++ curricula, grouped by category |
+| **Lessons** | 62 | Across C and C++ curricula, grouped by category |
 | **Projects** | 12 | Guided C and C++ project briefs with requirements, milestones, sample I/O, architecture and quality checks |
 | **DSA Topics** | 13 | Foundation-to-advanced explanations, complexity notes and C++17 examples |
 | **DSA Problems** | 11 | Progressive problems with approaches, reference solutions and complexity analysis |
@@ -125,7 +125,7 @@ Fully responsive from mobile to desktop with an 8px spacing system, fluid typogr
 
 ### Prerequisites
 
-- **Node.js** 18+ and npm
+- **Node.js** 20.19+ or 22.12+ and npm 10+
 - A modern browser
 
 ### Installation
@@ -164,7 +164,7 @@ The built files are output to `dist/`.
 
 ```
 craftc/
-├── public/                 # Static assets, robots.txt and sitemap.xml
+├── .github/workflows/      # Build, accessibility checks and GitHub Pages deployment\n├── public/                 # Static assets, robots.txt and sitemap.xml\n├── scripts/                # SEO generation, DSA validation and browser QA
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── CodeBlock.tsx    # Shiki-powered syntax-highlighted code block
@@ -193,7 +193,7 @@ craftc/
 │   │   ├── CoursePage.tsx   # Course overview (/learn/:courseId)
 │   │   ├── LessonPage.tsx   # Individual lesson view
 │   │   ├── RoadmapsPage.tsx # Visual roadmaps
-│   │   ├── ProjectsPage.tsx # Project library
+│   │   ├── ProjectsPage.tsx # Project library\n│   │   ├── DsaPage.tsx      # DSA topics and C++17 practice
 │   │   ├── InterviewPrepPage.tsx  # Interview questions
 │   │   ├── CheatsheetsPage.tsx    # Quick reference
 │   │   ├── DownloadsPage.tsx      # Dev tools
@@ -291,7 +291,7 @@ CraftC uses Tailwind CSS v4 with a CSS-based configuration. There is no `tailwin
 }
 ```
 
-Dark/light themes are toggled by switching the `data-theme` attribute on `<html>`, with all colors referencing CSS variables like `var(--color-primary)`. The user's preference is persisted in `localStorage` and respects the system preference on first visit.
+Dark/light themes use the `data-theme` attribute on `<html>` and CSS custom properties such as `var(--color-primary)`. The React theme hook persists the user's preference in `localStorage` and uses the system preference on first visit.
 
 ---
 
