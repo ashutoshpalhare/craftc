@@ -7,6 +7,7 @@ import type { Curriculum } from '@/types';
 import { getAllLessons, getTotalLessons } from '@/utils/curriculum';
 import { getCompletedLessons, getLastVisitedLesson } from '@/utils/progress';
 import { Badge, Card } from '@/components/ui';
+import { CertificationCard } from '@/components/CertificationCard';
 
 function getCurriculum(id: string): Curriculum | null {
   if (id === 'c') return cCurriculum;
@@ -94,6 +95,9 @@ export function CoursePage() {
             )}
           </div>
         </section>
+        {progress === 100 && (
+          <CertificationCard courseTitle={curriculum.title} courseId={courseId!} />
+        )}
       </motion.div>
 
       <div className="space-y-6">
