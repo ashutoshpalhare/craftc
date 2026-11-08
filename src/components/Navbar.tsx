@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, Search, X, Terminal } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
@@ -23,11 +23,24 @@ interface NavbarProps {
 export function Navbar({ onSearchOpen }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const location = useLocation();
 
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      setMobileOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10);
@@ -91,6 +104,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
             </button>
             <ThemeToggle />
             <button
+              ref={menuButtonRef}
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 rounded-lg text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]"
               aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
