@@ -22,7 +22,7 @@ export function getPracticeProgress(): PracticeStore {
   }
 }
 
-export function getPracticeQuizKey(category: PracticeCategory | 'All', difficulty: PracticeDifficulty | 'all): string {
+export function getPracticeQuizKey(category: PracticeCategory | 'All', difficulty: PracticeDifficulty | 'all'): string {
   return `${category.toLowerCase()}-${difficulty}`;
 }
 
