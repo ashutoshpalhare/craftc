@@ -19,6 +19,7 @@ export function HomePage() {
     <>
       <Hero />
       <LearningProgress />
+      <PracticeSpotlight />
       <WhyCraftC />
       <LearningPath />
       <PlatformFeatures />
@@ -86,6 +87,20 @@ function LearningProgress() {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function PracticeSpotlight() {
+  return (
+    <section className="px-4 sm:px-6 mb-16" aria-labelledby="practice-spotlight-title">
+      <div className="max-w-7xl mx-auto rounded-2xl border border-[var(--color-primary)]/30 bg-[var(--color-surface)] p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)] flex items-center justify-center shrink-0"><Target size={24} /></div>
+          <div><p className="text-xs font-bold uppercase tracking-widest text-[var(--color-primary)]">Learn by doing</p><h2 id="practice-spotlight-title" className="text-xl sm:text-2xl font-bold text-[var(--color-text)] mt-1">Ready to test your skills?</h2><p className="text-sm text-[var(--color-text-secondary)] mt-2 max-w-2xl">Take focused C, C++ and DSA quizzes, review explanations and track your best scores on this device.</p></div>
+        </div>
+        <Link to="/practice" className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:bg-[var(--color-primary-hover)] transition-colors shrink-0">Open Practice Center <ArrowRight size={17} /></Link>
       </div>
     </section>
   );
