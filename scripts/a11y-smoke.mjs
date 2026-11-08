@@ -31,6 +31,17 @@ try {
     }
 
     await page.locator('main').first().waitFor({ state: 'visible' });
+    // Trigger while-in-view components and let entrance animations reach their final styles
+    // before measuring contrast; partially transparent motion frames distort axe results.
+    await page.evaluate(async () => {
+      const height = document.documentElement.scrollHeight;
+      for (let y = 0; y < height; y += Math.max(window.innerHeight, 600)) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => window.setTimeout(resolve, 100));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForTimeout(700);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
