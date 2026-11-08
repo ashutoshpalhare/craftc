@@ -1,10 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Clock, BookOpen, ChevronRight, GraduationCap } from 'lucide-react';
+import { ArrowRight, Clock, BookOpen, ChevronRight, GraduationCap, CheckCircle2, PlayCircle } from 'lucide-react';
 import { cCurriculum } from '@/data/cCurriculum';
 import { cppCurriculum } from '@/data/cppCurriculum';
 import type { Curriculum } from '@/types';
-import { getTotalLessons } from '@/utils/curriculum';
+import { getAllLessons, getTotalLessons } from '@/utils/curriculum';
+import { getCompletedLessons, getLastVisitedLesson } from '@/utils/progress';
 import { Badge, Card } from '@/components/ui';
 
 function getCurriculum(id: string): Curriculum | null {
@@ -27,6 +28,15 @@ export function CoursePage() {
   }
 
   const totalLessons = getTotalLessons(curriculum);
+  const allLessons = getAllLessons(curriculum);
+  const completedLessons = getCompletedLessons(courseId!);
+  const completedSet = new Set(completedLessons);
+  const completedCount = allLessons.filter(({ lesson }) => completedSet.has(lesson.slug)).length;
+  const progress = totalLessons ? Math.round((completedCount / totalLessons) * 100) : 0;
+  const lastVisitedSlug = getLastVisitedLesson(courseId!);
+  const resumeLesson = allLessons.find(({ lesson }) => lesson.slug === lastVisitedSlug)?.lesson
+    ?? allLessons.find(({ lesson }) => !completedSet.has(lesson.slug))?.lesson
+    ?? allLessons[0]?.lesson;
   const firstLesson = curriculum.categories[0]?.lessons[0];
 
   return (
@@ -54,14 +64,37 @@ export function CoursePage() {
           <span className="flex items-center gap-1.5"><Clock size={16} /> Self-paced</span>
         </div>
 
-        {firstLesson && (
-          <Link
-            to={`/learn/${courseId}/${firstLesson.slug}`}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:bg-[var(--color-primary-hover)] transition-all mb-10"
-          >
-            Start First Lesson <ArrowRight size={18} />
-          </Link>
-        )}
+        <section className="mb-10 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6" aria-label="Course learning progress">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-3 text-sm mb-2">
+                <span className="font-semibold text-[var(--color-text)]">Your learning progress</span>
+                <span className="font-mono text-[var(--color-primary)]">{progress}%</span>
+              </div>
+              <div
+                className="h-2.5 rounded-full bg-[var(--color-surface-active)] overflow-hidden"
+                role="progressbar"
+                aria-label={`${curriculum.title} completion`}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress}
+              >
+                <div className="h-full rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] transition-all" style={{ width: `${progress}%` }} />
+              </div>
+              <p className="mt-2 text-xs text-[var(--color-text-muted)]">{completedCount} of {totalLessons} lessons completed</p>
+            </div>
+            {resumeLesson && (
+              <Link
+                to={`/learn/${courseId}/${resumeLesson.slug}`}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-[var(--color-primary-foreground)] hover:bg-[var(--color-primary-hover)] transition-colors"
+              >
+                <PlayCircle size={17} />
+                {completedCount === totalLessons ? 'Review course' : lastVisitedSlug === resumeLesson.slug ? 'Resume learning' : 'Continue learning'}
+                <ArrowRight size={16} />
+              </Link>
+            )}
+          </div>
+        </section>
       </motion.div>
 
       <div className="space-y-6">
@@ -93,7 +126,11 @@ export function CoursePage() {
                       <span className="text-xs text-[var(--color-text-muted)] flex items-center gap-1 flex-shrink-0">
                         <Clock size={12} /> {lesson.duration}
                       </span>
-                      <ArrowRight size={16} className="text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] transition-colors flex-shrink-0" />
+                      {completedSet.has(lesson.slug) ? (
+                        <CheckCircle2 size={17} aria-label="Completed" className="text-[var(--color-success)] flex-shrink-0" />
+                      ) : (
+                        <ArrowRight size={16} aria-hidden="true" className="text-[var(--color-text-muted)] group-hover:text-[var(--color-primary)] transition-colors flex-shrink-0" />
+                      )}
                     </Link>
                   </li>
                 ))}
