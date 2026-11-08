@@ -20,9 +20,9 @@
   --color-text: #F5F5F5;
   --color-text-secondary: #B0B0B0;
   --color-text-muted: #A3A3A3;
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  --color-success: #34D399;
+  --color-warning: #FBBF24;
+  --color-error: #F87171;
 
   --color-gray-1: #1A1A1A;
   --color-gray-2: #222222;
@@ -38,15 +38,17 @@
   --color-border: #2B2B2B;
   --color-border-light: #3A3A3A;
   --color-primary: #FF7A00;
+  --color-primary-foreground: #111111;
+  --color-primary-on-light: #9A3412;
   --color-primary-hover: #FF8F1A;
   --color-primary-dim: #CC6200;
   --color-accent: #FF9F1C;
   --color-text: #F5F5F5;
   --color-text-secondary: #B0B0B0;
   --color-text-muted: #A3A3A3;
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  --color-success: #34D399;
+  --color-warning: #FBBF24;
+  --color-error: #F87171;
 }
 
 :root.light {
@@ -59,15 +61,16 @@
   --color-border-light: #E0D0C0;
   --color-primary: #C2410C;
   --color-primary-foreground: #FFFFFF;
+  --color-primary-on-light: #9A3412;
   --color-primary-hover: #9A3412;
   --color-primary-dim: #9A3412;
   --color-accent: #FB923C;
   --color-text: #1A1A1A;
   --color-text-secondary: #5A5A5A;
   --color-text-muted: #6B625B;
-  --color-success: #059669;
-  --color-warning: #D97706;
-  --color-error: #DC2626;
+  --color-success: #047857;
+  --color-warning: #92400E;
+  --color-error: #B91C1C;
 }
 
 * {
@@ -107,6 +110,15 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+/* Keep text readable on primary and white action surfaces in both themes. */
+[class~="bg-[var(--color-primary)]"][class~="text-white"] {
+  color: var(--color-primary-foreground) !important;
+}
+
+[class~="bg-white"][class~="text-[var(--color-primary)]"] {
+  color: var(--color-primary-on-light) !important;
 }
 
 /* Focus visible */
