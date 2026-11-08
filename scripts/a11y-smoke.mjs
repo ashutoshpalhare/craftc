@@ -20,7 +20,8 @@ const failures = [];
 const warnings = [];
 
 try {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  const page = await context.newPage();
 
   for (const route of routes) {
     const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle' });
