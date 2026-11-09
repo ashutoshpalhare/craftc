@@ -165,12 +165,45 @@ try {
     failures.push('Search left background scrolling locked after close.');
   }
 
+  // Desktop navigation: verify the compact layout fits common laptop/desktop widths,
+  // and that secondary routes remain discoverable through the keyboard-operable More menu.
+  for (const width of [1024, 1152, 1280, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(`${baseUrl}/`, { waitUntil: 'networkidle' });
+    const navRow = page.locator('nav[aria-label="Main navigation"] > div').first();
+    const dimensions = await navRow.evaluate((element) => ({
+      clientWidth: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+    }));
+    if (dimensions.scrollWidth > dimensions.clientWidth + 1) {
+      failures.push(`Desktop navigation overflows at ${width}px: ${JSON.stringify(dimensions)}`);
+    }
+    const moreSummary = page.locator('nav[aria-label="Main navigation"] summary[aria-label="More navigation links"]');
+    if (!(await moreSummary.isVisible())) {
+      failures.push(`Desktop More menu is not visible at ${width}px.`);
+      continue;
+    }
+    await moreSummary.click();
+    for (const label of ['Projects', 'Interview Prep', 'Cheatsheets', 'Downloads', 'About']) {
+      if (!(await page.locator('details').getByRole('link', { name: label, exact: true }).isVisible())) {
+        failures.push(`Desktop More menu is missing ${label} at ${width}px.`);
+      }
+    }
+    await page.keyboard.press('Escape');
+    if (await page.locator('details[open]').count()) failures.push(`Desktop More menu did not close with Escape at ${width}px.`);
+  }
+
   // Mobile navbar: Escape closes the disclosure and returns focus to its trigger.
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${baseUrl}/`, { waitUntil: 'networkidle' });
   const menuButton = page.getByRole('button', { name: 'Open navigation menu' });
   await menuButton.click();
   await page.locator('#craftc-mobile-navigation').waitFor({ state: 'visible' });
+  for (const label of ['Home', 'Learn C', 'Learn C++', 'Roadmaps', 'DSA', 'Practice', 'Projects', 'Interview Prep', 'Cheatsheets', 'Downloads', 'About']) {
+    if (!(await page.locator('#craftc-mobile-navigation').getByRole('link', { name: label, exact: true }).count())) {
+      failures.push(`Mobile navigation is missing ${label}.`);
+    }
+  }
   await page.keyboard.press('Escape');
   await page.locator('#craftc-mobile-navigation').waitFor({ state: 'detached' });
   if (!(await menuButton.evaluate((element) => element === document.activeElement))) {
