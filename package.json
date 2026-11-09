@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && npm run check:practice && vite build && node scripts/generate-seo-pages.mjs && npm run check:release",
+    "build": "tsc -b && npm run check:practice && npm run check:examples && vite build && node scripts/generate-seo-pages.mjs && npm run check:release",
     "check:dsa": "node scripts/check-dsa-solutions.mjs",
     "preview": "vite preview",
     "check:release": "node scripts/check-release.mjs",
-    "check:practice": "node scripts/check-practice.mjs"
+    "check:practice": "node scripts/check-practice.mjs",
+    "check:examples": "node scripts/check-lesson-examples.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",
