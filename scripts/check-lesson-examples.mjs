@@ -65,7 +65,7 @@ for (const config of curriculumFiles) {
       if (!section.title?.trim()) failures.push({ label: sectionLabel, stderr: 'Section title is empty.' });
       const hasBody = Boolean(section.content?.trim()) || Boolean(section.code?.code?.trim()) || Boolean(section.items?.some((item) => item.trim())) || Boolean(section.questions?.length);
       if (!hasBody) failures.push({ label: sectionLabel, stderr: 'Section has no readable content, code, list items, or questions.' });
-      if (section.link?.url && !/^https?:\\/\\//.test(section.link.url)) failures.push({ label: sectionLabel, stderr: `External resource URL must use http(s): ${section.link.url}` });
+      if (section.link?.url && !/^https?:\/\//.test(section.link.url)) failures.push({ label: sectionLabel, stderr: `External resource URL must use http(s): ${section.link.url}` });
       const example = section.code;
       if (!example || example.language.trim().toLowerCase() !== config.language) continue;
 
