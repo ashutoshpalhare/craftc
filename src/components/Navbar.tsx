@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, Search, X, Terminal } from 'lucide-react';
+import { Menu, Search, X, Terminal, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 const navLinks = [
@@ -9,8 +9,11 @@ const navLinks = [
   { label: 'Learn C++', path: '/learn/cpp' },
   { label: 'Roadmaps', path: '/roadmaps' },
   { label: 'DSA', path: '/dsa' },
-  { label: 'Projects', path: '/projects' },
   { label: 'Practice', path: '/practice' },
+];
+
+const moreLinks = [
+  { label: 'Projects', path: '/projects' },
   { label: 'Interview Prep', path: '/interview-prep' },
   { label: 'Cheatsheets', path: '/cheatsheets' },
   { label: 'Downloads', path: '/downloads' },
@@ -91,6 +94,32 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                 {link.label}
               </NavLink>
             ))}
+            <details className="relative">
+              <summary className={`flex list-none cursor-pointer items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden hover:bg-[var(--color-surface)] ${
+                moreLinks.some((link) => location.pathname === link.path || location.pathname.startsWith(`${link.path}/`))
+                  ? 'text-[var(--color-primary)] bg-[var(--color-surface)]'
+                  : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
+              }`} aria-label="More navigation links">
+                More <ChevronDown size={15} aria-hidden="true" />
+              </summary>
+              <div className="absolute right-0 top-full z-50 mt-2 min-w-52 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] p-2 shadow-xl shadow-black/20">
+                {moreLinks.map((link) => (
+                  <NavLink
+                    key={link.path}
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                        isActive
+                          ? 'bg-[var(--color-surface)] text-[var(--color-primary)]'
+                          : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]'
+                      }`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+              </div>
+            </details>
           </div>
 
           <div className="flex items-center gap-1">
