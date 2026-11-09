@@ -53,7 +53,7 @@ for (const config of curriculumFiles) {
     const slugKey = `${config.language}:${lesson.slug}`;
     if (!lesson.slug?.trim() || lessonSlugs.has(slugKey)) failures.push({ label: lessonLabel, stderr: `Lesson slug is empty or duplicated: ${lesson.slug || '(empty)'}` });
     lessonSlugs.add(slugKey);
-    if (!lesson.title?.trim() || !lesson.description?.trim() || !/^\\d+\\s+min$/.test(lesson.duration)) {
+    if (!lesson.title?.trim() || !lesson.description?.trim() || !/^\d+\s+min$/.test(lesson.duration)) {
       failures.push({ label: lessonLabel, stderr: 'Lesson title, description, or duration metadata is missing/invalid.' });
     }
     if (!Array.isArray(lesson.sections) || lesson.sections.length === 0) {
