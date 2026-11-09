@@ -107,7 +107,8 @@ Fully responsive from mobile to desktop with an 8px spacing system, fluid typogr
 
 ### Quality Checks
 
-- **C++17 validation** — DSA reference snippets are compiled with strict warning flags in CI.
+- **C/C++ lesson validation** — curriculum structure, unique lesson IDs/slugs and every C/C++ lesson code example are checked; code is compiled in C17/C++17 syntax-only mode with GCC/G++.
+- **C++17 DSA validation** — DSA reference solutions are compiled with strict warning flags in CI.
 - **Accessibility smoke tests** — Playwright and axe scan the main routes in dark/light themes and key mobile layouts, and exercise keyboard focus behavior.
 - **Release artifact checks** — the build validates generated SEO pages, sitemap coverage, metadata, crawler files and local assets.
 
@@ -179,7 +180,7 @@ The built files are output to `dist/`.
 craftc/
 ├── .github/workflows/      # Build, accessibility checks and GitHub Pages deployment
 ├── public/                 # Static assets, robots.txt and sitemap.xml
-├── scripts/                # SEO generation, DSA/practice validation and browser QA
+├── scripts/                # SEO generation, curriculum/DSA/practice validation and browser QA
 ├── src/
 │   ├── components/          # Reusable UI components
 │   │   ├── CodeBlock.tsx    # Shiki-powered syntax-highlighted code block
