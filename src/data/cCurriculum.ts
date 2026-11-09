@@ -2086,8 +2086,8 @@ void counter(void) {
     static int count = 0;     // block scope, static storage duration
     count++;
     module_calls++;
-    printf("Local count: %d\n", count);
-    printf("Module calls: %d\n", module_calls);
+    printf("Local count: %d\\n", count);
+    printf("Module calls: %d\\n", module_calls);
 }
 
 int main(void) {
