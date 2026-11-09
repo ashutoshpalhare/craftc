@@ -28,6 +28,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const moreMenuRef = useRef<HTMLDetailsElement>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -45,6 +46,17 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileOpen]);
+
+  useEffect(() => {
+    const handleMoreMenuKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && moreMenuRef.current?.open) {
+        moreMenuRef.current.open = false;
+        moreMenuRef.current.querySelector('summary')?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleMoreMenuKeyDown);
+    return () => window.removeEventListener('keydown', handleMoreMenuKeyDown);
+  }, []);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10);
@@ -94,7 +106,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                 {link.label}
               </NavLink>
             ))}
-            <details className="relative">
+            <details ref={moreMenuRef} className="relative">
               <summary className={`flex list-none cursor-pointer items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden hover:bg-[var(--color-surface)] ${
                 moreLinks.some((link) => location.pathname === link.path || location.pathname.startsWith(`${link.path}/`))
                   ? 'text-[var(--color-primary)] bg-[var(--color-surface)]'
@@ -107,6 +119,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                   <NavLink
                     key={link.path}
                     to={link.path}
+                    onClick={() => { if (moreMenuRef.current) moreMenuRef.current.open = false; }}
                     className={({ isActive }) =>
                       `block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                         isActive
@@ -155,6 +168,21 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                 key={link.path}
                 to={link.path}
                 end={link.path === '/'}
+                className={({ isActive }) =>
+                  `block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                    isActive
+                      ? 'text-[var(--color-primary)] bg-[var(--color-surface)]'
+                      : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)]'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+            {moreLinks.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
                 className={({ isActive }) =>
                   `block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
                     isActive
