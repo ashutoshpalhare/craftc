@@ -56,6 +56,9 @@ jobs:
             }
           "
 
+      - name: Fail on high or critical dependency advisories
+        run: npm audit --audit-level=high
+
       - name: Validate DSA C++17 solutions
         run: npm run check:dsa
 
