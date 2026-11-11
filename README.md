@@ -135,6 +135,17 @@ Fully responsive from mobile to desktop with an 8px spacing system, fluid typogr
 
 ---
 
+## Dependency Security
+
+Build dependencies are installed from the committed npm lockfile. CI runs `npm audit` and checks the production build. The security refresh locks Vite 8.3.8, nanoid 3.3.20 and source-map-js 1.2.2; the lockfile records exact resolved versions.
+
+For a local audit, run:
+
+```bash
+npm ci
+npm audit
+```
+
 ## Getting Started
 
 ### Prerequisites
