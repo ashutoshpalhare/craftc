@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
-import { createHighlighter, type Highlighter } from 'shiki';
+import { createHighlighterCore } from 'shiki/core';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 
 interface CodeBlockProps {
   code: string;
@@ -14,7 +15,7 @@ type HighlightToken = {
   color?: string;
 };
 
-let highlighterPromise: Promise<Highlighter> | null = null;
+let highlighterPromise: ReturnType<typeof createHighlighterCore> | null = null;
 
 const SUPPORTED_LANGUAGES = [
   'c',
@@ -64,11 +65,28 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
-function getHighlighter(): Promise<Highlighter> {
+function getHighlighter(): ReturnType<typeof createHighlighterCore> {
   if (!highlighterPromise) {
-    highlighterPromise = createHighlighter({
-      themes: ['github-dark', 'github-light'],
-      langs: [...SUPPORTED_LANGUAGES],
+    highlighterPromise = createHighlighterCore({
+      // Fine-grained imports keep unrelated Shiki grammars and themes out of the Pages build.
+      themes: [
+        import('@shikijs/themes/github-dark'),
+        import('@shikijs/themes/github-light'),
+      ],
+      langs: [
+        import('@shikijs/langs/c'),
+        import('@shikijs/langs/cpp'),
+        import('@shikijs/langs/bash'),
+        import('@shikijs/langs/javascript'),
+        import('@shikijs/langs/typescript'),
+        import('@shikijs/langs/json'),
+        import('@shikijs/langs/html'),
+        import('@shikijs/langs/css'),
+        import('@shikijs/langs/python'),
+        import('@shikijs/langs/java'),
+        import('@shikijs/langs/sql'),
+      ],
+      engine: createJavaScriptRegexEngine(),
     }).catch((error: unknown) => {
       highlighterPromise = null;
       throw error;
