@@ -1,0 +1,59 @@
+name: Pull request validation
+
+on:
+  pull_request:
+    branches: ["main"]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install exact dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Validate DSA C++17 solutions
+        run: npm run check:dsa
+
+      - name: Build and run curriculum, practice, SEO and release audits
+        run: npm run build
+
+      - name: Install browser accessibility test tools
+        run: npm install --no-save --package-lock=false playwright @axe-core/playwright
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start production preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/craftc-preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --silent --fail http://127.0.0.1:4173/craftc/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/craftc-preview.log
+          exit 1
+
+      - name: Run accessibility, responsive navigation and keyboard smoke tests
+        run: node scripts/a11y-smoke.mjs
