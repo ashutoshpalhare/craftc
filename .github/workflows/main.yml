@@ -3,8 +3,6 @@ name: Deploy CraftC to GitHub Pages
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -86,12 +84,10 @@ jobs:
         run: node scripts/a11y-smoke.mjs
 
       - name: Setup Pages
-        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v3
+            uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
