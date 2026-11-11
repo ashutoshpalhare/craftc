@@ -2,15 +2,10 @@ name: Prepare dependency security update
 # Reusable workflow for controlled, lockfile-backed security refreshes.
 
 on:
-  push:
-    branches: ["main"]
-    paths:
-      - ".github/workflows/dependency-security-refresh.yml"
   workflow_dispatch:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   refresh:
@@ -65,20 +60,4 @@ jobs:
           fi
           git commit -m "fix(deps): patch vulnerable build dependencies"
           git push --set-upstream origin "$BRANCH"
-          gh pr create \
-            --base main \
-            --head "$BRANCH" \
-            --title "fix(deps): patch vulnerable build dependencies" \
-            --body "## Security updates
-          - Upgrade Vite to patched 8.3.7 (also addresses the newly disclosed critical dev-server RCE advisory).
-          - Override nanoid to patched 3.3.18 or newer.
-          - Override source-map-js to patched 1.2.2 or newer.
-
-          ## Validation
-          - npm ci
-          - npm audit --audit-level=high
-          - C/C++ curriculum and practice checks
-          - DSA compiler checks
-          - Full production build and release audit
-
-          Browser accessibility and GitHub Pages deployment will run on the pull request's normal CI checks after it is opened."
+          echo "Dependency update branch pushed: https://github.com/${GITHUB_REPOSITORY}/compare/main...${BRANCH}?expand=1"
