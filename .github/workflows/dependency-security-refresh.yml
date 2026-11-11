@@ -1,4 +1,5 @@
 name: Prepare dependency security update
+# Reusable workflow for controlled, lockfile-backed security refreshes.
 
 on:
   push:
