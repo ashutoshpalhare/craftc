@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, Search, X, Terminal, ChevronDown } from 'lucide-react';
+import { Menu, Search, X, Terminal, ChevronDown, Github, ExternalLink } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 const navLinks = [
@@ -133,6 +133,15 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                 ))}
               </div>
             </details>
+            <a
+              href="https://github.com/ashutoshpalhare?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
+              aria-label="Open all GitHub projects in a new tab"
+            >
+              <Github size={15} aria-hidden="true" /> GitHub <ExternalLink size={12} aria-hidden="true" />
+            </a>
           </div>
 
           <div className="flex items-center gap-1">
@@ -194,6 +203,14 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                 {link.label}
               </NavLink>
             ))}
+            <a
+              href="https://github.com/ashutoshpalhare?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface)] hover:text-[var(--color-text)]"
+            >
+              <Github size={16} aria-hidden="true" /> GitHub Projects <ExternalLink size={13} aria-hidden="true" />
+            </a>
           </div>
         </div>
       )}
