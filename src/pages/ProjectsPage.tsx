@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Filter, FolderGit2, ListChecks, Terminal, ShieldCheck, Github, ExternalLink } from 'lucide-react';
+import { Clock, Filter, FolderGit2, ListChecks, Terminal, ShieldCheck, ExternalLink } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { Badge, Card, SectionHeading } from '@/components/ui';
 
@@ -25,7 +25,7 @@ export function ProjectsPage() {
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/70 p-4 sm:px-5 mb-8">
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center shrink-0">
-            <Github size={21} className="text-[var(--color-primary)]" />
+            <FolderGit2 size={21} className="text-[var(--color-primary)]" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-[var(--color-text)]">Looking for completed projects?</p>
