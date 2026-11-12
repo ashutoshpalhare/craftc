@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Filter, FolderGit2, ListChecks, Terminal, ShieldCheck } from 'lucide-react';
+import { Clock, Filter, FolderGit2, ListChecks, Terminal, ShieldCheck, Github, ExternalLink } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { Badge, Card, SectionHeading } from '@/components/ui';
 
@@ -21,6 +21,26 @@ export function ProjectsPage() {
         subtitle="Every project now includes requirements, implementation milestones, sample input/output, architecture guidance and a code-quality checklist. Treat these as build specifications, not copy-paste projects."
         center
       />
+
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/70 p-4 sm:px-5 mb-8">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center shrink-0">
+            <Github size={21} className="text-[var(--color-primary)]" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-[var(--color-text)]">Looking for completed projects?</p>
+            <p className="text-xs text-[var(--color-text-muted)]">Explore the public repositories on my GitHub profile.</p>
+          </div>
+        </div>
+        <a
+          href="https://github.com/ashutoshpalhare?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)] shrink-0"
+        >
+          Browse GitHub projects <ExternalLink size={15} aria-hidden="true" />
+        </a>
+      </div>
 
       <div className="grid sm:grid-cols-3 gap-4 mb-8">
         <Card className="p-4 flex items-center gap-3">
